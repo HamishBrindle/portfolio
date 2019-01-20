@@ -1,0 +1,20 @@
+endpoint: ${env:PRISMA_ENDPOINT}
+
+datamodel:
+  - datamodel/types.prisma
+  - datamodel/enums.prisma
+
+secret: ${env:PRISMA_SECRET}
+
+generate:
+  - generator: javascript-client
+    output: ../src/database/graphql/generated/prisma-client
+  - generator: graphql-schema
+    output: ../src/database/graphql/generated
+
+hooks:
+  post-deploy:
+    - prisma generate --env-file variables.env
+
+seed:
+  import: seed.graphql

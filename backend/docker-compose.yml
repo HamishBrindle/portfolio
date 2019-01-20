@@ -1,0 +1,28 @@
+version: '3'
+services:
+  prisma:
+    image: prismagraphql/prisma:1.24
+    restart: always
+    ports:
+    - "4466:4466"
+    environment:
+      PRISMA_CONFIG: |
+        managementApiSecret: hb-portfolio-2019
+        port: 4466
+        databases:
+          default:
+            connector: mysql
+            migrations: true
+            host: mysql-db
+            port: 3306
+            user: root
+            password: hamish
+  mysql-db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: hamish
+    volumes:
+      - mysql:/var/lib/mysql
+volumes:
+  mysql:

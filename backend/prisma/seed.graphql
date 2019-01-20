@@ -1,0 +1,21 @@
+mutation {
+  project1: createProject(data: {
+    name: "Madison"
+    description: "Building front-end B2B"
+    image: "scan-and-pack.jpg"
+    imageLarge: "lg-scan-and-pack.jpg"
+  }) {
+    id
+    name
+    description
+  },
+  project2: createProject(data: {
+    name: "Phase One"
+    description: "Static webpage design done by me"
+    image: "city-train.jpg"
+  }) {
+    id
+    name
+    description
+  }
+}

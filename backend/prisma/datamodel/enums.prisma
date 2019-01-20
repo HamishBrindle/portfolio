@@ -1,0 +1,10 @@
+enum Shade {
+    LIGHT
+    DARK
+}
+
+enum Shape {
+    JAGGED
+    ROUND
+    SQUARE
+}

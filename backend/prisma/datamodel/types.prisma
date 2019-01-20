@@ -1,0 +1,64 @@
+type User @model {
+    id: ID! @unique
+    name: String!
+    email: String!
+    nickname: String
+    lastLoggedIn: DateTime
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+type Project @model {
+    id: ID! @unique
+    name: String!
+    description: String!
+    page: Page
+    image: String
+    imageLarge: String
+    imagePlaceholder: String
+    styleSet: Style
+    startDate: DateTime
+    finishDate: DateTime
+    # user: User!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+type Page @model {
+    id: ID! @unique
+    name: String!
+    title: String!
+    subTitle: String
+    slug: String!
+    project: Project
+    isPublished: Boolean! @default(value: "false")
+    style: Style
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+type Technology @model {
+    id: ID! @unique
+    name: String!
+    image: String!
+    color: Color!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+type Style @model {
+    id: ID! @unique
+    colors: [Color!]!
+    style: Shape! @default(value: "ROUND")
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+type Color @model {
+    id: ID! @unique
+    shade: Shade!
+    hex: String!
+    rgb: String
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
