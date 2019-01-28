@@ -1,8 +1,12 @@
+# Types
+
 type User @model {
     id: ID! @unique
+    uid: String @unique
     name: String!
     email: String!
     nickname: String
+    avatar: Image
     lastLoggedIn: DateTime
     createdAt: DateTime!
     updatedAt: DateTime!
@@ -10,13 +14,13 @@ type User @model {
 
 type Project @model {
     id: ID! @unique
+    uid: String @unique
     name: String!
     description: String!
-    page: Page
-    image: String
-    imageLarge: String
-    imagePlaceholder: String
-    styleSet: Style
+    page: Page!
+    projectImages: [ProjectImage!] @relation(name: "ProjectImageRelation", onDelete: CASCADE)
+    tags: [String!]
+    technologies: [Technology!]
     startDate: DateTime
     finishDate: DateTime
     # user: User!
@@ -24,23 +28,40 @@ type Project @model {
     updatedAt: DateTime!
 }
 
-type Page @model {
+type Page {
     id: ID! @unique
-    name: String!
+    uid: String @unique
+    route: String! # Relative to '/'
+    style: Style!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+type ProjectImage @model {
+    id: ID! @unique
+    uid: String @unique
+    project: Project! @relation(name: "ProjectImageRelation", onDelete: SET_NULL)
+    image: Image!
+    type: ProjectImageType!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+type Image {
+    id: ID! @unique
+    uid: String @unique
+    url: String!
     title: String!
-    subTitle: String
-    slug: String!
-    project: Project
-    isPublished: Boolean! @default(value: "false")
-    style: Style
+    caption: String
     createdAt: DateTime!
     updatedAt: DateTime!
 }
 
 type Technology @model {
     id: ID! @unique
+    uid: String @unique
     name: String!
-    image: String!
+    image: Image
     color: Color!
     createdAt: DateTime!
     updatedAt: DateTime!
@@ -48,15 +69,18 @@ type Technology @model {
 
 type Style @model {
     id: ID! @unique
-    colors: [Color!]!
-    style: Shape! @default(value: "ROUND")
+    uid: String @unique
+    colors: [Color!]
+    shape: Shape! @default(value: "ROUND")
     createdAt: DateTime!
     updatedAt: DateTime!
 }
 
 type Color @model {
     id: ID! @unique
-    shade: Shade!
+    uid: String @unique
+    shade: Shade! @default(value: "LIGHT")
+    type: ColorType! @default(value: "MISC")
     hex: String!
     rgb: String
     createdAt: DateTime!

@@ -8,3 +8,24 @@ enum Shape {
     ROUND
     SQUARE
 }
+
+enum ColorType {
+    PRIMARY
+    SECONDARY
+    SUCCESS
+    DANGER
+    WARNING
+    INFO
+    LIGHT
+    DARK
+    MUTED
+    WHITE
+    MISC
+}
+
+enum ProjectImageType {
+    PRIMARY
+    HEADER
+    SECONDARY
+    LAZY
+}

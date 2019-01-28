@@ -2,10 +2,14 @@
 
 type Mutation {
     createProject(
-        name: String,
-        description: String,
-        image: String,
-        imageLarge: String
+        name: String!
+        description: String!
+        page: PageCreateOneInput!
+        projectImages: ProjectImageCreateManyWithoutProjectInput
+        tags: ProjectCreatetagsInput
+        technologies: TechnologyCreateManyInput
+        startDate: DateTime
+        finishDate: DateTime
     ): Project!
 
     deleteProject(id: String): Project!

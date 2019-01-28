@@ -1,8 +1,9 @@
 endpoint: ${env:PRISMA_ENDPOINT}
 
 datamodel:
-  - datamodel/types.prisma
+  # - datamodel/interfaces.prisma
   - datamodel/enums.prisma
+  - datamodel/types.prisma
 
 secret: ${env:PRISMA_SECRET}
 
@@ -16,5 +17,5 @@ hooks:
   post-deploy:
     - prisma generate --env-file variables.env
 
-seed:
-  import: seed.graphql
+# seed:
+#   import: seed.graphql
