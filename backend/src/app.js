@@ -1,7 +1,7 @@
 require('dotenv').config({ path: 'variables.env'});
 
 const createServer = require('./config/createServer');
-const db = require('./database');
+const db = require('./config/database');
 const server = createServer();
 const DEBUG = (process.env.NODE_ENV === 'dev');
 
