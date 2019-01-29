@@ -10,9 +10,18 @@ services:
         managementApiSecret: hb-portfolio-2019
         port: 4466
         databases:
-          default:
+          development:
+            database: prisma-development
             connector: mysql
             migrations: true
+            host: mysql-db
+            port: 3306
+            user: root
+            password: hamish
+          test:
+            database: prisma-test
+            connector: mysql
+            migrations: false
             host: mysql-db
             port: 3306
             user: root

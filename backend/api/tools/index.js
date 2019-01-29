@@ -1,5 +1,5 @@
-const async = require('./async.tools');
-const auth = require('./auth.tools');
+const async = require('./async');
+const auth = require('./auth');
 
 module.exports = {
   async,

@@ -1,0 +1,20 @@
+# import * from './generated/prisma.graphql'
+
+type Mutation {
+    createProject(
+        name: String!
+        description: String!
+        page: PageCreateOneInput!
+        projectImages: ProjectImageCreateManyWithoutProjectInput
+        tags: ProjectCreatetagsInput
+        technologies: TechnologyCreateManyInput
+        startDate: DateTime
+        finishDate: DateTime
+    ): Project!
+
+    deleteProject(id: String): Project!
+}
+
+type Query {
+    projects: [Project!]!
+}
