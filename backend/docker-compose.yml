@@ -1,8 +1,11 @@
 version: '3'
 services:
-  prisma:
+
+  prisma-dev:
     image: prismagraphql/prisma:1.24
     restart: always
+    depends_on:
+      - db-dev
     ports:
       - "4466:4466"
     environment:
@@ -10,29 +13,59 @@ services:
         managementApiSecret: hb-portfolio-2019
         port: 4466
         databases:
-          development:
-            database: prisma-development
+          default:
+            database: prisma-dev
             connector: mysql
             migrations: true
-            host: mysql-db
+            host: db
             port: 3306
             user: root
             password: hamish
-          test:
+  
+  # As it is now, I need a separate instance of the
+  # Prisma DAL because I can't compartmentalize them
+  # easily enough for running tests
+  prisma-test:
+    image: prismagraphql/prisma:1.24
+    restart: always
+    depends_on:
+      - db-test
+    ports:
+      - "4477:4477"
+    environment:
+      PRISMA_CONFIG: |
+        managementApiSecret: hb-portfolio-2019
+        port: 4477
+        databases:
+          default:
             database: prisma-test
             connector: mysql
-            migrations: false
-            host: mysql-db
+            migrations: true
+            host: db-test
             port: 3306
             user: root
             password: hamish
-  mysql-db:
+  
+  db-dev:
     image: mysql:5.7
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: hamish
     volumes:
-      - mysql:/var/lib/mysql
+      - mysql_dev:/var/lib/mysql/dev
+
+  # I'm not so sure two prisma's trying to get at
+  # the same db is a good idea either at the moment.
+  # For now, I will keep everything separate for the
+  # dev and test instances - including db's...
+  db-test:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: hamish
+    volumes:
+      - mysql_test:/var/lib/mysql/test
 
 volumes:
-  mysql:
+  mysql_dev:
+  mysql_test:

@@ -5,12 +5,12 @@
   "scripts": {
     "start:dev": "NODE_ENV=dev nodemon -e js,graphql -x node --inspect api/app.js",
     "start:prod": "NODE_ENV=prod node -e js,graphql -x node api/app.js",
-    "test": "jest",
-    "prisma:deploy": "prisma deploy --env-file variables.env",
-    "prisma:reset": "prisma reset --env-file variables.env"
+    "test": "jest --config=jest.config.js --detectOpenHandles",
+    "prisma:deploy": "prisma deploy --env-file .env",
+    "prisma:reset": "prisma reset --env-file .env -f",
+    "prisma:delete": "prisma delete --env-file .env -f"
   },
   "dependencies": {
-    "babel-preset-env": "*",
     "bcryptjs": "*",
     "cloudinary": "^1.13.2",
     "cookie-parser": "*",
@@ -29,14 +29,14 @@
   },
   "license": "MIT",
   "repository": {
-    "url": "hamishbrindle.com"
-  },
-  "babel": {
-    "presets": [
-      "env"
-    ]
+    "url": "https://github.com/HamishBrindle/portfolio/"
   },
   "devDependencies": {
-    "jest": "^24.0.0"
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "babel-jest": "^24.0.0",
+    "jest": "^24.0.0",
+    "jest-environment-node": "^24.0.0",
+    "shelljs": "^0.8.3"
   }
 }

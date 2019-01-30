@@ -11,4 +11,4 @@ const createServer = (database, resolvers) => {
     });
 }
 
-module.exports = createServer;
+module.exports = { createServer };
