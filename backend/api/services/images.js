@@ -31,23 +31,9 @@ cloudinary.config({
  * 
  * @returns {Promise}
  */
-const uploadImage = (path, options) =>
-  async.promisify(cloudinary.v2.uploader.upload)(path, options);
-
-/* EXAMPLE
-req.files.myImage.path,
-  {
-    public_id: 'sample_id', 
-    crop: 'limit',
-    width: 2000,
-    height: 2000,
-    eager: [
-      { width: 200, height: 200, crop: 'thumb', gravity: 'face',
-        radius: 20, effect: 'sepia' },
-      { width: 100, height: 150, crop: 'fit', format: 'png' }],                                     
-    tags: ['special', 'for_homepage']
-  }
-*/
+const uploadImage = (path, options) => {
+  return async.promisify(cloudinary.v2.uploader.upload)(path, options);
+}
 
 module.exports = { 
   uploadImage
