@@ -14,7 +14,4 @@ server.start({
     }
 }, (details) => {
     DEV && console.log(`Server is now running on http://localhost:${details.port}!`);
-}).then((httpServer) => {
-    DEV && console.log('-------------- httpServer Details --------------\n', httpServer);
-    DEV && console.log('-------------------------------------------------');
 });

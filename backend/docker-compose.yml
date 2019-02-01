@@ -2,70 +2,63 @@ version: '3'
 services:
 
   prisma-dev:
-    image: prismagraphql/prisma:1.24
+    image: prismagraphql/prisma:1.25
     restart: always
     depends_on:
-      - db-dev
+      - mysql-dev
     ports:
-      - "4466:4466"
+      - "${PRISMA_PORT}:${PRISMA_PORT}"
     environment:
       PRISMA_CONFIG: |
-        managementApiSecret: hb-portfolio-2019
-        port: 4466
+        managementApiSecret: "${PRISMA_MANAGEMENT_API_SECRET}"
+        port: ${PRISMA_PORT}
         databases:
           default:
-            database: prisma-dev
             connector: mysql
             migrations: true
-            host: db
+            host: mysql-dev
             port: 3306
             user: root
-            password: hamish
-  
-  # As it is now, I need a separate instance of the
-  # Prisma DAL because I can't compartmentalize them
-  # easily enough for running tests
-  prisma-test:
-    image: prismagraphql/prisma:1.24
-    restart: always
-    depends_on:
-      - db-test
-    ports:
-      - "4477:4477"
-    environment:
-      PRISMA_CONFIG: |
-        managementApiSecret: hb-portfolio-2019
-        port: 4477
-        databases:
-          default:
-            database: prisma-test
-            connector: mysql
-            migrations: true
-            host: db-test
-            port: 3306
-            user: root
-            password: hamish
-  
-  db-dev:
-    image: mysql:5.7
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: hamish
-    volumes:
-      - mysql_dev:/var/lib/mysql/dev
+            password: "${SQL_PASSWORD}"
 
-  # I'm not so sure two prisma's trying to get at
-  # the same db is a good idea either at the moment.
-  # For now, I will keep everything separate for the
-  # dev and test instances - including db's...
-  db-test:
+  prisma-test:
+    image: prismagraphql/prisma:1.25
+    restart: always
+    depends_on:
+      - mysql-test
+    ports:
+      - "${TEST_PRISMA_PORT}:${TEST_PRISMA_PORT}"
+    environment:
+      PRISMA_CONFIG: |
+        managementApiSecret: ${PRISMA_MANAGEMENT_API_SECRET}
+        port: ${TEST_PRISMA_PORT}
+        databases:
+          default:
+            connector: mysql
+            migrations: true
+            host: mysql-test
+            port: 3306
+            user: root
+            password: "${SQL_PASSWORD}"
+            
+  mysql-dev:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: hamish
+      MYSQL_ROOT_PASSWORD: "${SQL_PASSWORD}"
+    ports:
+     - "${SQL_PORT}:3306"
     volumes:
-      - mysql_test:/var/lib/mysql/test
+    - ./custom/:/etc/mysql/conf.d/my.cnf
+    - mysql:/var/lib/mysql
+
+  mysql-test:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "${SQL_PASSWORD}"
+    ports:
+     - "${TEST_SQL_PORT}:3306"
 
 volumes:
-  mysql_dev:
-  mysql_test:
+  mysql:

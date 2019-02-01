@@ -12,9 +12,6 @@ class PrismaTestEnvironment extends NodeEnvironment {
     super(config, context);
     this.testPath = context.testPath;
 
-    // TODO: Find clean way to get this into process to begin with
-    let testEndpoint = process.env.PRISMA_TEST_ENDPOINT;
-
     /** 
      * * Reset data in prisma and redeploy...
      * 
@@ -22,7 +19,10 @@ class PrismaTestEnvironment extends NodeEnvironment {
      * ? DB because the wait time to complete tear down is crazy long
      */
     const env = {
-      PRISMA_ENDPOINT: testEndpoint, // Replacing dev endpoint with test endpoint
+      // Replacing test env variables for endpoint & port
+      PRISMA_ENDPOINT: process.env.PRISMA_TEST_ENDPOINT, 
+      PORT: process.env.SERVER_TEST_PORT,
+
       PRISMA_MANAGEMENT_API_SECRET: process.env.PRISMA_MANAGEMENT_API_SECRET,
       FRONTEND_URL: process.env.FRONTEND_URL,
       PRISMA_SECRET: process.env.PRISMA_SECRET,
@@ -30,16 +30,15 @@ class PrismaTestEnvironment extends NodeEnvironment {
       STRIPE_SECRET: process.env.STRIPE_SECRET,
       CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME, 
       CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY, 
-      CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
-      PORT: process.env.PORT
+      CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET
     }
 
     let envString = Object.entries(env).map(([key, value]) => `${key}="${value}"`).reduce((acc, curr, idx, arr) => acc + curr + ' ', '');
 
     console.log('ENV STRING: ', envString);
 
-    // shell.exec(`${envString} prisma reset -f`);
-    shell.exec(`${envString} prisma deploy`);
+    shell.exec(`${envString} prisma reset -f`);
+    shell.exec(`${envString} DEBUG='*' prisma deploy`);
   }
 
   async setup() {
