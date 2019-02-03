@@ -1,9 +1,24 @@
 const imagesService = require('../../../api/services/images');
 
-const sum = (a, b) => {
-  return a + b;
-}
+describe('Image Services: Upload', () => {
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
+  test('can upload image from file system', async () => {
+    const uploadResponse = await imagesService.uploadImage(`${global.testRoot}/assets/image-sm.jpg`, {
+      public_id: `images/image-sm`
+    });
+
+    expect(uploadResponse).toBeTruthy();
+    expect(uploadResponse.resource_type).toEqual('image');
+    expect(uploadResponse.url).toBeTruthy();
+  });
+
+  test.skip('can upload image from browser via req.files', async () => {
+    const uploadResponse = await imagesService.uploadImage(`${global.testRoot}/assets/image-sm.jpg`, {
+      public_id: `images/image-sm`
+    });
+
+    expect(uploadResponse).toBeTruthy();
+    expect(uploadResponse.resource_type).toEqual('image');
+    expect(uploadResponse.url).toBeTruthy();
+  });
 });

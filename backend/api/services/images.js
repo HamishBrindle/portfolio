@@ -1,6 +1,9 @@
 const cloudinary = require('cloudinary');
 const { async } = require('../tools');
-const fs = require("fs");
+const fs = require('fs');
+
+const PATH_IMAGE = 'images/';
+const PATH_VIDEO = 'videos/';
 
 cloudinary.config({ 
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
@@ -18,7 +21,7 @@ cloudinary.config({
  * 
  * @example
  * options: {
- *    public_id: 'sample_id',
+ *    public_id: 'images/sample_id',
  *    crop: 'limit',
  *    width: 2000,
  *    height: 2000,
@@ -31,9 +34,8 @@ cloudinary.config({
  * 
  * @returns {Promise}
  */
-const uploadImage = (path, options) => {
-  return async.promisify(cloudinary.v2.uploader.upload)(path, options);
-}
+const uploadImage = async (filepath, options) => 
+  async.promisify(cloudinary.v2.uploader.upload)(filepath, options);
 
 module.exports = { 
   uploadImage

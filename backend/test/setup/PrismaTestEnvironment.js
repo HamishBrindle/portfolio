@@ -15,6 +15,7 @@ const { Mutation, Query } = require('../../api/resolvers');
 const { createServer } = require('../../config/server');
 const database = require('../../config/database');
 const shell = require('shelljs');
+const path = require('path');
 
 class PrismaTestEnvironment extends NodeEnvironment {
   constructor(config, context) {
@@ -64,6 +65,7 @@ class PrismaTestEnvironment extends NodeEnvironment {
       }
     });
 
+    this.global.testRoot = path.resolve(__dirname + '/../');
     this.global.httpServer = httpServer;
   }
 
