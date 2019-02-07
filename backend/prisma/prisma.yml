@@ -1,7 +1,8 @@
 endpoint: ${env:PRISMA_ENDPOINT}
 
 datamodel:
-  # - datamodel/interfaces.prisma
+  - datamodel/interfaces.prisma
+  - datamodel/scalars.prisma
   - datamodel/enums.prisma
   - datamodel/types.prisma
 

@@ -86,3 +86,11 @@ type Color @model {
     createdAt: DateTime!
     updatedAt: DateTime!
 }
+
+type File @model {
+    id: ID! @unique
+    path: String!
+    filename: String!
+    mimetype: String!
+    encoding: String!
+}

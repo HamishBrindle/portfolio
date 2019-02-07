@@ -3,15 +3,21 @@ require('dotenv').config({ path: `.env` });
 const { Mutation, Query } = require('./resolvers');
 const { createServer } = require('../config/server');
 const database = require('../config/database');
-
-const DEV = (process.env.NODE_ENV === 'dev');
+const path = require('path');
 
 const server = createServer(database, { ...Mutation, ...Query });
+
+global.tempDir = path.resolve(__dirname + '/../.tmp');
+
 server.start({
     cors: {
-        credentials: true,
-        origin: process.env.FRONT_END_URL,
-    }
+        origin: "*",
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        preflightContinue: false,
+        optionsSuccessStatus: 204
+    },
+    port: process.env.SERVER_PORT
 }, (details) => {
-    DEV && console.log(`Server is now running on http://localhost:${details.port}!`);
+    (process.env.NODE_ENV === 'dev')
+        && console.log(`Server is now running on http://localhost:${details.port}!`);
 });

@@ -15,6 +15,7 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 
 export interface Exists {
   color: (where?: ColorWhereInput) => Promise<boolean>;
+  file: (where?: FileWhereInput) => Promise<boolean>;
   image: (where?: ImageWhereInput) => Promise<boolean>;
   page: (where?: PageWhereInput) => Promise<boolean>;
   project: (where?: ProjectWhereInput) => Promise<boolean>;
@@ -62,6 +63,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => ColorConnectionPromise;
+  file: (where: FileWhereUniqueInput) => FilePromise;
+  files: (args?: {
+    where?: FileWhereInput;
+    orderBy?: FileOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<File>;
+  filesConnection: (args?: {
+    where?: FileWhereInput;
+    orderBy?: FileOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FileConnectionPromise;
   image: (where: ImageWhereUniqueInput) => ImagePromise;
   images: (args?: {
     where?: ImageWhereInput;
@@ -217,6 +237,22 @@ export interface Prisma {
   }) => ColorPromise;
   deleteColor: (where: ColorWhereUniqueInput) => ColorPromise;
   deleteManyColors: (where?: ColorWhereInput) => BatchPayloadPromise;
+  createFile: (data: FileCreateInput) => FilePromise;
+  updateFile: (args: {
+    data: FileUpdateInput;
+    where: FileWhereUniqueInput;
+  }) => FilePromise;
+  updateManyFiles: (args: {
+    data: FileUpdateManyMutationInput;
+    where?: FileWhereInput;
+  }) => BatchPayloadPromise;
+  upsertFile: (args: {
+    where: FileWhereUniqueInput;
+    create: FileCreateInput;
+    update: FileUpdateInput;
+  }) => FilePromise;
+  deleteFile: (where: FileWhereUniqueInput) => FilePromise;
+  deleteManyFiles: (where?: FileWhereInput) => BatchPayloadPromise;
   createImage: (data: ImageCreateInput) => ImagePromise;
   updateImage: (args: {
     data: ImageUpdateInput;
@@ -345,6 +381,9 @@ export interface Subscription {
   color: (
     where?: ColorSubscriptionWhereInput
   ) => ColorSubscriptionPayloadSubscription;
+  file: (
+    where?: FileSubscriptionWhereInput
+  ) => FileSubscriptionPayloadSubscription;
   image: (
     where?: ImageSubscriptionWhereInput
   ) => ImageSubscriptionPayloadSubscription;
@@ -394,17 +433,17 @@ export type ColorOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export type ImageOrderByInput =
+export type FileOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "uid_ASC"
-  | "uid_DESC"
-  | "url_ASC"
-  | "url_DESC"
-  | "title_ASC"
-  | "title_DESC"
-  | "caption_ASC"
-  | "caption_DESC"
+  | "path_ASC"
+  | "path_DESC"
+  | "filename_ASC"
+  | "filename_DESC"
+  | "mimetype_ASC"
+  | "mimetype_DESC"
+  | "encoding_ASC"
+  | "encoding_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -440,6 +479,47 @@ export type UserOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
+export type ProjectImageOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "uid_ASC"
+  | "uid_DESC"
+  | "type_ASC"
+  | "type_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type ColorType =
+  | "PRIMARY"
+  | "SECONDARY"
+  | "SUCCESS"
+  | "DANGER"
+  | "WARNING"
+  | "INFO"
+  | "LIGHT"
+  | "DARK"
+  | "MUTED"
+  | "WHITE"
+  | "MISC";
+
+export type ImageOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "uid_ASC"
+  | "uid_DESC"
+  | "url_ASC"
+  | "url_DESC"
+  | "title_ASC"
+  | "title_DESC"
+  | "caption_ASC"
+  | "caption_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
 export type Shape = "JAGGED" | "ROUND" | "SQUARE";
 
 export type PageOrderByInput =
@@ -456,13 +536,13 @@ export type PageOrderByInput =
 
 export type ProjectImageType = "PRIMARY" | "HEADER" | "SECONDARY" | "LAZY";
 
-export type ProjectImageOrderByInput =
+export type StyleOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "uid_ASC"
   | "uid_DESC"
-  | "type_ASC"
-  | "type_DESC"
+  | "shape_ASC"
+  | "shape_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -490,304 +570,16 @@ export type ProjectOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export type StyleOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "uid_ASC"
-  | "uid_DESC"
-  | "shape_ASC"
-  | "shape_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
-
-export type ColorType =
-  | "PRIMARY"
-  | "SECONDARY"
-  | "SUCCESS"
-  | "DANGER"
-  | "WARNING"
-  | "INFO"
-  | "LIGHT"
-  | "DARK"
-  | "MUTED"
-  | "WHITE"
-  | "MISC";
-
-export interface ColorUpdateWithWhereUniqueNestedInput {
-  where: ColorWhereUniqueInput;
-  data: ColorUpdateDataInput;
+export interface PageUpdateInput {
+  uid?: String;
+  route?: String;
+  style?: StyleUpdateOneRequiredInput;
 }
 
 export type ColorWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
   uid?: String;
 }>;
-
-export interface PageUpdateManyMutationInput {
-  uid?: String;
-  route?: String;
-}
-
-export type ImageWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  uid?: String;
-}>;
-
-export interface ProjectCreateInput {
-  uid?: String;
-  name: String;
-  description: String;
-  page: PageCreateOneInput;
-  projectImages?: ProjectImageCreateManyWithoutProjectInput;
-  tags?: ProjectCreatetagsInput;
-  technologies?: TechnologyCreateManyInput;
-  startDate?: DateTimeInput;
-  finishDate?: DateTimeInput;
-}
-
-export interface ImageWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  uid?: String;
-  uid_not?: String;
-  uid_in?: String[] | String;
-  uid_not_in?: String[] | String;
-  uid_lt?: String;
-  uid_lte?: String;
-  uid_gt?: String;
-  uid_gte?: String;
-  uid_contains?: String;
-  uid_not_contains?: String;
-  uid_starts_with?: String;
-  uid_not_starts_with?: String;
-  uid_ends_with?: String;
-  uid_not_ends_with?: String;
-  url?: String;
-  url_not?: String;
-  url_in?: String[] | String;
-  url_not_in?: String[] | String;
-  url_lt?: String;
-  url_lte?: String;
-  url_gt?: String;
-  url_gte?: String;
-  url_contains?: String;
-  url_not_contains?: String;
-  url_starts_with?: String;
-  url_not_starts_with?: String;
-  url_ends_with?: String;
-  url_not_ends_with?: String;
-  title?: String;
-  title_not?: String;
-  title_in?: String[] | String;
-  title_not_in?: String[] | String;
-  title_lt?: String;
-  title_lte?: String;
-  title_gt?: String;
-  title_gte?: String;
-  title_contains?: String;
-  title_not_contains?: String;
-  title_starts_with?: String;
-  title_not_starts_with?: String;
-  title_ends_with?: String;
-  title_not_ends_with?: String;
-  caption?: String;
-  caption_not?: String;
-  caption_in?: String[] | String;
-  caption_not_in?: String[] | String;
-  caption_lt?: String;
-  caption_lte?: String;
-  caption_gt?: String;
-  caption_gte?: String;
-  caption_contains?: String;
-  caption_not_contains?: String;
-  caption_starts_with?: String;
-  caption_not_starts_with?: String;
-  caption_ends_with?: String;
-  caption_not_ends_with?: String;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  updatedAt?: DateTimeInput;
-  updatedAt_not?: DateTimeInput;
-  updatedAt_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_lt?: DateTimeInput;
-  updatedAt_lte?: DateTimeInput;
-  updatedAt_gt?: DateTimeInput;
-  updatedAt_gte?: DateTimeInput;
-  AND?: ImageWhereInput[] | ImageWhereInput;
-  OR?: ImageWhereInput[] | ImageWhereInput;
-  NOT?: ImageWhereInput[] | ImageWhereInput;
-}
-
-export interface TechnologyUpdateDataInput {
-  uid?: String;
-  name?: String;
-  image?: ImageUpdateOneInput;
-  color?: ColorUpdateOneRequiredInput;
-}
-
-export interface ProjectImageUpsertWithWhereUniqueWithoutProjectInput {
-  where: ProjectImageWhereUniqueInput;
-  update: ProjectImageUpdateWithoutProjectDataInput;
-  create: ProjectImageCreateWithoutProjectInput;
-}
-
-export interface PageCreateOneInput {
-  create?: PageCreateInput;
-  connect?: PageWhereUniqueInput;
-}
-
-export type PageWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  uid?: String;
-}>;
-
-export interface ColorCreateInput {
-  uid?: String;
-  shade?: Shade;
-  type?: ColorType;
-  hex: String;
-  rgb?: String;
-}
-
-export interface StyleSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: StyleWhereInput;
-  AND?: StyleSubscriptionWhereInput[] | StyleSubscriptionWhereInput;
-  OR?: StyleSubscriptionWhereInput[] | StyleSubscriptionWhereInput;
-  NOT?: StyleSubscriptionWhereInput[] | StyleSubscriptionWhereInput;
-}
-
-export interface ColorUpdateInput {
-  uid?: String;
-  shade?: Shade;
-  type?: ColorType;
-  hex?: String;
-  rgb?: String;
-}
-
-export interface PageWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  uid?: String;
-  uid_not?: String;
-  uid_in?: String[] | String;
-  uid_not_in?: String[] | String;
-  uid_lt?: String;
-  uid_lte?: String;
-  uid_gt?: String;
-  uid_gte?: String;
-  uid_contains?: String;
-  uid_not_contains?: String;
-  uid_starts_with?: String;
-  uid_not_starts_with?: String;
-  uid_ends_with?: String;
-  uid_not_ends_with?: String;
-  route?: String;
-  route_not?: String;
-  route_in?: String[] | String;
-  route_not_in?: String[] | String;
-  route_lt?: String;
-  route_lte?: String;
-  route_gt?: String;
-  route_gte?: String;
-  route_contains?: String;
-  route_not_contains?: String;
-  route_starts_with?: String;
-  route_not_starts_with?: String;
-  route_ends_with?: String;
-  route_not_ends_with?: String;
-  style?: StyleWhereInput;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  updatedAt?: DateTimeInput;
-  updatedAt_not?: DateTimeInput;
-  updatedAt_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_lt?: DateTimeInput;
-  updatedAt_lte?: DateTimeInput;
-  updatedAt_gt?: DateTimeInput;
-  updatedAt_gte?: DateTimeInput;
-  AND?: PageWhereInput[] | PageWhereInput;
-  OR?: PageWhereInput[] | PageWhereInput;
-  NOT?: PageWhereInput[] | PageWhereInput;
-}
-
-export interface ColorUpdateManyMutationInput {
-  uid?: String;
-  shade?: Shade;
-  type?: ColorType;
-  hex?: String;
-  rgb?: String;
-}
-
-export interface ProjectSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: ProjectWhereInput;
-  AND?: ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput;
-  OR?: ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput;
-  NOT?: ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput;
-}
-
-export interface TechnologyUpdateWithWhereUniqueNestedInput {
-  where: TechnologyWhereUniqueInput;
-  data: TechnologyUpdateDataInput;
-}
-
-export interface ImageSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: ImageWhereInput;
-  AND?: ImageSubscriptionWhereInput[] | ImageSubscriptionWhereInput;
-  OR?: ImageSubscriptionWhereInput[] | ImageSubscriptionWhereInput;
-  NOT?: ImageSubscriptionWhereInput[] | ImageSubscriptionWhereInput;
-}
 
 export interface TechnologyUpdateManyInput {
   create?: TechnologyCreateInput[] | TechnologyCreateInput;
@@ -806,1049 +598,11 @@ export interface TechnologyUpdateManyInput {
     | TechnologyUpdateManyWithWhereNestedInput;
 }
 
-export type ProjectWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  uid?: String;
-}>;
-
-export interface ImageCreateInput {
-  uid?: String;
-  url: String;
-  title: String;
-  caption?: String;
-}
-
-export interface ProjectImageWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  uid?: String;
-  uid_not?: String;
-  uid_in?: String[] | String;
-  uid_not_in?: String[] | String;
-  uid_lt?: String;
-  uid_lte?: String;
-  uid_gt?: String;
-  uid_gte?: String;
-  uid_contains?: String;
-  uid_not_contains?: String;
-  uid_starts_with?: String;
-  uid_not_starts_with?: String;
-  uid_ends_with?: String;
-  uid_not_ends_with?: String;
-  project?: ProjectWhereInput;
-  image?: ImageWhereInput;
-  type?: ProjectImageType;
-  type_not?: ProjectImageType;
-  type_in?: ProjectImageType[] | ProjectImageType;
-  type_not_in?: ProjectImageType[] | ProjectImageType;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  updatedAt?: DateTimeInput;
-  updatedAt_not?: DateTimeInput;
-  updatedAt_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_lt?: DateTimeInput;
-  updatedAt_lte?: DateTimeInput;
-  updatedAt_gt?: DateTimeInput;
-  updatedAt_gte?: DateTimeInput;
-  AND?: ProjectImageWhereInput[] | ProjectImageWhereInput;
-  OR?: ProjectImageWhereInput[] | ProjectImageWhereInput;
-  NOT?: ProjectImageWhereInput[] | ProjectImageWhereInput;
-}
-
-export interface ImageUpdateInput {
-  uid?: String;
-  url?: String;
-  title?: String;
-  caption?: String;
-}
-
-export interface TechnologyWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  uid?: String;
-  uid_not?: String;
-  uid_in?: String[] | String;
-  uid_not_in?: String[] | String;
-  uid_lt?: String;
-  uid_lte?: String;
-  uid_gt?: String;
-  uid_gte?: String;
-  uid_contains?: String;
-  uid_not_contains?: String;
-  uid_starts_with?: String;
-  uid_not_starts_with?: String;
-  uid_ends_with?: String;
-  uid_not_ends_with?: String;
-  name?: String;
-  name_not?: String;
-  name_in?: String[] | String;
-  name_not_in?: String[] | String;
-  name_lt?: String;
-  name_lte?: String;
-  name_gt?: String;
-  name_gte?: String;
-  name_contains?: String;
-  name_not_contains?: String;
-  name_starts_with?: String;
-  name_not_starts_with?: String;
-  name_ends_with?: String;
-  name_not_ends_with?: String;
-  image?: ImageWhereInput;
-  color?: ColorWhereInput;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  updatedAt?: DateTimeInput;
-  updatedAt_not?: DateTimeInput;
-  updatedAt_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_lt?: DateTimeInput;
-  updatedAt_lte?: DateTimeInput;
-  updatedAt_gt?: DateTimeInput;
-  updatedAt_gte?: DateTimeInput;
-  AND?: TechnologyWhereInput[] | TechnologyWhereInput;
-  OR?: TechnologyWhereInput[] | TechnologyWhereInput;
-  NOT?: TechnologyWhereInput[] | TechnologyWhereInput;
-}
-
-export interface ImageUpdateManyMutationInput {
-  uid?: String;
-  url?: String;
-  title?: String;
-  caption?: String;
-}
-
-export interface UserCreateInput {
-  uid?: String;
-  name: String;
-  email: String;
-  nickname?: String;
-  avatar?: ImageCreateOneInput;
-  lastLoggedIn?: DateTimeInput;
-}
-
-export interface PageCreateInput {
-  uid?: String;
-  route: String;
-  style: StyleCreateOneInput;
-}
-
-export interface TechnologyUpdateInput {
-  uid?: String;
-  name?: String;
-  image?: ImageUpdateOneInput;
-  color?: ColorUpdateOneRequiredInput;
-}
-
-export interface StyleCreateOneInput {
-  create?: StyleCreateInput;
-  connect?: StyleWhereUniqueInput;
-}
-
-export interface ColorWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  uid?: String;
-  uid_not?: String;
-  uid_in?: String[] | String;
-  uid_not_in?: String[] | String;
-  uid_lt?: String;
-  uid_lte?: String;
-  uid_gt?: String;
-  uid_gte?: String;
-  uid_contains?: String;
-  uid_not_contains?: String;
-  uid_starts_with?: String;
-  uid_not_starts_with?: String;
-  uid_ends_with?: String;
-  uid_not_ends_with?: String;
-  shade?: Shade;
-  shade_not?: Shade;
-  shade_in?: Shade[] | Shade;
-  shade_not_in?: Shade[] | Shade;
-  type?: ColorType;
-  type_not?: ColorType;
-  type_in?: ColorType[] | ColorType;
-  type_not_in?: ColorType[] | ColorType;
-  hex?: String;
-  hex_not?: String;
-  hex_in?: String[] | String;
-  hex_not_in?: String[] | String;
-  hex_lt?: String;
-  hex_lte?: String;
-  hex_gt?: String;
-  hex_gte?: String;
-  hex_contains?: String;
-  hex_not_contains?: String;
-  hex_starts_with?: String;
-  hex_not_starts_with?: String;
-  hex_ends_with?: String;
-  hex_not_ends_with?: String;
-  rgb?: String;
-  rgb_not?: String;
-  rgb_in?: String[] | String;
-  rgb_not_in?: String[] | String;
-  rgb_lt?: String;
-  rgb_lte?: String;
-  rgb_gt?: String;
-  rgb_gte?: String;
-  rgb_contains?: String;
-  rgb_not_contains?: String;
-  rgb_starts_with?: String;
-  rgb_not_starts_with?: String;
-  rgb_ends_with?: String;
-  rgb_not_ends_with?: String;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  updatedAt?: DateTimeInput;
-  updatedAt_not?: DateTimeInput;
-  updatedAt_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_lt?: DateTimeInput;
-  updatedAt_lte?: DateTimeInput;
-  updatedAt_gt?: DateTimeInput;
-  updatedAt_gte?: DateTimeInput;
-  AND?: ColorWhereInput[] | ColorWhereInput;
-  OR?: ColorWhereInput[] | ColorWhereInput;
-  NOT?: ColorWhereInput[] | ColorWhereInput;
-}
-
-export interface StyleCreateInput {
-  uid?: String;
-  colors?: ColorCreateManyInput;
-  shape?: Shape;
-}
-
-export interface ProjectImageUpdateManyMutationInput {
-  uid?: String;
-  type?: ProjectImageType;
-}
-
-export interface ColorCreateManyInput {
-  create?: ColorCreateInput[] | ColorCreateInput;
-  connect?: ColorWhereUniqueInput[] | ColorWhereUniqueInput;
-}
-
-export type ProjectImageWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  uid?: String;
-}>;
-
-export interface PageUpdateInput {
-  uid?: String;
-  route?: String;
-  style?: StyleUpdateOneRequiredInput;
-}
-
-export interface ProjectUpdateOneRequiredWithoutProjectImagesInput {
-  create?: ProjectCreateWithoutProjectImagesInput;
-  update?: ProjectUpdateWithoutProjectImagesDataInput;
-  upsert?: ProjectUpsertWithoutProjectImagesInput;
-  connect?: ProjectWhereUniqueInput;
-}
-
-export interface StyleUpdateOneRequiredInput {
-  create?: StyleCreateInput;
-  update?: StyleUpdateDataInput;
-  upsert?: StyleUpsertNestedInput;
-  connect?: StyleWhereUniqueInput;
-}
-
-export type StyleWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  uid?: String;
-}>;
-
-export interface StyleUpdateDataInput {
-  uid?: String;
-  colors?: ColorUpdateManyInput;
-  shape?: Shape;
-}
-
-export interface ProjectCreateOneWithoutProjectImagesInput {
-  create?: ProjectCreateWithoutProjectImagesInput;
-  connect?: ProjectWhereUniqueInput;
-}
-
-export interface ColorUpdateManyInput {
-  create?: ColorCreateInput[] | ColorCreateInput;
-  update?:
-    | ColorUpdateWithWhereUniqueNestedInput[]
-    | ColorUpdateWithWhereUniqueNestedInput;
-  upsert?:
-    | ColorUpsertWithWhereUniqueNestedInput[]
-    | ColorUpsertWithWhereUniqueNestedInput;
-  delete?: ColorWhereUniqueInput[] | ColorWhereUniqueInput;
-  connect?: ColorWhereUniqueInput[] | ColorWhereUniqueInput;
-  disconnect?: ColorWhereUniqueInput[] | ColorWhereUniqueInput;
-  deleteMany?: ColorScalarWhereInput[] | ColorScalarWhereInput;
-  updateMany?:
-    | ColorUpdateManyWithWhereNestedInput[]
-    | ColorUpdateManyWithWhereNestedInput;
-}
-
-export interface ProjectUpdateManyMutationInput {
-  uid?: String;
-  name?: String;
-  description?: String;
-  tags?: ProjectUpdatetagsInput;
-  startDate?: DateTimeInput;
-  finishDate?: DateTimeInput;
-}
-
-export interface ProjectUpdatetagsInput {
-  set?: String[] | String;
-}
-
-export interface TechnologyUpdateManyDataInput {
-  uid?: String;
-  name?: String;
-}
-
-export interface ColorUpdateDataInput {
-  uid?: String;
-  shade?: Shade;
-  type?: ColorType;
-  hex?: String;
-  rgb?: String;
-}
-
-export interface TechnologyScalarWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  uid?: String;
-  uid_not?: String;
-  uid_in?: String[] | String;
-  uid_not_in?: String[] | String;
-  uid_lt?: String;
-  uid_lte?: String;
-  uid_gt?: String;
-  uid_gte?: String;
-  uid_contains?: String;
-  uid_not_contains?: String;
-  uid_starts_with?: String;
-  uid_not_starts_with?: String;
-  uid_ends_with?: String;
-  uid_not_ends_with?: String;
-  name?: String;
-  name_not?: String;
-  name_in?: String[] | String;
-  name_not_in?: String[] | String;
-  name_lt?: String;
-  name_lte?: String;
-  name_gt?: String;
-  name_gte?: String;
-  name_contains?: String;
-  name_not_contains?: String;
-  name_starts_with?: String;
-  name_not_starts_with?: String;
-  name_ends_with?: String;
-  name_not_ends_with?: String;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  updatedAt?: DateTimeInput;
-  updatedAt_not?: DateTimeInput;
-  updatedAt_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_lt?: DateTimeInput;
-  updatedAt_lte?: DateTimeInput;
-  updatedAt_gt?: DateTimeInput;
-  updatedAt_gte?: DateTimeInput;
-  AND?: TechnologyScalarWhereInput[] | TechnologyScalarWhereInput;
-  OR?: TechnologyScalarWhereInput[] | TechnologyScalarWhereInput;
-  NOT?: TechnologyScalarWhereInput[] | TechnologyScalarWhereInput;
-}
-
-export interface ColorUpsertWithWhereUniqueNestedInput {
-  where: ColorWhereUniqueInput;
-  update: ColorUpdateDataInput;
-  create: ColorCreateInput;
-}
-
-export interface TechnologyUpsertWithWhereUniqueNestedInput {
-  where: TechnologyWhereUniqueInput;
-  update: TechnologyUpdateDataInput;
-  create: TechnologyCreateInput;
-}
-
-export interface ColorScalarWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  uid?: String;
-  uid_not?: String;
-  uid_in?: String[] | String;
-  uid_not_in?: String[] | String;
-  uid_lt?: String;
-  uid_lte?: String;
-  uid_gt?: String;
-  uid_gte?: String;
-  uid_contains?: String;
-  uid_not_contains?: String;
-  uid_starts_with?: String;
-  uid_not_starts_with?: String;
-  uid_ends_with?: String;
-  uid_not_ends_with?: String;
-  shade?: Shade;
-  shade_not?: Shade;
-  shade_in?: Shade[] | Shade;
-  shade_not_in?: Shade[] | Shade;
-  type?: ColorType;
-  type_not?: ColorType;
-  type_in?: ColorType[] | ColorType;
-  type_not_in?: ColorType[] | ColorType;
-  hex?: String;
-  hex_not?: String;
-  hex_in?: String[] | String;
-  hex_not_in?: String[] | String;
-  hex_lt?: String;
-  hex_lte?: String;
-  hex_gt?: String;
-  hex_gte?: String;
-  hex_contains?: String;
-  hex_not_contains?: String;
-  hex_starts_with?: String;
-  hex_not_starts_with?: String;
-  hex_ends_with?: String;
-  hex_not_ends_with?: String;
-  rgb?: String;
-  rgb_not?: String;
-  rgb_in?: String[] | String;
-  rgb_not_in?: String[] | String;
-  rgb_lt?: String;
-  rgb_lte?: String;
-  rgb_gt?: String;
-  rgb_gte?: String;
-  rgb_contains?: String;
-  rgb_not_contains?: String;
-  rgb_starts_with?: String;
-  rgb_not_starts_with?: String;
-  rgb_ends_with?: String;
-  rgb_not_ends_with?: String;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  updatedAt?: DateTimeInput;
-  updatedAt_not?: DateTimeInput;
-  updatedAt_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_lt?: DateTimeInput;
-  updatedAt_lte?: DateTimeInput;
-  updatedAt_gt?: DateTimeInput;
-  updatedAt_gte?: DateTimeInput;
-  AND?: ColorScalarWhereInput[] | ColorScalarWhereInput;
-  OR?: ColorScalarWhereInput[] | ColorScalarWhereInput;
-  NOT?: ColorScalarWhereInput[] | ColorScalarWhereInput;
-}
-
-export interface ColorUpsertNestedInput {
-  update: ColorUpdateDataInput;
-  create: ColorCreateInput;
-}
-
-export interface ColorUpdateManyWithWhereNestedInput {
-  where: ColorScalarWhereInput;
-  data: ColorUpdateManyDataInput;
-}
-
-export interface ImageUpdateOneInput {
-  create?: ImageCreateInput;
-  update?: ImageUpdateDataInput;
-  upsert?: ImageUpsertNestedInput;
-  delete?: Boolean;
-  disconnect?: Boolean;
-  connect?: ImageWhereUniqueInput;
-}
-
-export interface ColorUpdateManyDataInput {
-  uid?: String;
-  shade?: Shade;
-  type?: ColorType;
-  hex?: String;
-  rgb?: String;
-}
-
-export interface TechnologySubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: TechnologyWhereInput;
-  AND?: TechnologySubscriptionWhereInput[] | TechnologySubscriptionWhereInput;
-  OR?: TechnologySubscriptionWhereInput[] | TechnologySubscriptionWhereInput;
-  NOT?: TechnologySubscriptionWhereInput[] | TechnologySubscriptionWhereInput;
-}
-
-export interface StyleUpsertNestedInput {
-  update: StyleUpdateDataInput;
-  create: StyleCreateInput;
-}
-
-export interface StyleWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  uid?: String;
-  uid_not?: String;
-  uid_in?: String[] | String;
-  uid_not_in?: String[] | String;
-  uid_lt?: String;
-  uid_lte?: String;
-  uid_gt?: String;
-  uid_gte?: String;
-  uid_contains?: String;
-  uid_not_contains?: String;
-  uid_starts_with?: String;
-  uid_not_starts_with?: String;
-  uid_ends_with?: String;
-  uid_not_ends_with?: String;
-  colors_every?: ColorWhereInput;
-  colors_some?: ColorWhereInput;
-  colors_none?: ColorWhereInput;
-  shape?: Shape;
-  shape_not?: Shape;
-  shape_in?: Shape[] | Shape;
-  shape_not_in?: Shape[] | Shape;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  updatedAt?: DateTimeInput;
-  updatedAt_not?: DateTimeInput;
-  updatedAt_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_lt?: DateTimeInput;
-  updatedAt_lte?: DateTimeInput;
-  updatedAt_gt?: DateTimeInput;
-  updatedAt_gte?: DateTimeInput;
-  AND?: StyleWhereInput[] | StyleWhereInput;
-  OR?: StyleWhereInput[] | StyleWhereInput;
-  NOT?: StyleWhereInput[] | StyleWhereInput;
-}
-
-export interface ProjectImageUpdateManyDataInput {
-  uid?: String;
-  type?: ProjectImageType;
-}
-
-export interface ColorSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: ColorWhereInput;
-  AND?: ColorSubscriptionWhereInput[] | ColorSubscriptionWhereInput;
-  OR?: ColorSubscriptionWhereInput[] | ColorSubscriptionWhereInput;
-  NOT?: ColorSubscriptionWhereInput[] | ColorSubscriptionWhereInput;
-}
-
-export interface ProjectImageUpdateManyWithWhereNestedInput {
-  where: ProjectImageScalarWhereInput;
-  data: ProjectImageUpdateManyDataInput;
-}
-
-export interface ProjectWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  uid?: String;
-  uid_not?: String;
-  uid_in?: String[] | String;
-  uid_not_in?: String[] | String;
-  uid_lt?: String;
-  uid_lte?: String;
-  uid_gt?: String;
-  uid_gte?: String;
-  uid_contains?: String;
-  uid_not_contains?: String;
-  uid_starts_with?: String;
-  uid_not_starts_with?: String;
-  uid_ends_with?: String;
-  uid_not_ends_with?: String;
-  name?: String;
-  name_not?: String;
-  name_in?: String[] | String;
-  name_not_in?: String[] | String;
-  name_lt?: String;
-  name_lte?: String;
-  name_gt?: String;
-  name_gte?: String;
-  name_contains?: String;
-  name_not_contains?: String;
-  name_starts_with?: String;
-  name_not_starts_with?: String;
-  name_ends_with?: String;
-  name_not_ends_with?: String;
-  description?: String;
-  description_not?: String;
-  description_in?: String[] | String;
-  description_not_in?: String[] | String;
-  description_lt?: String;
-  description_lte?: String;
-  description_gt?: String;
-  description_gte?: String;
-  description_contains?: String;
-  description_not_contains?: String;
-  description_starts_with?: String;
-  description_not_starts_with?: String;
-  description_ends_with?: String;
-  description_not_ends_with?: String;
-  page?: PageWhereInput;
-  projectImages_every?: ProjectImageWhereInput;
-  projectImages_some?: ProjectImageWhereInput;
-  projectImages_none?: ProjectImageWhereInput;
-  technologies_every?: TechnologyWhereInput;
-  technologies_some?: TechnologyWhereInput;
-  technologies_none?: TechnologyWhereInput;
-  startDate?: DateTimeInput;
-  startDate_not?: DateTimeInput;
-  startDate_in?: DateTimeInput[] | DateTimeInput;
-  startDate_not_in?: DateTimeInput[] | DateTimeInput;
-  startDate_lt?: DateTimeInput;
-  startDate_lte?: DateTimeInput;
-  startDate_gt?: DateTimeInput;
-  startDate_gte?: DateTimeInput;
-  finishDate?: DateTimeInput;
-  finishDate_not?: DateTimeInput;
-  finishDate_in?: DateTimeInput[] | DateTimeInput;
-  finishDate_not_in?: DateTimeInput[] | DateTimeInput;
-  finishDate_lt?: DateTimeInput;
-  finishDate_lte?: DateTimeInput;
-  finishDate_gt?: DateTimeInput;
-  finishDate_gte?: DateTimeInput;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  updatedAt?: DateTimeInput;
-  updatedAt_not?: DateTimeInput;
-  updatedAt_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_lt?: DateTimeInput;
-  updatedAt_lte?: DateTimeInput;
-  updatedAt_gt?: DateTimeInput;
-  updatedAt_gte?: DateTimeInput;
-  AND?: ProjectWhereInput[] | ProjectWhereInput;
-  OR?: ProjectWhereInput[] | ProjectWhereInput;
-  NOT?: ProjectWhereInput[] | ProjectWhereInput;
-}
-
-export interface ProjectImageScalarWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  uid?: String;
-  uid_not?: String;
-  uid_in?: String[] | String;
-  uid_not_in?: String[] | String;
-  uid_lt?: String;
-  uid_lte?: String;
-  uid_gt?: String;
-  uid_gte?: String;
-  uid_contains?: String;
-  uid_not_contains?: String;
-  uid_starts_with?: String;
-  uid_not_starts_with?: String;
-  uid_ends_with?: String;
-  uid_not_ends_with?: String;
-  type?: ProjectImageType;
-  type_not?: ProjectImageType;
-  type_in?: ProjectImageType[] | ProjectImageType;
-  type_not_in?: ProjectImageType[] | ProjectImageType;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  updatedAt?: DateTimeInput;
-  updatedAt_not?: DateTimeInput;
-  updatedAt_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_lt?: DateTimeInput;
-  updatedAt_lte?: DateTimeInput;
-  updatedAt_gt?: DateTimeInput;
-  updatedAt_gte?: DateTimeInput;
-  AND?: ProjectImageScalarWhereInput[] | ProjectImageScalarWhereInput;
-  OR?: ProjectImageScalarWhereInput[] | ProjectImageScalarWhereInput;
-  NOT?: ProjectImageScalarWhereInput[] | ProjectImageScalarWhereInput;
-}
-
-export interface TechnologyUpdateManyMutationInput {
-  uid?: String;
-  name?: String;
-}
-
-export interface ProjectImageCreateManyWithoutProjectInput {
-  create?:
-    | ProjectImageCreateWithoutProjectInput[]
-    | ProjectImageCreateWithoutProjectInput;
-  connect?: ProjectImageWhereUniqueInput[] | ProjectImageWhereUniqueInput;
-}
-
-export interface StyleUpdateInput {
-  uid?: String;
-  colors?: ColorUpdateManyInput;
-  shape?: Shape;
-}
-
-export interface ProjectImageCreateWithoutProjectInput {
-  uid?: String;
-  image: ImageCreateOneInput;
-  type: ProjectImageType;
-}
-
-export interface ProjectUpdateWithoutProjectImagesDataInput {
-  uid?: String;
-  name?: String;
-  description?: String;
-  page?: PageUpdateOneRequiredInput;
-  tags?: ProjectUpdatetagsInput;
-  technologies?: TechnologyUpdateManyInput;
-  startDate?: DateTimeInput;
-  finishDate?: DateTimeInput;
-}
-
-export interface ImageCreateOneInput {
-  create?: ImageCreateInput;
-  connect?: ImageWhereUniqueInput;
-}
-
-export interface ProjectCreateWithoutProjectImagesInput {
-  uid?: String;
-  name: String;
-  description: String;
-  page: PageCreateOneInput;
-  tags?: ProjectCreatetagsInput;
-  technologies?: TechnologyCreateManyInput;
-  startDate?: DateTimeInput;
-  finishDate?: DateTimeInput;
-}
-
-export interface ProjectCreatetagsInput {
-  set?: String[] | String;
-}
-
-export type TechnologyWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  uid?: String;
-}>;
-
-export interface TechnologyCreateManyInput {
-  create?: TechnologyCreateInput[] | TechnologyCreateInput;
-  connect?: TechnologyWhereUniqueInput[] | TechnologyWhereUniqueInput;
-}
-
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  uid?: String;
-}>;
-
-export interface TechnologyCreateInput {
-  uid?: String;
-  name: String;
-  image?: ImageCreateOneInput;
-  color: ColorCreateOneInput;
-}
-
-export interface ColorUpdateOneRequiredInput {
-  create?: ColorCreateInput;
-  update?: ColorUpdateDataInput;
-  upsert?: ColorUpsertNestedInput;
-  connect?: ColorWhereUniqueInput;
-}
-
-export interface ColorCreateOneInput {
-  create?: ColorCreateInput;
-  connect?: ColorWhereUniqueInput;
-}
-
-export interface ProjectImageSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: ProjectImageWhereInput;
-  AND?:
-    | ProjectImageSubscriptionWhereInput[]
-    | ProjectImageSubscriptionWhereInput;
-  OR?:
-    | ProjectImageSubscriptionWhereInput[]
-    | ProjectImageSubscriptionWhereInput;
-  NOT?:
-    | ProjectImageSubscriptionWhereInput[]
-    | ProjectImageSubscriptionWhereInput;
-}
-
-export interface ProjectUpdateInput {
-  uid?: String;
-  name?: String;
-  description?: String;
-  page?: PageUpdateOneRequiredInput;
-  projectImages?: ProjectImageUpdateManyWithoutProjectInput;
-  tags?: ProjectUpdatetagsInput;
-  technologies?: TechnologyUpdateManyInput;
-  startDate?: DateTimeInput;
-  finishDate?: DateTimeInput;
-}
-
-export interface UserUpdateManyMutationInput {
-  uid?: String;
-  name?: String;
-  email?: String;
-  nickname?: String;
-  lastLoggedIn?: DateTimeInput;
-}
-
-export interface PageUpdateOneRequiredInput {
-  create?: PageCreateInput;
-  update?: PageUpdateDataInput;
-  upsert?: PageUpsertNestedInput;
-  connect?: PageWhereUniqueInput;
-}
-
-export interface StyleUpdateManyMutationInput {
-  uid?: String;
-  shape?: Shape;
-}
-
-export interface PageUpdateDataInput {
-  uid?: String;
-  route?: String;
-  style?: StyleUpdateOneRequiredInput;
-}
-
-export interface ProjectImageUpdateInput {
-  uid?: String;
-  project?: ProjectUpdateOneRequiredWithoutProjectImagesInput;
-  image?: ImageUpdateOneRequiredInput;
-  type?: ProjectImageType;
-}
-
-export interface PageUpsertNestedInput {
-  update: PageUpdateDataInput;
-  create: PageCreateInput;
-}
-
-export interface TechnologyUpdateManyWithWhereNestedInput {
-  where: TechnologyScalarWhereInput;
-  data: TechnologyUpdateManyDataInput;
-}
-
-export interface ProjectImageUpdateManyWithoutProjectInput {
-  create?:
-    | ProjectImageCreateWithoutProjectInput[]
-    | ProjectImageCreateWithoutProjectInput;
-  delete?: ProjectImageWhereUniqueInput[] | ProjectImageWhereUniqueInput;
-  connect?: ProjectImageWhereUniqueInput[] | ProjectImageWhereUniqueInput;
-  disconnect?: ProjectImageWhereUniqueInput[] | ProjectImageWhereUniqueInput;
-  update?:
-    | ProjectImageUpdateWithWhereUniqueWithoutProjectInput[]
-    | ProjectImageUpdateWithWhereUniqueWithoutProjectInput;
-  upsert?:
-    | ProjectImageUpsertWithWhereUniqueWithoutProjectInput[]
-    | ProjectImageUpsertWithWhereUniqueWithoutProjectInput;
-  deleteMany?: ProjectImageScalarWhereInput[] | ProjectImageScalarWhereInput;
-  updateMany?:
-    | ProjectImageUpdateManyWithWhereNestedInput[]
-    | ProjectImageUpdateManyWithWhereNestedInput;
-}
-
-export interface UserSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: UserWhereInput;
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-}
-
-export interface ProjectImageUpdateWithWhereUniqueWithoutProjectInput {
-  where: ProjectImageWhereUniqueInput;
-  data: ProjectImageUpdateWithoutProjectDataInput;
-}
-
-export interface UserUpdateInput {
-  uid?: String;
-  name?: String;
-  email?: String;
-  nickname?: String;
-  avatar?: ImageUpdateOneInput;
-  lastLoggedIn?: DateTimeInput;
-}
-
-export interface ImageUpsertNestedInput {
-  update: ImageUpdateDataInput;
-  create: ImageCreateInput;
-}
-
-export interface ImageUpdateDataInput {
-  uid?: String;
-  url?: String;
-  title?: String;
-  caption?: String;
-}
-
 export interface ImageUpdateOneRequiredInput {
   create?: ImageCreateInput;
   update?: ImageUpdateDataInput;
   upsert?: ImageUpsertNestedInput;
   connect?: ImageWhereUniqueInput;
-}
-
-export interface ProjectImageUpdateWithoutProjectDataInput {
-  uid?: String;
-  image?: ImageUpdateOneRequiredInput;
-  type?: ProjectImageType;
-}
-
-export interface ProjectUpsertWithoutProjectImagesInput {
-  update: ProjectUpdateWithoutProjectImagesDataInput;
-  create: ProjectCreateWithoutProjectImagesInput;
-}
-
-export interface PageSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: PageWhereInput;
-  AND?: PageSubscriptionWhereInput[] | PageSubscriptionWhereInput;
-  OR?: PageSubscriptionWhereInput[] | PageSubscriptionWhereInput;
-  NOT?: PageSubscriptionWhereInput[] | PageSubscriptionWhereInput;
 }
 
 export interface UserWhereInput {
@@ -1952,11 +706,1424 @@ export interface UserWhereInput {
   NOT?: UserWhereInput[] | UserWhereInput;
 }
 
+export interface ColorUpdateManyWithWhereNestedInput {
+  where: ColorScalarWhereInput;
+  data: ColorUpdateManyDataInput;
+}
+
+export interface ProjectUpdatetagsInput {
+  set?: String[] | String;
+}
+
+export interface UserSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: UserWhereInput;
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+}
+
+export interface ProjectImageUpdateManyDataInput {
+  uid?: String;
+  type?: ProjectImageType;
+}
+
+export interface StyleSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: StyleWhereInput;
+  AND?: StyleSubscriptionWhereInput[] | StyleSubscriptionWhereInput;
+  OR?: StyleSubscriptionWhereInput[] | StyleSubscriptionWhereInput;
+  NOT?: StyleSubscriptionWhereInput[] | StyleSubscriptionWhereInput;
+}
+
+export interface ProjectImageUpdateManyWithWhereNestedInput {
+  where: ProjectImageScalarWhereInput;
+  data: ProjectImageUpdateManyDataInput;
+}
+
+export interface ProjectImageSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: ProjectImageWhereInput;
+  AND?:
+    | ProjectImageSubscriptionWhereInput[]
+    | ProjectImageSubscriptionWhereInput;
+  OR?:
+    | ProjectImageSubscriptionWhereInput[]
+    | ProjectImageSubscriptionWhereInput;
+  NOT?:
+    | ProjectImageSubscriptionWhereInput[]
+    | ProjectImageSubscriptionWhereInput;
+}
+
+export interface ProjectImageScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  uid?: String;
+  uid_not?: String;
+  uid_in?: String[] | String;
+  uid_not_in?: String[] | String;
+  uid_lt?: String;
+  uid_lte?: String;
+  uid_gt?: String;
+  uid_gte?: String;
+  uid_contains?: String;
+  uid_not_contains?: String;
+  uid_starts_with?: String;
+  uid_not_starts_with?: String;
+  uid_ends_with?: String;
+  uid_not_ends_with?: String;
+  type?: ProjectImageType;
+  type_not?: ProjectImageType;
+  type_in?: ProjectImageType[] | ProjectImageType;
+  type_not_in?: ProjectImageType[] | ProjectImageType;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  AND?: ProjectImageScalarWhereInput[] | ProjectImageScalarWhereInput;
+  OR?: ProjectImageScalarWhereInput[] | ProjectImageScalarWhereInput;
+  NOT?: ProjectImageScalarWhereInput[] | ProjectImageScalarWhereInput;
+}
+
+export interface ProjectSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: ProjectWhereInput;
+  AND?: ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput;
+  OR?: ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput;
+  NOT?: ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput;
+}
+
+export interface ImageSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: ImageWhereInput;
+  AND?: ImageSubscriptionWhereInput[] | ImageSubscriptionWhereInput;
+  OR?: ImageSubscriptionWhereInput[] | ImageSubscriptionWhereInput;
+  NOT?: ImageSubscriptionWhereInput[] | ImageSubscriptionWhereInput;
+}
+
+export type PageWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  uid?: String;
+}>;
+
+export interface ColorCreateInput {
+  uid?: String;
+  shade?: Shade;
+  type?: ColorType;
+  hex: String;
+  rgb?: String;
+}
+
+export interface UserUpdateManyMutationInput {
+  uid?: String;
+  name?: String;
+  email?: String;
+  nickname?: String;
+  lastLoggedIn?: DateTimeInput;
+}
+
+export interface ColorUpdateInput {
+  uid?: String;
+  shade?: Shade;
+  type?: ColorType;
+  hex?: String;
+  rgb?: String;
+}
+
+export interface PageWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  uid?: String;
+  uid_not?: String;
+  uid_in?: String[] | String;
+  uid_not_in?: String[] | String;
+  uid_lt?: String;
+  uid_lte?: String;
+  uid_gt?: String;
+  uid_gte?: String;
+  uid_contains?: String;
+  uid_not_contains?: String;
+  uid_starts_with?: String;
+  uid_not_starts_with?: String;
+  uid_ends_with?: String;
+  uid_not_ends_with?: String;
+  route?: String;
+  route_not?: String;
+  route_in?: String[] | String;
+  route_not_in?: String[] | String;
+  route_lt?: String;
+  route_lte?: String;
+  route_gt?: String;
+  route_gte?: String;
+  route_contains?: String;
+  route_not_contains?: String;
+  route_starts_with?: String;
+  route_not_starts_with?: String;
+  route_ends_with?: String;
+  route_not_ends_with?: String;
+  style?: StyleWhereInput;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  AND?: PageWhereInput[] | PageWhereInput;
+  OR?: PageWhereInput[] | PageWhereInput;
+  NOT?: PageWhereInput[] | PageWhereInput;
+}
+
+export interface ColorUpdateManyMutationInput {
+  uid?: String;
+  shade?: Shade;
+  type?: ColorType;
+  hex?: String;
+  rgb?: String;
+}
+
+export interface UserCreateInput {
+  uid?: String;
+  name: String;
+  email: String;
+  nickname?: String;
+  avatar?: ImageCreateOneInput;
+  lastLoggedIn?: DateTimeInput;
+}
+
+export interface ProjectImageUpsertWithWhereUniqueWithoutProjectInput {
+  where: ProjectImageWhereUniqueInput;
+  update: ProjectImageUpdateWithoutProjectDataInput;
+  create: ProjectImageCreateWithoutProjectInput;
+}
+
+export interface TechnologyUpdateInput {
+  uid?: String;
+  name?: String;
+  image?: ImageUpdateOneInput;
+  color?: ColorUpdateOneRequiredInput;
+}
+
+export interface ImageUpsertNestedInput {
+  update: ImageUpdateDataInput;
+  create: ImageCreateInput;
+}
+
+export type ProjectWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  uid?: String;
+}>;
+
+export interface FileCreateInput {
+  path: String;
+  filename: String;
+  mimetype: String;
+  encoding: String;
+}
+
+export interface ProjectImageWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  uid?: String;
+  uid_not?: String;
+  uid_in?: String[] | String;
+  uid_not_in?: String[] | String;
+  uid_lt?: String;
+  uid_lte?: String;
+  uid_gt?: String;
+  uid_gte?: String;
+  uid_contains?: String;
+  uid_not_contains?: String;
+  uid_starts_with?: String;
+  uid_not_starts_with?: String;
+  uid_ends_with?: String;
+  uid_not_ends_with?: String;
+  project?: ProjectWhereInput;
+  image?: ImageWhereInput;
+  type?: ProjectImageType;
+  type_not?: ProjectImageType;
+  type_in?: ProjectImageType[] | ProjectImageType;
+  type_not_in?: ProjectImageType[] | ProjectImageType;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  AND?: ProjectImageWhereInput[] | ProjectImageWhereInput;
+  OR?: ProjectImageWhereInput[] | ProjectImageWhereInput;
+  NOT?: ProjectImageWhereInput[] | ProjectImageWhereInput;
+}
+
+export interface FileUpdateInput {
+  path?: String;
+  filename?: String;
+  mimetype?: String;
+  encoding?: String;
+}
+
+export interface TechnologyWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  uid?: String;
+  uid_not?: String;
+  uid_in?: String[] | String;
+  uid_not_in?: String[] | String;
+  uid_lt?: String;
+  uid_lte?: String;
+  uid_gt?: String;
+  uid_gte?: String;
+  uid_contains?: String;
+  uid_not_contains?: String;
+  uid_starts_with?: String;
+  uid_not_starts_with?: String;
+  uid_ends_with?: String;
+  uid_not_ends_with?: String;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  image?: ImageWhereInput;
+  color?: ColorWhereInput;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  AND?: TechnologyWhereInput[] | TechnologyWhereInput;
+  OR?: TechnologyWhereInput[] | TechnologyWhereInput;
+  NOT?: TechnologyWhereInput[] | TechnologyWhereInput;
+}
+
+export interface FileUpdateManyMutationInput {
+  path?: String;
+  filename?: String;
+  mimetype?: String;
+  encoding?: String;
+}
+
+export interface ProjectUpsertWithoutProjectImagesInput {
+  update: ProjectUpdateWithoutProjectImagesDataInput;
+  create: ProjectCreateWithoutProjectImagesInput;
+}
+
+export interface ImageCreateInput {
+  uid?: String;
+  url: String;
+  title: String;
+  caption?: String;
+}
+
+export interface ProjectUpdateOneRequiredWithoutProjectImagesInput {
+  create?: ProjectCreateWithoutProjectImagesInput;
+  update?: ProjectUpdateWithoutProjectImagesDataInput;
+  upsert?: ProjectUpsertWithoutProjectImagesInput;
+  connect?: ProjectWhereUniqueInput;
+}
+
+export interface ImageUpdateInput {
+  uid?: String;
+  url?: String;
+  title?: String;
+  caption?: String;
+}
+
+export interface ColorWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  uid?: String;
+  uid_not?: String;
+  uid_in?: String[] | String;
+  uid_not_in?: String[] | String;
+  uid_lt?: String;
+  uid_lte?: String;
+  uid_gt?: String;
+  uid_gte?: String;
+  uid_contains?: String;
+  uid_not_contains?: String;
+  uid_starts_with?: String;
+  uid_not_starts_with?: String;
+  uid_ends_with?: String;
+  uid_not_ends_with?: String;
+  shade?: Shade;
+  shade_not?: Shade;
+  shade_in?: Shade[] | Shade;
+  shade_not_in?: Shade[] | Shade;
+  type?: ColorType;
+  type_not?: ColorType;
+  type_in?: ColorType[] | ColorType;
+  type_not_in?: ColorType[] | ColorType;
+  hex?: String;
+  hex_not?: String;
+  hex_in?: String[] | String;
+  hex_not_in?: String[] | String;
+  hex_lt?: String;
+  hex_lte?: String;
+  hex_gt?: String;
+  hex_gte?: String;
+  hex_contains?: String;
+  hex_not_contains?: String;
+  hex_starts_with?: String;
+  hex_not_starts_with?: String;
+  hex_ends_with?: String;
+  hex_not_ends_with?: String;
+  rgb?: String;
+  rgb_not?: String;
+  rgb_in?: String[] | String;
+  rgb_not_in?: String[] | String;
+  rgb_lt?: String;
+  rgb_lte?: String;
+  rgb_gt?: String;
+  rgb_gte?: String;
+  rgb_contains?: String;
+  rgb_not_contains?: String;
+  rgb_starts_with?: String;
+  rgb_not_starts_with?: String;
+  rgb_ends_with?: String;
+  rgb_not_ends_with?: String;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  AND?: ColorWhereInput[] | ColorWhereInput;
+  OR?: ColorWhereInput[] | ColorWhereInput;
+  NOT?: ColorWhereInput[] | ColorWhereInput;
+}
+
+export interface ImageUpdateManyMutationInput {
+  uid?: String;
+  url?: String;
+  title?: String;
+  caption?: String;
+}
+
+export interface ProjectCreateOneWithoutProjectImagesInput {
+  create?: ProjectCreateWithoutProjectImagesInput;
+  connect?: ProjectWhereUniqueInput;
+}
+
+export interface PageCreateInput {
+  uid?: String;
+  route: String;
+  style: StyleCreateOneInput;
+}
+
+export type ProjectImageWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  uid?: String;
+}>;
+
+export interface StyleCreateOneInput {
+  create?: StyleCreateInput;
+  connect?: StyleWhereUniqueInput;
+}
+
+export interface TechnologyUpdateManyDataInput {
+  uid?: String;
+  name?: String;
+}
+
+export interface StyleCreateInput {
+  uid?: String;
+  colors?: ColorCreateManyInput;
+  shape?: Shape;
+}
+
+export type StyleWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  uid?: String;
+}>;
+
+export interface ColorCreateManyInput {
+  create?: ColorCreateInput[] | ColorCreateInput;
+  connect?: ColorWhereUniqueInput[] | ColorWhereUniqueInput;
+}
+
+export interface TechnologyUpsertWithWhereUniqueNestedInput {
+  where: TechnologyWhereUniqueInput;
+  update: TechnologyUpdateDataInput;
+  create: TechnologyCreateInput;
+}
+
+export interface ImageUpdateDataInput {
+  uid?: String;
+  url?: String;
+  title?: String;
+  caption?: String;
+}
+
+export interface ColorUpdateOneRequiredInput {
+  create?: ColorCreateInput;
+  update?: ColorUpdateDataInput;
+  upsert?: ColorUpsertNestedInput;
+  connect?: ColorWhereUniqueInput;
+}
+
+export interface StyleUpdateOneRequiredInput {
+  create?: StyleCreateInput;
+  update?: StyleUpdateDataInput;
+  upsert?: StyleUpsertNestedInput;
+  connect?: StyleWhereUniqueInput;
+}
+
+export interface ImageUpdateOneInput {
+  create?: ImageCreateInput;
+  update?: ImageUpdateDataInput;
+  upsert?: ImageUpsertNestedInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: ImageWhereUniqueInput;
+}
+
+export interface StyleUpdateDataInput {
+  uid?: String;
+  colors?: ColorUpdateManyInput;
+  shape?: Shape;
+}
+
+export interface TechnologyUpdateWithWhereUniqueNestedInput {
+  where: TechnologyWhereUniqueInput;
+  data: TechnologyUpdateDataInput;
+}
+
+export interface ColorUpdateManyInput {
+  create?: ColorCreateInput[] | ColorCreateInput;
+  update?:
+    | ColorUpdateWithWhereUniqueNestedInput[]
+    | ColorUpdateWithWhereUniqueNestedInput;
+  upsert?:
+    | ColorUpsertWithWhereUniqueNestedInput[]
+    | ColorUpsertWithWhereUniqueNestedInput;
+  delete?: ColorWhereUniqueInput[] | ColorWhereUniqueInput;
+  connect?: ColorWhereUniqueInput[] | ColorWhereUniqueInput;
+  disconnect?: ColorWhereUniqueInput[] | ColorWhereUniqueInput;
+  deleteMany?: ColorScalarWhereInput[] | ColorScalarWhereInput;
+  updateMany?:
+    | ColorUpdateManyWithWhereNestedInput[]
+    | ColorUpdateManyWithWhereNestedInput;
+}
+
+export type FileWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface ColorUpdateWithWhereUniqueNestedInput {
+  where: ColorWhereUniqueInput;
+  data: ColorUpdateDataInput;
+}
+
+export type ImageWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  uid?: String;
+}>;
+
+export interface ColorUpdateDataInput {
+  uid?: String;
+  shade?: Shade;
+  type?: ColorType;
+  hex?: String;
+  rgb?: String;
+}
+
+export interface PageSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: PageWhereInput;
+  AND?: PageSubscriptionWhereInput[] | PageSubscriptionWhereInput;
+  OR?: PageSubscriptionWhereInput[] | PageSubscriptionWhereInput;
+  NOT?: PageSubscriptionWhereInput[] | PageSubscriptionWhereInput;
+}
+
+export interface ColorUpsertWithWhereUniqueNestedInput {
+  where: ColorWhereUniqueInput;
+  update: ColorUpdateDataInput;
+  create: ColorCreateInput;
+}
+
+export interface ColorSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: ColorWhereInput;
+  AND?: ColorSubscriptionWhereInput[] | ColorSubscriptionWhereInput;
+  OR?: ColorSubscriptionWhereInput[] | ColorSubscriptionWhereInput;
+  NOT?: ColorSubscriptionWhereInput[] | ColorSubscriptionWhereInput;
+}
+
+export interface ColorScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  uid?: String;
+  uid_not?: String;
+  uid_in?: String[] | String;
+  uid_not_in?: String[] | String;
+  uid_lt?: String;
+  uid_lte?: String;
+  uid_gt?: String;
+  uid_gte?: String;
+  uid_contains?: String;
+  uid_not_contains?: String;
+  uid_starts_with?: String;
+  uid_not_starts_with?: String;
+  uid_ends_with?: String;
+  uid_not_ends_with?: String;
+  shade?: Shade;
+  shade_not?: Shade;
+  shade_in?: Shade[] | Shade;
+  shade_not_in?: Shade[] | Shade;
+  type?: ColorType;
+  type_not?: ColorType;
+  type_in?: ColorType[] | ColorType;
+  type_not_in?: ColorType[] | ColorType;
+  hex?: String;
+  hex_not?: String;
+  hex_in?: String[] | String;
+  hex_not_in?: String[] | String;
+  hex_lt?: String;
+  hex_lte?: String;
+  hex_gt?: String;
+  hex_gte?: String;
+  hex_contains?: String;
+  hex_not_contains?: String;
+  hex_starts_with?: String;
+  hex_not_starts_with?: String;
+  hex_ends_with?: String;
+  hex_not_ends_with?: String;
+  rgb?: String;
+  rgb_not?: String;
+  rgb_in?: String[] | String;
+  rgb_not_in?: String[] | String;
+  rgb_lt?: String;
+  rgb_lte?: String;
+  rgb_gt?: String;
+  rgb_gte?: String;
+  rgb_contains?: String;
+  rgb_not_contains?: String;
+  rgb_starts_with?: String;
+  rgb_not_starts_with?: String;
+  rgb_ends_with?: String;
+  rgb_not_ends_with?: String;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  AND?: ColorScalarWhereInput[] | ColorScalarWhereInput;
+  OR?: ColorScalarWhereInput[] | ColorScalarWhereInput;
+  NOT?: ColorScalarWhereInput[] | ColorScalarWhereInput;
+}
+
+export interface StyleWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  uid?: String;
+  uid_not?: String;
+  uid_in?: String[] | String;
+  uid_not_in?: String[] | String;
+  uid_lt?: String;
+  uid_lte?: String;
+  uid_gt?: String;
+  uid_gte?: String;
+  uid_contains?: String;
+  uid_not_contains?: String;
+  uid_starts_with?: String;
+  uid_not_starts_with?: String;
+  uid_ends_with?: String;
+  uid_not_ends_with?: String;
+  colors_every?: ColorWhereInput;
+  colors_some?: ColorWhereInput;
+  colors_none?: ColorWhereInput;
+  shape?: Shape;
+  shape_not?: Shape;
+  shape_in?: Shape[] | Shape;
+  shape_not_in?: Shape[] | Shape;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  AND?: StyleWhereInput[] | StyleWhereInput;
+  OR?: StyleWhereInput[] | StyleWhereInput;
+  NOT?: StyleWhereInput[] | StyleWhereInput;
+}
+
+export interface FileWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  path?: String;
+  path_not?: String;
+  path_in?: String[] | String;
+  path_not_in?: String[] | String;
+  path_lt?: String;
+  path_lte?: String;
+  path_gt?: String;
+  path_gte?: String;
+  path_contains?: String;
+  path_not_contains?: String;
+  path_starts_with?: String;
+  path_not_starts_with?: String;
+  path_ends_with?: String;
+  path_not_ends_with?: String;
+  filename?: String;
+  filename_not?: String;
+  filename_in?: String[] | String;
+  filename_not_in?: String[] | String;
+  filename_lt?: String;
+  filename_lte?: String;
+  filename_gt?: String;
+  filename_gte?: String;
+  filename_contains?: String;
+  filename_not_contains?: String;
+  filename_starts_with?: String;
+  filename_not_starts_with?: String;
+  filename_ends_with?: String;
+  filename_not_ends_with?: String;
+  mimetype?: String;
+  mimetype_not?: String;
+  mimetype_in?: String[] | String;
+  mimetype_not_in?: String[] | String;
+  mimetype_lt?: String;
+  mimetype_lte?: String;
+  mimetype_gt?: String;
+  mimetype_gte?: String;
+  mimetype_contains?: String;
+  mimetype_not_contains?: String;
+  mimetype_starts_with?: String;
+  mimetype_not_starts_with?: String;
+  mimetype_ends_with?: String;
+  mimetype_not_ends_with?: String;
+  encoding?: String;
+  encoding_not?: String;
+  encoding_in?: String[] | String;
+  encoding_not_in?: String[] | String;
+  encoding_lt?: String;
+  encoding_lte?: String;
+  encoding_gt?: String;
+  encoding_gte?: String;
+  encoding_contains?: String;
+  encoding_not_contains?: String;
+  encoding_starts_with?: String;
+  encoding_not_starts_with?: String;
+  encoding_ends_with?: String;
+  encoding_not_ends_with?: String;
+  AND?: FileWhereInput[] | FileWhereInput;
+  OR?: FileWhereInput[] | FileWhereInput;
+  NOT?: FileWhereInput[] | FileWhereInput;
+}
+
+export interface StyleUpdateManyMutationInput {
+  uid?: String;
+  shape?: Shape;
+}
+
+export interface ColorUpdateManyDataInput {
+  uid?: String;
+  shade?: Shade;
+  type?: ColorType;
+  hex?: String;
+  rgb?: String;
+}
+
+export interface ProjectWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  uid?: String;
+  uid_not?: String;
+  uid_in?: String[] | String;
+  uid_not_in?: String[] | String;
+  uid_lt?: String;
+  uid_lte?: String;
+  uid_gt?: String;
+  uid_gte?: String;
+  uid_contains?: String;
+  uid_not_contains?: String;
+  uid_starts_with?: String;
+  uid_not_starts_with?: String;
+  uid_ends_with?: String;
+  uid_not_ends_with?: String;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  description?: String;
+  description_not?: String;
+  description_in?: String[] | String;
+  description_not_in?: String[] | String;
+  description_lt?: String;
+  description_lte?: String;
+  description_gt?: String;
+  description_gte?: String;
+  description_contains?: String;
+  description_not_contains?: String;
+  description_starts_with?: String;
+  description_not_starts_with?: String;
+  description_ends_with?: String;
+  description_not_ends_with?: String;
+  page?: PageWhereInput;
+  projectImages_every?: ProjectImageWhereInput;
+  projectImages_some?: ProjectImageWhereInput;
+  projectImages_none?: ProjectImageWhereInput;
+  technologies_every?: TechnologyWhereInput;
+  technologies_some?: TechnologyWhereInput;
+  technologies_none?: TechnologyWhereInput;
+  startDate?: DateTimeInput;
+  startDate_not?: DateTimeInput;
+  startDate_in?: DateTimeInput[] | DateTimeInput;
+  startDate_not_in?: DateTimeInput[] | DateTimeInput;
+  startDate_lt?: DateTimeInput;
+  startDate_lte?: DateTimeInput;
+  startDate_gt?: DateTimeInput;
+  startDate_gte?: DateTimeInput;
+  finishDate?: DateTimeInput;
+  finishDate_not?: DateTimeInput;
+  finishDate_in?: DateTimeInput[] | DateTimeInput;
+  finishDate_not_in?: DateTimeInput[] | DateTimeInput;
+  finishDate_lt?: DateTimeInput;
+  finishDate_lte?: DateTimeInput;
+  finishDate_gt?: DateTimeInput;
+  finishDate_gte?: DateTimeInput;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  AND?: ProjectWhereInput[] | ProjectWhereInput;
+  OR?: ProjectWhereInput[] | ProjectWhereInput;
+  NOT?: ProjectWhereInput[] | ProjectWhereInput;
+}
+
+export interface StyleUpsertNestedInput {
+  update: StyleUpdateDataInput;
+  create: StyleCreateInput;
+}
+
+export interface ProjectUpdateWithoutProjectImagesDataInput {
+  uid?: String;
+  name?: String;
+  description?: String;
+  page?: PageUpdateOneRequiredInput;
+  tags?: ProjectUpdatetagsInput;
+  technologies?: TechnologyUpdateManyInput;
+  startDate?: DateTimeInput;
+  finishDate?: DateTimeInput;
+}
+
+export interface PageUpdateManyMutationInput {
+  uid?: String;
+  route?: String;
+}
+
+export interface ProjectCreateWithoutProjectImagesInput {
+  uid?: String;
+  name: String;
+  description: String;
+  page: PageCreateOneInput;
+  tags?: ProjectCreatetagsInput;
+  technologies?: TechnologyCreateManyInput;
+  startDate?: DateTimeInput;
+  finishDate?: DateTimeInput;
+}
+
+export interface ProjectCreateInput {
+  uid?: String;
+  name: String;
+  description: String;
+  page: PageCreateOneInput;
+  projectImages?: ProjectImageCreateManyWithoutProjectInput;
+  tags?: ProjectCreatetagsInput;
+  technologies?: TechnologyCreateManyInput;
+  startDate?: DateTimeInput;
+  finishDate?: DateTimeInput;
+}
+
+export interface ProjectUpdateManyMutationInput {
+  uid?: String;
+  name?: String;
+  description?: String;
+  tags?: ProjectUpdatetagsInput;
+  startDate?: DateTimeInput;
+  finishDate?: DateTimeInput;
+}
+
+export interface PageCreateOneInput {
+  create?: PageCreateInput;
+  connect?: PageWhereUniqueInput;
+}
+
+export interface TechnologyScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  uid?: String;
+  uid_not?: String;
+  uid_in?: String[] | String;
+  uid_not_in?: String[] | String;
+  uid_lt?: String;
+  uid_lte?: String;
+  uid_gt?: String;
+  uid_gte?: String;
+  uid_contains?: String;
+  uid_not_contains?: String;
+  uid_starts_with?: String;
+  uid_not_starts_with?: String;
+  uid_ends_with?: String;
+  uid_not_ends_with?: String;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  AND?: TechnologyScalarWhereInput[] | TechnologyScalarWhereInput;
+  OR?: TechnologyScalarWhereInput[] | TechnologyScalarWhereInput;
+  NOT?: TechnologyScalarWhereInput[] | TechnologyScalarWhereInput;
+}
+
+export interface ProjectImageCreateManyWithoutProjectInput {
+  create?:
+    | ProjectImageCreateWithoutProjectInput[]
+    | ProjectImageCreateWithoutProjectInput;
+  connect?: ProjectImageWhereUniqueInput[] | ProjectImageWhereUniqueInput;
+}
+
+export type TechnologyWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  uid?: String;
+}>;
+
+export interface ProjectImageCreateWithoutProjectInput {
+  uid?: String;
+  image: ImageCreateOneInput;
+  type: ProjectImageType;
+}
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  uid?: String;
+}>;
+
+export interface ImageCreateOneInput {
+  create?: ImageCreateInput;
+  connect?: ImageWhereUniqueInput;
+}
+
+export interface ImageWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  uid?: String;
+  uid_not?: String;
+  uid_in?: String[] | String;
+  uid_not_in?: String[] | String;
+  uid_lt?: String;
+  uid_lte?: String;
+  uid_gt?: String;
+  uid_gte?: String;
+  uid_contains?: String;
+  uid_not_contains?: String;
+  uid_starts_with?: String;
+  uid_not_starts_with?: String;
+  uid_ends_with?: String;
+  uid_not_ends_with?: String;
+  url?: String;
+  url_not?: String;
+  url_in?: String[] | String;
+  url_not_in?: String[] | String;
+  url_lt?: String;
+  url_lte?: String;
+  url_gt?: String;
+  url_gte?: String;
+  url_contains?: String;
+  url_not_contains?: String;
+  url_starts_with?: String;
+  url_not_starts_with?: String;
+  url_ends_with?: String;
+  url_not_ends_with?: String;
+  title?: String;
+  title_not?: String;
+  title_in?: String[] | String;
+  title_not_in?: String[] | String;
+  title_lt?: String;
+  title_lte?: String;
+  title_gt?: String;
+  title_gte?: String;
+  title_contains?: String;
+  title_not_contains?: String;
+  title_starts_with?: String;
+  title_not_starts_with?: String;
+  title_ends_with?: String;
+  title_not_ends_with?: String;
+  caption?: String;
+  caption_not?: String;
+  caption_in?: String[] | String;
+  caption_not_in?: String[] | String;
+  caption_lt?: String;
+  caption_lte?: String;
+  caption_gt?: String;
+  caption_gte?: String;
+  caption_contains?: String;
+  caption_not_contains?: String;
+  caption_starts_with?: String;
+  caption_not_starts_with?: String;
+  caption_ends_with?: String;
+  caption_not_ends_with?: String;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  AND?: ImageWhereInput[] | ImageWhereInput;
+  OR?: ImageWhereInput[] | ImageWhereInput;
+  NOT?: ImageWhereInput[] | ImageWhereInput;
+}
+
+export interface ProjectCreatetagsInput {
+  set?: String[] | String;
+}
+
+export interface UserUpdateInput {
+  uid?: String;
+  name?: String;
+  email?: String;
+  nickname?: String;
+  avatar?: ImageUpdateOneInput;
+  lastLoggedIn?: DateTimeInput;
+}
+
+export interface TechnologyCreateManyInput {
+  create?: TechnologyCreateInput[] | TechnologyCreateInput;
+  connect?: TechnologyWhereUniqueInput[] | TechnologyWhereUniqueInput;
+}
+
+export interface StyleUpdateInput {
+  uid?: String;
+  colors?: ColorUpdateManyInput;
+  shape?: Shape;
+}
+
+export interface TechnologyCreateInput {
+  uid?: String;
+  name: String;
+  image?: ImageCreateOneInput;
+  color: ColorCreateOneInput;
+}
+
+export interface ProjectImageUpdateInput {
+  uid?: String;
+  project?: ProjectUpdateOneRequiredWithoutProjectImagesInput;
+  image?: ImageUpdateOneRequiredInput;
+  type?: ProjectImageType;
+}
+
+export interface ColorCreateOneInput {
+  create?: ColorCreateInput;
+  connect?: ColorWhereUniqueInput;
+}
+
+export interface TechnologyUpdateManyWithWhereNestedInput {
+  where: TechnologyScalarWhereInput;
+  data: TechnologyUpdateManyDataInput;
+}
+
+export interface ProjectUpdateInput {
+  uid?: String;
+  name?: String;
+  description?: String;
+  page?: PageUpdateOneRequiredInput;
+  projectImages?: ProjectImageUpdateManyWithoutProjectInput;
+  tags?: ProjectUpdatetagsInput;
+  technologies?: TechnologyUpdateManyInput;
+  startDate?: DateTimeInput;
+  finishDate?: DateTimeInput;
+}
+
+export interface TechnologyUpdateDataInput {
+  uid?: String;
+  name?: String;
+  image?: ImageUpdateOneInput;
+  color?: ColorUpdateOneRequiredInput;
+}
+
+export interface PageUpdateOneRequiredInput {
+  create?: PageCreateInput;
+  update?: PageUpdateDataInput;
+  upsert?: PageUpsertNestedInput;
+  connect?: PageWhereUniqueInput;
+}
+
+export interface FileSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: FileWhereInput;
+  AND?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput;
+  OR?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput;
+  NOT?: FileSubscriptionWhereInput[] | FileSubscriptionWhereInput;
+}
+
+export interface PageUpdateDataInput {
+  uid?: String;
+  route?: String;
+  style?: StyleUpdateOneRequiredInput;
+}
+
+export interface ProjectImageUpdateManyMutationInput {
+  uid?: String;
+  type?: ProjectImageType;
+}
+
+export interface ProjectImageUpdateWithoutProjectDataInput {
+  uid?: String;
+  image?: ImageUpdateOneRequiredInput;
+  type?: ProjectImageType;
+}
+
+export interface ProjectImageUpdateWithWhereUniqueWithoutProjectInput {
+  where: ProjectImageWhereUniqueInput;
+  data: ProjectImageUpdateWithoutProjectDataInput;
+}
+
+export interface ProjectImageUpdateManyWithoutProjectInput {
+  create?:
+    | ProjectImageCreateWithoutProjectInput[]
+    | ProjectImageCreateWithoutProjectInput;
+  delete?: ProjectImageWhereUniqueInput[] | ProjectImageWhereUniqueInput;
+  connect?: ProjectImageWhereUniqueInput[] | ProjectImageWhereUniqueInput;
+  disconnect?: ProjectImageWhereUniqueInput[] | ProjectImageWhereUniqueInput;
+  update?:
+    | ProjectImageUpdateWithWhereUniqueWithoutProjectInput[]
+    | ProjectImageUpdateWithWhereUniqueWithoutProjectInput;
+  upsert?:
+    | ProjectImageUpsertWithWhereUniqueWithoutProjectInput[]
+    | ProjectImageUpsertWithWhereUniqueWithoutProjectInput;
+  deleteMany?: ProjectImageScalarWhereInput[] | ProjectImageScalarWhereInput;
+  updateMany?:
+    | ProjectImageUpdateManyWithWhereNestedInput[]
+    | ProjectImageUpdateManyWithWhereNestedInput;
+}
+
+export interface PageUpsertNestedInput {
+  update: PageUpdateDataInput;
+  create: PageCreateInput;
+}
+
 export interface ProjectImageCreateInput {
   uid?: String;
   project: ProjectCreateOneWithoutProjectImagesInput;
   image: ImageCreateOneInput;
   type: ProjectImageType;
+}
+
+export interface TechnologyUpdateManyMutationInput {
+  uid?: String;
+  name?: String;
+}
+
+export interface TechnologySubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: TechnologyWhereInput;
+  AND?: TechnologySubscriptionWhereInput[] | TechnologySubscriptionWhereInput;
+  OR?: TechnologySubscriptionWhereInput[] | TechnologySubscriptionWhereInput;
+  NOT?: TechnologySubscriptionWhereInput[] | TechnologySubscriptionWhereInput;
+}
+
+export interface ColorUpsertNestedInput {
+  update: ColorUpdateDataInput;
+  create: ColorCreateInput;
 }
 
 export interface NodeNode {
@@ -2000,46 +2167,646 @@ export interface UserPreviousValuesSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface ColorConnection {
-  pageInfo: PageInfo;
-  edges: ColorEdge[];
+export interface PageEdge {
+  node: Page;
+  cursor: String;
 }
 
-export interface ColorConnectionPromise
-  extends Promise<ColorConnection>,
+export interface PageEdgePromise extends Promise<PageEdge>, Fragmentable {
+  node: <T = PagePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface PageEdgeSubscription
+  extends Promise<AsyncIterator<PageEdge>>,
+    Fragmentable {
+  node: <T = PageSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface FileEdge {
+  node: File;
+  cursor: String;
+}
+
+export interface FileEdgePromise extends Promise<FileEdge>, Fragmentable {
+  node: <T = FilePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface FileEdgeSubscription
+  extends Promise<AsyncIterator<FileEdge>>,
+    Fragmentable {
+  node: <T = FileSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface PageConnection {
+  pageInfo: PageInfo;
+  edges: PageEdge[];
+}
+
+export interface PageConnectionPromise
+  extends Promise<PageConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ColorEdge>>() => T;
-  aggregate: <T = AggregateColorPromise>() => T;
+  edges: <T = FragmentableArray<PageEdge>>() => T;
+  aggregate: <T = AggregatePagePromise>() => T;
 }
 
-export interface ColorConnectionSubscription
-  extends Promise<AsyncIterator<ColorConnection>>,
+export interface PageConnectionSubscription
+  extends Promise<AsyncIterator<PageConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ColorEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateColorSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<PageEdgeSubscription>>>() => T;
+  aggregate: <T = AggregatePageSubscription>() => T;
 }
 
-export interface ImageConnection {
+export interface File {
+  id: ID_Output;
+  path: String;
+  filename: String;
+  mimetype: String;
+  encoding: String;
+}
+
+export interface FilePromise extends Promise<File>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  path: () => Promise<String>;
+  filename: () => Promise<String>;
+  mimetype: () => Promise<String>;
+  encoding: () => Promise<String>;
+}
+
+export interface FileSubscription
+  extends Promise<AsyncIterator<File>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  path: () => Promise<AsyncIterator<String>>;
+  filename: () => Promise<AsyncIterator<String>>;
+  mimetype: () => Promise<AsyncIterator<String>>;
+  encoding: () => Promise<AsyncIterator<String>>;
+}
+
+export interface TechnologyPreviousValues {
+  id: ID_Output;
+  uid?: String;
+  name: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface TechnologyPreviousValuesPromise
+  extends Promise<TechnologyPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  uid: () => Promise<String>;
+  name: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface TechnologyPreviousValuesSubscription
+  extends Promise<AsyncIterator<TechnologyPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  uid: () => Promise<AsyncIterator<String>>;
+  name: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface AggregateUser {
+  count: Int;
+}
+
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ColorEdge {
+  node: Color;
+  cursor: String;
+}
+
+export interface ColorEdgePromise extends Promise<ColorEdge>, Fragmentable {
+  node: <T = ColorPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ColorEdgeSubscription
+  extends Promise<AsyncIterator<ColorEdge>>,
+    Fragmentable {
+  node: <T = ColorSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface UserConnection {
   pageInfo: PageInfo;
-  edges: ImageEdge[];
+  edges: UserEdge[];
 }
 
-export interface ImageConnectionPromise
-  extends Promise<ImageConnection>,
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ImageEdge>>() => T;
-  aggregate: <T = AggregateImagePromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
 }
 
-export interface ImageConnectionSubscription
-  extends Promise<AsyncIterator<ImageConnection>>,
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ImageEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateImageSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
+}
+
+export interface Style {
+  id: ID_Output;
+  uid?: String;
+  shape: Shape;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface StylePromise extends Promise<Style>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  uid: () => Promise<String>;
+  colors: <T = FragmentableArray<Color>>(args?: {
+    where?: ColorWhereInput;
+    orderBy?: ColorOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  shape: () => Promise<Shape>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface StyleSubscription
+  extends Promise<AsyncIterator<Style>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  uid: () => Promise<AsyncIterator<String>>;
+  colors: <T = Promise<AsyncIterator<ColorSubscription>>>(args?: {
+    where?: ColorWhereInput;
+    orderBy?: ColorOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  shape: () => Promise<AsyncIterator<Shape>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface User {
+  id: ID_Output;
+  uid?: String;
+  name: String;
+  email: String;
+  nickname?: String;
+  lastLoggedIn?: DateTimeOutput;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface UserPromise extends Promise<User>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  uid: () => Promise<String>;
+  name: () => Promise<String>;
+  email: () => Promise<String>;
+  nickname: () => Promise<String>;
+  avatar: <T = ImagePromise>() => T;
+  lastLoggedIn: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface UserSubscription
+  extends Promise<AsyncIterator<User>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  uid: () => Promise<AsyncIterator<String>>;
+  name: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  nickname: () => Promise<AsyncIterator<String>>;
+  avatar: <T = ImageSubscription>() => T;
+  lastLoggedIn: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface Page {
+  id: ID_Output;
+  uid?: String;
+  route: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface PagePromise extends Promise<Page>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  uid: () => Promise<String>;
+  route: () => Promise<String>;
+  style: <T = StylePromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface PageSubscription
+  extends Promise<AsyncIterator<Page>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  uid: () => Promise<AsyncIterator<String>>;
+  route: () => Promise<AsyncIterator<String>>;
+  style: <T = StyleSubscription>() => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface TechnologyEdge {
+  node: Technology;
+  cursor: String;
+}
+
+export interface TechnologyEdgePromise
+  extends Promise<TechnologyEdge>,
+    Fragmentable {
+  node: <T = TechnologyPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface TechnologyEdgeSubscription
+  extends Promise<AsyncIterator<TechnologyEdge>>,
+    Fragmentable {
+  node: <T = TechnologySubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface TechnologySubscriptionPayload {
+  mutation: MutationType;
+  node: Technology;
+  updatedFields: String[];
+  previousValues: TechnologyPreviousValues;
+}
+
+export interface TechnologySubscriptionPayloadPromise
+  extends Promise<TechnologySubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = TechnologyPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = TechnologyPreviousValuesPromise>() => T;
+}
+
+export interface TechnologySubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<TechnologySubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = TechnologySubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = TechnologyPreviousValuesSubscription>() => T;
+}
+
+export interface AggregateStyle {
+  count: Int;
+}
+
+export interface AggregateStylePromise
+  extends Promise<AggregateStyle>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateStyleSubscription
+  extends Promise<AsyncIterator<AggregateStyle>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ColorSubscriptionPayload {
+  mutation: MutationType;
+  node: Color;
+  updatedFields: String[];
+  previousValues: ColorPreviousValues;
+}
+
+export interface ColorSubscriptionPayloadPromise
+  extends Promise<ColorSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ColorPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ColorPreviousValuesPromise>() => T;
+}
+
+export interface ColorSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ColorSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ColorSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ColorPreviousValuesSubscription>() => T;
+}
+
+export interface StyleConnection {
+  pageInfo: PageInfo;
+  edges: StyleEdge[];
+}
+
+export interface StyleConnectionPromise
+  extends Promise<StyleConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<StyleEdge>>() => T;
+  aggregate: <T = AggregateStylePromise>() => T;
+}
+
+export interface StyleConnectionSubscription
+  extends Promise<AsyncIterator<StyleConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<StyleEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateStyleSubscription>() => T;
+}
+
+export interface ColorPreviousValues {
+  id: ID_Output;
+  uid?: String;
+  shade: Shade;
+  type: ColorType;
+  hex: String;
+  rgb?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface ColorPreviousValuesPromise
+  extends Promise<ColorPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  uid: () => Promise<String>;
+  shade: () => Promise<Shade>;
+  type: () => Promise<ColorType>;
+  hex: () => Promise<String>;
+  rgb: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ColorPreviousValuesSubscription
+  extends Promise<AsyncIterator<ColorPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  uid: () => Promise<AsyncIterator<String>>;
+  shade: () => Promise<AsyncIterator<Shade>>;
+  type: () => Promise<AsyncIterator<ColorType>>;
+  hex: () => Promise<AsyncIterator<String>>;
+  rgb: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface AggregateProjectImage {
+  count: Int;
+}
+
+export interface AggregateProjectImagePromise
+  extends Promise<AggregateProjectImage>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateProjectImageSubscription
+  extends Promise<AsyncIterator<AggregateProjectImage>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface AggregateImage {
+  count: Int;
+}
+
+export interface AggregateImagePromise
+  extends Promise<AggregateImage>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateImageSubscription
+  extends Promise<AsyncIterator<AggregateImage>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ProjectImageConnection {
+  pageInfo: PageInfo;
+  edges: ProjectImageEdge[];
+}
+
+export interface ProjectImageConnectionPromise
+  extends Promise<ProjectImageConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ProjectImageEdge>>() => T;
+  aggregate: <T = AggregateProjectImagePromise>() => T;
+}
+
+export interface ProjectImageConnectionSubscription
+  extends Promise<AsyncIterator<ProjectImageConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ProjectImageEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateProjectImageSubscription>() => T;
+}
+
+export interface FileSubscriptionPayload {
+  mutation: MutationType;
+  node: File;
+  updatedFields: String[];
+  previousValues: FilePreviousValues;
+}
+
+export interface FileSubscriptionPayloadPromise
+  extends Promise<FileSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = FilePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = FilePreviousValuesPromise>() => T;
+}
+
+export interface FileSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<FileSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = FileSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = FilePreviousValuesSubscription>() => T;
+}
+
+export interface ProjectEdge {
+  node: Project;
+  cursor: String;
+}
+
+export interface ProjectEdgePromise extends Promise<ProjectEdge>, Fragmentable {
+  node: <T = ProjectPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ProjectEdgeSubscription
+  extends Promise<AsyncIterator<ProjectEdge>>,
+    Fragmentable {
+  node: <T = ProjectSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface FilePreviousValues {
+  id: ID_Output;
+  path: String;
+  filename: String;
+  mimetype: String;
+  encoding: String;
+}
+
+export interface FilePreviousValuesPromise
+  extends Promise<FilePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  path: () => Promise<String>;
+  filename: () => Promise<String>;
+  mimetype: () => Promise<String>;
+  encoding: () => Promise<String>;
+}
+
+export interface FilePreviousValuesSubscription
+  extends Promise<AsyncIterator<FilePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  path: () => Promise<AsyncIterator<String>>;
+  filename: () => Promise<AsyncIterator<String>>;
+  mimetype: () => Promise<AsyncIterator<String>>;
+  encoding: () => Promise<AsyncIterator<String>>;
+}
+
+export interface Technology {
+  id: ID_Output;
+  uid?: String;
+  name: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface TechnologyPromise extends Promise<Technology>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  uid: () => Promise<String>;
+  name: () => Promise<String>;
+  image: <T = ImagePromise>() => T;
+  color: <T = ColorPromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface TechnologySubscription
+  extends Promise<AsyncIterator<Technology>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  uid: () => Promise<AsyncIterator<String>>;
+  name: () => Promise<AsyncIterator<String>>;
+  image: <T = ImageSubscription>() => T;
+  color: <T = ColorSubscription>() => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface ImageEdge {
+  node: Image;
+  cursor: String;
+}
+
+export interface ImageEdgePromise extends Promise<ImageEdge>, Fragmentable {
+  node: <T = ImagePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ImageEdgeSubscription
+  extends Promise<AsyncIterator<ImageEdge>>,
+    Fragmentable {
+  node: <T = ImageSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ProjectImage {
+  id: ID_Output;
+  uid?: String;
+  type: ProjectImageType;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface ProjectImagePromise
+  extends Promise<ProjectImage>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  uid: () => Promise<String>;
+  project: <T = ProjectPromise>() => T;
+  image: <T = ImagePromise>() => T;
+  type: () => Promise<ProjectImageType>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ProjectImageSubscription
+  extends Promise<AsyncIterator<ProjectImage>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  uid: () => Promise<AsyncIterator<String>>;
+  project: <T = ProjectSubscription>() => T;
+  image: <T = ImageSubscription>() => T;
+  type: () => Promise<AsyncIterator<ProjectImageType>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface ImageSubscriptionPayload {
+  mutation: MutationType;
+  node: Image;
+  updatedFields: String[];
+  previousValues: ImagePreviousValues;
+}
+
+export interface ImageSubscriptionPayloadPromise
+  extends Promise<ImageSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ImagePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ImagePreviousValuesPromise>() => T;
+}
+
+export interface ImageSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ImageSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ImageSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ImagePreviousValuesSubscription>() => T;
 }
 
 export interface PageInfo {
@@ -2065,21 +2832,608 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface ImageEdge {
-  node: Image;
+export interface ImagePreviousValues {
+  id: ID_Output;
+  uid?: String;
+  url: String;
+  title: String;
+  caption?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface ImagePreviousValuesPromise
+  extends Promise<ImagePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  uid: () => Promise<String>;
+  url: () => Promise<String>;
+  title: () => Promise<String>;
+  caption: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ImagePreviousValuesSubscription
+  extends Promise<AsyncIterator<ImagePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  uid: () => Promise<AsyncIterator<String>>;
+  url: () => Promise<AsyncIterator<String>>;
+  title: () => Promise<AsyncIterator<String>>;
+  caption: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface AggregatePage {
+  count: Int;
+}
+
+export interface AggregatePagePromise
+  extends Promise<AggregatePage>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregatePageSubscription
+  extends Promise<AsyncIterator<AggregatePage>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ImageConnection {
+  pageInfo: PageInfo;
+  edges: ImageEdge[];
+}
+
+export interface ImageConnectionPromise
+  extends Promise<ImageConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ImageEdge>>() => T;
+  aggregate: <T = AggregateImagePromise>() => T;
+}
+
+export interface ImageConnectionSubscription
+  extends Promise<AsyncIterator<ImageConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ImageEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateImageSubscription>() => T;
+}
+
+export interface UserEdge {
+  node: User;
   cursor: String;
 }
 
-export interface ImageEdgePromise extends Promise<ImageEdge>, Fragmentable {
-  node: <T = ImagePromise>() => T;
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface ImageEdgeSubscription
-  extends Promise<AsyncIterator<ImageEdge>>,
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
     Fragmentable {
-  node: <T = ImageSubscription>() => T;
+  node: <T = UserSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface PageSubscriptionPayload {
+  mutation: MutationType;
+  node: Page;
+  updatedFields: String[];
+  previousValues: PagePreviousValues;
+}
+
+export interface PageSubscriptionPayloadPromise
+  extends Promise<PageSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = PagePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = PagePreviousValuesPromise>() => T;
+}
+
+export interface PageSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<PageSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = PageSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = PagePreviousValuesSubscription>() => T;
+}
+
+export interface AggregateTechnology {
+  count: Int;
+}
+
+export interface AggregateTechnologyPromise
+  extends Promise<AggregateTechnology>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateTechnologySubscription
+  extends Promise<AsyncIterator<AggregateTechnology>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface PagePreviousValues {
+  id: ID_Output;
+  uid?: String;
+  route: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface PagePreviousValuesPromise
+  extends Promise<PagePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  uid: () => Promise<String>;
+  route: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface PagePreviousValuesSubscription
+  extends Promise<AsyncIterator<PagePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  uid: () => Promise<AsyncIterator<String>>;
+  route: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface StyleEdge {
+  node: Style;
+  cursor: String;
+}
+
+export interface StyleEdgePromise extends Promise<StyleEdge>, Fragmentable {
+  node: <T = StylePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface StyleEdgeSubscription
+  extends Promise<AsyncIterator<StyleEdge>>,
+    Fragmentable {
+  node: <T = StyleSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateColor {
+  count: Int;
+}
+
+export interface AggregateColorPromise
+  extends Promise<AggregateColor>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateColorSubscription
+  extends Promise<AsyncIterator<AggregateColor>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ProjectImageEdge {
+  node: ProjectImage;
+  cursor: String;
+}
+
+export interface ProjectImageEdgePromise
+  extends Promise<ProjectImageEdge>,
+    Fragmentable {
+  node: <T = ProjectImagePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ProjectImageEdgeSubscription
+  extends Promise<AsyncIterator<ProjectImageEdge>>,
+    Fragmentable {
+  node: <T = ProjectImageSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ProjectSubscriptionPayload {
+  mutation: MutationType;
+  node: Project;
+  updatedFields: String[];
+  previousValues: ProjectPreviousValues;
+}
+
+export interface ProjectSubscriptionPayloadPromise
+  extends Promise<ProjectSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ProjectPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ProjectPreviousValuesPromise>() => T;
+}
+
+export interface ProjectSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ProjectSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ProjectSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ProjectPreviousValuesSubscription>() => T;
+}
+
+export interface ProjectConnection {
+  pageInfo: PageInfo;
+  edges: ProjectEdge[];
+}
+
+export interface ProjectConnectionPromise
+  extends Promise<ProjectConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ProjectEdge>>() => T;
+  aggregate: <T = AggregateProjectPromise>() => T;
+}
+
+export interface ProjectConnectionSubscription
+  extends Promise<AsyncIterator<ProjectConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ProjectEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateProjectSubscription>() => T;
+}
+
+export interface ProjectPreviousValues {
+  id: ID_Output;
+  uid?: String;
+  name: String;
+  description: String;
+  tags: String[];
+  startDate?: DateTimeOutput;
+  finishDate?: DateTimeOutput;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface ProjectPreviousValuesPromise
+  extends Promise<ProjectPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  uid: () => Promise<String>;
+  name: () => Promise<String>;
+  description: () => Promise<String>;
+  tags: () => Promise<String[]>;
+  startDate: () => Promise<DateTimeOutput>;
+  finishDate: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ProjectPreviousValuesSubscription
+  extends Promise<AsyncIterator<ProjectPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  uid: () => Promise<AsyncIterator<String>>;
+  name: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  tags: () => Promise<AsyncIterator<String[]>>;
+  startDate: () => Promise<AsyncIterator<DateTimeOutput>>;
+  finishDate: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface ColorConnection {
+  pageInfo: PageInfo;
+  edges: ColorEdge[];
+}
+
+export interface ColorConnectionPromise
+  extends Promise<ColorConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ColorEdge>>() => T;
+  aggregate: <T = AggregateColorPromise>() => T;
+}
+
+export interface ColorConnectionSubscription
+  extends Promise<AsyncIterator<ColorConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ColorEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateColorSubscription>() => T;
+}
+
+export interface Image {
+  id: ID_Output;
+  uid?: String;
+  url: String;
+  title: String;
+  caption?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface ImagePromise extends Promise<Image>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  uid: () => Promise<String>;
+  url: () => Promise<String>;
+  title: () => Promise<String>;
+  caption: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ImageSubscription
+  extends Promise<AsyncIterator<Image>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  uid: () => Promise<AsyncIterator<String>>;
+  url: () => Promise<AsyncIterator<String>>;
+  title: () => Promise<AsyncIterator<String>>;
+  caption: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface BatchPayload {
+  count: Long;
+}
+
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
+    Fragmentable {
+  count: () => Promise<Long>;
+}
+
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface ProjectImageSubscriptionPayload {
+  mutation: MutationType;
+  node: ProjectImage;
+  updatedFields: String[];
+  previousValues: ProjectImagePreviousValues;
+}
+
+export interface ProjectImageSubscriptionPayloadPromise
+  extends Promise<ProjectImageSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ProjectImagePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ProjectImagePreviousValuesPromise>() => T;
+}
+
+export interface ProjectImageSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ProjectImageSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ProjectImageSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ProjectImagePreviousValuesSubscription>() => T;
+}
+
+export interface TechnologyConnection {
+  pageInfo: PageInfo;
+  edges: TechnologyEdge[];
+}
+
+export interface TechnologyConnectionPromise
+  extends Promise<TechnologyConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<TechnologyEdge>>() => T;
+  aggregate: <T = AggregateTechnologyPromise>() => T;
+}
+
+export interface TechnologyConnectionSubscription
+  extends Promise<AsyncIterator<TechnologyConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<TechnologyEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateTechnologySubscription>() => T;
+}
+
+export interface AggregateProject {
+  count: Int;
+}
+
+export interface AggregateProjectPromise
+  extends Promise<AggregateProject>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateProjectSubscription
+  extends Promise<AsyncIterator<AggregateProject>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface StylePreviousValues {
+  id: ID_Output;
+  uid?: String;
+  shape: Shape;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface StylePreviousValuesPromise
+  extends Promise<StylePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  uid: () => Promise<String>;
+  shape: () => Promise<Shape>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface StylePreviousValuesSubscription
+  extends Promise<AsyncIterator<StylePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  uid: () => Promise<AsyncIterator<String>>;
+  shape: () => Promise<AsyncIterator<Shape>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface StyleSubscriptionPayload {
+  mutation: MutationType;
+  node: Style;
+  updatedFields: String[];
+  previousValues: StylePreviousValues;
+}
+
+export interface StyleSubscriptionPayloadPromise
+  extends Promise<StyleSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = StylePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = StylePreviousValuesPromise>() => T;
+}
+
+export interface StyleSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<StyleSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = StyleSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = StylePreviousValuesSubscription>() => T;
+}
+
+export interface AggregateFile {
+  count: Int;
+}
+
+export interface AggregateFilePromise
+  extends Promise<AggregateFile>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateFileSubscription
+  extends Promise<AsyncIterator<AggregateFile>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ProjectImagePreviousValues {
+  id: ID_Output;
+  uid?: String;
+  type: ProjectImageType;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface ProjectImagePreviousValuesPromise
+  extends Promise<ProjectImagePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  uid: () => Promise<String>;
+  type: () => Promise<ProjectImageType>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ProjectImagePreviousValuesSubscription
+  extends Promise<AsyncIterator<ProjectImagePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  uid: () => Promise<AsyncIterator<String>>;
+  type: () => Promise<AsyncIterator<ProjectImageType>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface FileConnection {
+  pageInfo: PageInfo;
+  edges: FileEdge[];
+}
+
+export interface FileConnectionPromise
+  extends Promise<FileConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<FileEdge>>() => T;
+  aggregate: <T = AggregateFilePromise>() => T;
+}
+
+export interface FileConnectionSubscription
+  extends Promise<AsyncIterator<FileConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<FileEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateFileSubscription>() => T;
+}
+
+export interface UserSubscriptionPayload {
+  mutation: MutationType;
+  node: User;
+  updatedFields: String[];
+  previousValues: UserPreviousValues;
+}
+
+export interface UserSubscriptionPayloadPromise
+  extends Promise<UserSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = UserPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserPreviousValuesPromise>() => T;
+}
+
+export interface UserSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserPreviousValuesSubscription>() => T;
+}
+
+export interface Color {
+  id: ID_Output;
+  uid?: String;
+  shade: Shade;
+  type: ColorType;
+  hex: String;
+  rgb?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface ColorPromise extends Promise<Color>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  uid: () => Promise<String>;
+  shade: () => Promise<Shade>;
+  type: () => Promise<ColorType>;
+  hex: () => Promise<String>;
+  rgb: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ColorSubscription
+  extends Promise<AsyncIterator<Color>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  uid: () => Promise<AsyncIterator<String>>;
+  shade: () => Promise<AsyncIterator<Shade>>;
+  type: () => Promise<AsyncIterator<ColorType>>;
+  hex: () => Promise<AsyncIterator<String>>;
+  rgb: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface Project {
@@ -2158,1066 +3512,16 @@ export interface ProjectSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface Image {
-  id: ID_Output;
-  uid?: String;
-  url: String;
-  title: String;
-  caption?: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface ImagePromise extends Promise<Image>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  uid: () => Promise<String>;
-  url: () => Promise<String>;
-  title: () => Promise<String>;
-  caption: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ImageSubscription
-  extends Promise<AsyncIterator<Image>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  uid: () => Promise<AsyncIterator<String>>;
-  url: () => Promise<AsyncIterator<String>>;
-  title: () => Promise<AsyncIterator<String>>;
-  caption: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface AggregatePage {
-  count: Int;
-}
-
-export interface AggregatePagePromise
-  extends Promise<AggregatePage>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregatePageSubscription
-  extends Promise<AsyncIterator<AggregatePage>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface AggregateUser {
-  count: Int;
-}
-
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface BatchPayload {
-  count: Long;
-}
-
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
-    Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
-}
-
-export interface Page {
-  id: ID_Output;
-  uid?: String;
-  route: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface PagePromise extends Promise<Page>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  uid: () => Promise<String>;
-  route: () => Promise<String>;
-  style: <T = StylePromise>() => T;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface PageSubscription
-  extends Promise<AsyncIterator<Page>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  uid: () => Promise<AsyncIterator<String>>;
-  route: () => Promise<AsyncIterator<String>>;
-  style: <T = StyleSubscription>() => T;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface UserEdge {
-  node: User;
-  cursor: String;
-}
-
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
-    Fragmentable {
-  node: <T = UserSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface UserConnection {
-  pageInfo: PageInfo;
-  edges: UserEdge[];
-}
-
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
-}
-
-export interface Color {
-  id: ID_Output;
-  uid?: String;
-  shade: Shade;
-  type: ColorType;
-  hex: String;
-  rgb?: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface ColorPromise extends Promise<Color>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  uid: () => Promise<String>;
-  shade: () => Promise<Shade>;
-  type: () => Promise<ColorType>;
-  hex: () => Promise<String>;
-  rgb: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ColorSubscription
-  extends Promise<AsyncIterator<Color>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  uid: () => Promise<AsyncIterator<String>>;
-  shade: () => Promise<AsyncIterator<Shade>>;
-  type: () => Promise<AsyncIterator<ColorType>>;
-  hex: () => Promise<AsyncIterator<String>>;
-  rgb: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface AggregateTechnology {
-  count: Int;
-}
-
-export interface AggregateTechnologyPromise
-  extends Promise<AggregateTechnology>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateTechnologySubscription
-  extends Promise<AsyncIterator<AggregateTechnology>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface ColorSubscriptionPayload {
-  mutation: MutationType;
-  node: Color;
-  updatedFields: String[];
-  previousValues: ColorPreviousValues;
-}
-
-export interface ColorSubscriptionPayloadPromise
-  extends Promise<ColorSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = ColorPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ColorPreviousValuesPromise>() => T;
-}
-
-export interface ColorSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ColorSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ColorSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ColorPreviousValuesSubscription>() => T;
-}
-
-export interface TechnologyConnection {
-  pageInfo: PageInfo;
-  edges: TechnologyEdge[];
-}
-
-export interface TechnologyConnectionPromise
-  extends Promise<TechnologyConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<TechnologyEdge>>() => T;
-  aggregate: <T = AggregateTechnologyPromise>() => T;
-}
-
-export interface TechnologyConnectionSubscription
-  extends Promise<AsyncIterator<TechnologyConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<TechnologyEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateTechnologySubscription>() => T;
-}
-
-export interface ColorPreviousValues {
-  id: ID_Output;
-  uid?: String;
-  shade: Shade;
-  type: ColorType;
-  hex: String;
-  rgb?: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface ColorPreviousValuesPromise
-  extends Promise<ColorPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  uid: () => Promise<String>;
-  shade: () => Promise<Shade>;
-  type: () => Promise<ColorType>;
-  hex: () => Promise<String>;
-  rgb: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ColorPreviousValuesSubscription
-  extends Promise<AsyncIterator<ColorPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  uid: () => Promise<AsyncIterator<String>>;
-  shade: () => Promise<AsyncIterator<Shade>>;
-  type: () => Promise<AsyncIterator<ColorType>>;
-  hex: () => Promise<AsyncIterator<String>>;
-  rgb: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface StyleEdge {
-  node: Style;
-  cursor: String;
-}
-
-export interface StyleEdgePromise extends Promise<StyleEdge>, Fragmentable {
-  node: <T = StylePromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface StyleEdgeSubscription
-  extends Promise<AsyncIterator<StyleEdge>>,
-    Fragmentable {
-  node: <T = StyleSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface PageEdge {
-  node: Page;
-  cursor: String;
-}
-
-export interface PageEdgePromise extends Promise<PageEdge>, Fragmentable {
-  node: <T = PagePromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface PageEdgeSubscription
-  extends Promise<AsyncIterator<PageEdge>>,
-    Fragmentable {
-  node: <T = PageSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface UserSubscriptionPayload {
-  mutation: MutationType;
-  node: User;
-  updatedFields: String[];
-  previousValues: UserPreviousValues;
-}
-
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
-}
-
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
-}
-
-export interface ImageSubscriptionPayload {
-  mutation: MutationType;
-  node: Image;
-  updatedFields: String[];
-  previousValues: ImagePreviousValues;
-}
-
-export interface ImageSubscriptionPayloadPromise
-  extends Promise<ImageSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = ImagePromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ImagePreviousValuesPromise>() => T;
-}
-
-export interface ImageSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ImageSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ImageSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ImagePreviousValuesSubscription>() => T;
-}
-
-export interface ProjectImageEdge {
-  node: ProjectImage;
-  cursor: String;
-}
-
-export interface ProjectImageEdgePromise
-  extends Promise<ProjectImageEdge>,
-    Fragmentable {
-  node: <T = ProjectImagePromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ProjectImageEdgeSubscription
-  extends Promise<AsyncIterator<ProjectImageEdge>>,
-    Fragmentable {
-  node: <T = ProjectImageSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface ImagePreviousValues {
-  id: ID_Output;
-  uid?: String;
-  url: String;
-  title: String;
-  caption?: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface ImagePreviousValuesPromise
-  extends Promise<ImagePreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  uid: () => Promise<String>;
-  url: () => Promise<String>;
-  title: () => Promise<String>;
-  caption: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ImagePreviousValuesSubscription
-  extends Promise<AsyncIterator<ImagePreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  uid: () => Promise<AsyncIterator<String>>;
-  url: () => Promise<AsyncIterator<String>>;
-  title: () => Promise<AsyncIterator<String>>;
-  caption: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface AggregateProject {
-  count: Int;
-}
-
-export interface AggregateProjectPromise
-  extends Promise<AggregateProject>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateProjectSubscription
-  extends Promise<AsyncIterator<AggregateProject>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface PageConnection {
-  pageInfo: PageInfo;
-  edges: PageEdge[];
-}
-
-export interface PageConnectionPromise
-  extends Promise<PageConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<PageEdge>>() => T;
-  aggregate: <T = AggregatePagePromise>() => T;
-}
-
-export interface PageConnectionSubscription
-  extends Promise<AsyncIterator<PageConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<PageEdgeSubscription>>>() => T;
-  aggregate: <T = AggregatePageSubscription>() => T;
-}
-
-export interface ProjectConnection {
-  pageInfo: PageInfo;
-  edges: ProjectEdge[];
-}
-
-export interface ProjectConnectionPromise
-  extends Promise<ProjectConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ProjectEdge>>() => T;
-  aggregate: <T = AggregateProjectPromise>() => T;
-}
-
-export interface ProjectConnectionSubscription
-  extends Promise<AsyncIterator<ProjectConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ProjectEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateProjectSubscription>() => T;
-}
-
-export interface PageSubscriptionPayload {
-  mutation: MutationType;
-  node: Page;
-  updatedFields: String[];
-  previousValues: PagePreviousValues;
-}
-
-export interface PageSubscriptionPayloadPromise
-  extends Promise<PageSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = PagePromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = PagePreviousValuesPromise>() => T;
-}
-
-export interface PageSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<PageSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = PageSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = PagePreviousValuesSubscription>() => T;
-}
-
-export interface AggregateImage {
-  count: Int;
-}
-
-export interface AggregateImagePromise
-  extends Promise<AggregateImage>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateImageSubscription
-  extends Promise<AsyncIterator<AggregateImage>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface PagePreviousValues {
-  id: ID_Output;
-  uid?: String;
-  route: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface PagePreviousValuesPromise
-  extends Promise<PagePreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  uid: () => Promise<String>;
-  route: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface PagePreviousValuesSubscription
-  extends Promise<AsyncIterator<PagePreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  uid: () => Promise<AsyncIterator<String>>;
-  route: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface AggregateColor {
-  count: Int;
-}
-
-export interface AggregateColorPromise
-  extends Promise<AggregateColor>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateColorSubscription
-  extends Promise<AsyncIterator<AggregateColor>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface TechnologySubscriptionPayload {
-  mutation: MutationType;
-  node: Technology;
-  updatedFields: String[];
-  previousValues: TechnologyPreviousValues;
-}
-
-export interface TechnologySubscriptionPayloadPromise
-  extends Promise<TechnologySubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = TechnologyPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = TechnologyPreviousValuesPromise>() => T;
-}
-
-export interface TechnologySubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<TechnologySubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = TechnologySubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = TechnologyPreviousValuesSubscription>() => T;
-}
-
-export interface User {
-  id: ID_Output;
-  uid?: String;
-  name: String;
-  email: String;
-  nickname?: String;
-  lastLoggedIn?: DateTimeOutput;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface UserPromise extends Promise<User>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  uid: () => Promise<String>;
-  name: () => Promise<String>;
-  email: () => Promise<String>;
-  nickname: () => Promise<String>;
-  avatar: <T = ImagePromise>() => T;
-  lastLoggedIn: () => Promise<DateTimeOutput>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface UserSubscription
-  extends Promise<AsyncIterator<User>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  uid: () => Promise<AsyncIterator<String>>;
-  name: () => Promise<AsyncIterator<String>>;
-  email: () => Promise<AsyncIterator<String>>;
-  nickname: () => Promise<AsyncIterator<String>>;
-  avatar: <T = ImageSubscription>() => T;
-  lastLoggedIn: () => Promise<AsyncIterator<DateTimeOutput>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface ProjectSubscriptionPayload {
-  mutation: MutationType;
-  node: Project;
-  updatedFields: String[];
-  previousValues: ProjectPreviousValues;
-}
-
-export interface ProjectSubscriptionPayloadPromise
-  extends Promise<ProjectSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = ProjectPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ProjectPreviousValuesPromise>() => T;
-}
-
-export interface ProjectSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ProjectSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ProjectSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ProjectPreviousValuesSubscription>() => T;
-}
-
-export interface AggregateStyle {
-  count: Int;
-}
-
-export interface AggregateStylePromise
-  extends Promise<AggregateStyle>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateStyleSubscription
-  extends Promise<AsyncIterator<AggregateStyle>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface ProjectPreviousValues {
-  id: ID_Output;
-  uid?: String;
-  name: String;
-  description: String;
-  tags: String[];
-  startDate?: DateTimeOutput;
-  finishDate?: DateTimeOutput;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface ProjectPreviousValuesPromise
-  extends Promise<ProjectPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  uid: () => Promise<String>;
-  name: () => Promise<String>;
-  description: () => Promise<String>;
-  tags: () => Promise<String[]>;
-  startDate: () => Promise<DateTimeOutput>;
-  finishDate: () => Promise<DateTimeOutput>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ProjectPreviousValuesSubscription
-  extends Promise<AsyncIterator<ProjectPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  uid: () => Promise<AsyncIterator<String>>;
-  name: () => Promise<AsyncIterator<String>>;
-  description: () => Promise<AsyncIterator<String>>;
-  tags: () => Promise<AsyncIterator<String[]>>;
-  startDate: () => Promise<AsyncIterator<DateTimeOutput>>;
-  finishDate: () => Promise<AsyncIterator<DateTimeOutput>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface AggregateProjectImage {
-  count: Int;
-}
-
-export interface AggregateProjectImagePromise
-  extends Promise<AggregateProjectImage>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateProjectImageSubscription
-  extends Promise<AsyncIterator<AggregateProjectImage>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface ColorEdge {
-  node: Color;
-  cursor: String;
-}
-
-export interface ColorEdgePromise extends Promise<ColorEdge>, Fragmentable {
-  node: <T = ColorPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ColorEdgeSubscription
-  extends Promise<AsyncIterator<ColorEdge>>,
-    Fragmentable {
-  node: <T = ColorSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface ProjectEdge {
-  node: Project;
-  cursor: String;
-}
-
-export interface ProjectEdgePromise extends Promise<ProjectEdge>, Fragmentable {
-  node: <T = ProjectPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ProjectEdgeSubscription
-  extends Promise<AsyncIterator<ProjectEdge>>,
-    Fragmentable {
-  node: <T = ProjectSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface ProjectImageSubscriptionPayload {
-  mutation: MutationType;
-  node: ProjectImage;
-  updatedFields: String[];
-  previousValues: ProjectImagePreviousValues;
-}
-
-export interface ProjectImageSubscriptionPayloadPromise
-  extends Promise<ProjectImageSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = ProjectImagePromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ProjectImagePreviousValuesPromise>() => T;
-}
-
-export interface ProjectImageSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ProjectImageSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ProjectImageSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ProjectImagePreviousValuesSubscription>() => T;
-}
-
-export interface ProjectImage {
-  id: ID_Output;
-  uid?: String;
-  type: ProjectImageType;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface ProjectImagePromise
-  extends Promise<ProjectImage>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  uid: () => Promise<String>;
-  project: <T = ProjectPromise>() => T;
-  image: <T = ImagePromise>() => T;
-  type: () => Promise<ProjectImageType>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ProjectImageSubscription
-  extends Promise<AsyncIterator<ProjectImage>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  uid: () => Promise<AsyncIterator<String>>;
-  project: <T = ProjectSubscription>() => T;
-  image: <T = ImageSubscription>() => T;
-  type: () => Promise<AsyncIterator<ProjectImageType>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface TechnologyEdge {
-  node: Technology;
-  cursor: String;
-}
-
-export interface TechnologyEdgePromise
-  extends Promise<TechnologyEdge>,
-    Fragmentable {
-  node: <T = TechnologyPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface TechnologyEdgeSubscription
-  extends Promise<AsyncIterator<TechnologyEdge>>,
-    Fragmentable {
-  node: <T = TechnologySubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface StylePreviousValues {
-  id: ID_Output;
-  uid?: String;
-  shape: Shape;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface StylePreviousValuesPromise
-  extends Promise<StylePreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  uid: () => Promise<String>;
-  shape: () => Promise<Shape>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface StylePreviousValuesSubscription
-  extends Promise<AsyncIterator<StylePreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  uid: () => Promise<AsyncIterator<String>>;
-  shape: () => Promise<AsyncIterator<Shape>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface StyleSubscriptionPayload {
-  mutation: MutationType;
-  node: Style;
-  updatedFields: String[];
-  previousValues: StylePreviousValues;
-}
-
-export interface StyleSubscriptionPayloadPromise
-  extends Promise<StyleSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = StylePromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = StylePreviousValuesPromise>() => T;
-}
-
-export interface StyleSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<StyleSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = StyleSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = StylePreviousValuesSubscription>() => T;
-}
-
-export interface Style {
-  id: ID_Output;
-  uid?: String;
-  shape: Shape;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface StylePromise extends Promise<Style>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  uid: () => Promise<String>;
-  colors: <T = FragmentableArray<Color>>(args?: {
-    where?: ColorWhereInput;
-    orderBy?: ColorOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  shape: () => Promise<Shape>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface StyleSubscription
-  extends Promise<AsyncIterator<Style>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  uid: () => Promise<AsyncIterator<String>>;
-  colors: <T = Promise<AsyncIterator<ColorSubscription>>>(args?: {
-    where?: ColorWhereInput;
-    orderBy?: ColorOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  shape: () => Promise<AsyncIterator<Shape>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface ProjectImagePreviousValues {
-  id: ID_Output;
-  uid?: String;
-  type: ProjectImageType;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface ProjectImagePreviousValuesPromise
-  extends Promise<ProjectImagePreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  uid: () => Promise<String>;
-  type: () => Promise<ProjectImageType>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ProjectImagePreviousValuesSubscription
-  extends Promise<AsyncIterator<ProjectImagePreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  uid: () => Promise<AsyncIterator<String>>;
-  type: () => Promise<AsyncIterator<ProjectImageType>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface StyleConnection {
-  pageInfo: PageInfo;
-  edges: StyleEdge[];
-}
-
-export interface StyleConnectionPromise
-  extends Promise<StyleConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<StyleEdge>>() => T;
-  aggregate: <T = AggregateStylePromise>() => T;
-}
-
-export interface StyleConnectionSubscription
-  extends Promise<AsyncIterator<StyleConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<StyleEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateStyleSubscription>() => T;
-}
-
-export interface TechnologyPreviousValues {
-  id: ID_Output;
-  uid?: String;
-  name: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface TechnologyPreviousValuesPromise
-  extends Promise<TechnologyPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  uid: () => Promise<String>;
-  name: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface TechnologyPreviousValuesSubscription
-  extends Promise<AsyncIterator<TechnologyPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  uid: () => Promise<AsyncIterator<String>>;
-  name: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface Technology {
-  id: ID_Output;
-  uid?: String;
-  name: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface TechnologyPromise extends Promise<Technology>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  uid: () => Promise<String>;
-  name: () => Promise<String>;
-  image: <T = ImagePromise>() => T;
-  color: <T = ColorPromise>() => T;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface TechnologySubscription
-  extends Promise<AsyncIterator<Technology>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  uid: () => Promise<AsyncIterator<String>>;
-  name: () => Promise<AsyncIterator<String>>;
-  image: <T = ImageSubscription>() => T;
-  color: <T = ColorSubscription>() => T;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface ProjectImageConnection {
-  pageInfo: PageInfo;
-  edges: ProjectImageEdge[];
-}
-
-export interface ProjectImageConnectionPromise
-  extends Promise<ProjectImageConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ProjectImageEdge>>() => T;
-  aggregate: <T = AggregateProjectImagePromise>() => T;
-}
-
-export interface ProjectImageConnectionSubscription
-  extends Promise<AsyncIterator<ProjectImageConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ProjectImageEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateProjectImageSubscription>() => T;
-}
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
 
 /*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
-export type String = string;
-
-export type Long = string;
+export type ID_Input = string | number;
+export type ID_Output = string;
 
 /*
 DateTime scalar input type, allowing Date
@@ -3234,16 +3538,12 @@ The `Int` scalar type represents non-fractional signed whole numeric values. Int
 */
 export type Int = number;
 
-/*
-The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
-*/
-export type ID_Input = string | number;
-export type ID_Output = string;
+export type Long = string;
 
 /*
-The `Boolean` scalar type represents `true` or `false`.
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
-export type Boolean = boolean;
+export type String = string;
 
 /**
  * Model Metadata
@@ -3256,6 +3556,10 @@ export const models: Model[] = [
   },
   {
     name: "ColorType",
+    embedded: false
+  },
+  {
+    name: "File",
     embedded: false
   },
   {

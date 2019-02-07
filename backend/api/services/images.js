@@ -1,9 +1,5 @@
 const cloudinary = require('cloudinary');
 const { async } = require('../tools');
-const fs = require('fs');
-
-const PATH_IMAGE = 'images/';
-const PATH_VIDEO = 'videos/';
 
 cloudinary.config({ 
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
