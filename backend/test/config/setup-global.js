@@ -50,6 +50,8 @@ module.exports = async () => {
       optionsSuccessStatus: 204
   },
     port: process.env.TEST_SERVER_PORT
+  }, (details) => {
+    console.log(`\n🕵 Testing-server running on http://localhost:${details.port} 🕵\n`);
   });
 
   // For use throughout tests?
