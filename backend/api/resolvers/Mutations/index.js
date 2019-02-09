@@ -3,7 +3,7 @@ const Files = require('./Files.mutation');
 
 const Mutations = {
 	...Projects,
-	... Files
+	...Files
 };
 
 module.exports = Mutations;

@@ -2,27 +2,29 @@ import { createWriteStream } from 'fs';
 import * as mkdirp from 'mkdirp';
 import * as shortid from 'shortid';
 
-const storeUpload = async ({ stream, filename }) => {
-  console.log('uploads: storeUpload: filename', filename);
-  console.log('uploads: storeUpload: global.tempDir', global.tempDir);
+const path = require('path');
 
-  mkdirp.sync(global.tempDir);
+const storeUpload = async ({ stream, filename }) => {
+  const tempDir = path.resolve(__dirname + '/.tmp');
+  
+  console.log('uploads: storeUpload: tempDir', tempDir);
+  mkdirp.sync(tempDir);
 
   const id = shortid.generate();
-  const path = `${global.tempDir}/${id}-${filename}`;
+  const filepath = `${tempDir}/${id}-${filename}`;
 
   return new Promise((resolve, reject) =>
     stream
-      .pipe(createWriteStream(path))
-      .on('finish', () => resolve({ id, path }))
+      .pipe(createWriteStream(filepath))
+      .on('finish', () => resolve({ id, filepath }))
       .on('error', reject),
   );
 }
 
 const processUpload = async upload => {
-  const { stream, filename, mimetype, encoding } = await upload
-  const { id, path } = await storeUpload({ stream, filename })
-  return Promise.resolve({ id, filename, mimetype, encoding, path });
+  const { stream, filename } = await upload
+  const { id, filepath } = await storeUpload({ stream, filename })
+  return { id, filename, filepath };
 }
 
 module.exports = processUpload;

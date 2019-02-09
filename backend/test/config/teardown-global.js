@@ -1,12 +1,17 @@
-module.exports = async () => {
-  console.log('\n\n🔥🔥🔥 TEARDOWN 🔥🔥🔥\nClosing server...');
+const colors = require('colors/safe');
 
-  try {
-    global.httpServer.close(() => {
-      console.log('\n\n✔️✔️✔️ Server closed ✔️✔️✔️');
-      process.exit();
-    });
-  } catch (error) {
-    throw new Error('\n\n❌❌❌ Error closing server ❌❌❌\n', error.message);
-  }
+module.exports = async () => {
+  console.log(colors.rainbow(`\n\n
+    ████████╗███████╗ █████╗ ██████╗ ██████╗  ██████╗ ██╗    ██╗███╗   ██╗
+    ╚══██╔══╝██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔═══██╗██║    ██║████╗  ██║
+       ██║   █████╗  ███████║██████╔╝██║  ██║██║   ██║██║ █╗ ██║██╔██╗ ██║
+       ██║   ██╔══╝  ██╔══██║██╔══██╗██║  ██║██║   ██║██║███╗██║██║╚██╗██║
+       ██║   ███████╗██║  ██║██║  ██║██████╔╝╚██████╔╝╚███╔███╔╝██║ ╚████║
+       ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝  ╚═════╝  ╚══╝╚══╝ ╚═╝  ╚═══╝                                                                                     
+  `));
+
+  // Teardown
+  // ...
+
+  console.log('Teardown complete.');
 }

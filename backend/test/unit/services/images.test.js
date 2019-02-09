@@ -4,7 +4,7 @@ import imagesService from '../../../api/services/images';
 
 describe('Image Services: Upload', () => {
   test('can upload image from file system', async () => {
-    const uploadResponse = await imagesService.uploadImage(`${process.env.TEST_ROOT}/assets/image-sm.jpg`, {
+    const uploadResponse = await imagesService.uploadImage(`${global.TEST_ROOT}/assets/image-sm.jpg`, {
       public_id: `images/image-sm`
     });
 

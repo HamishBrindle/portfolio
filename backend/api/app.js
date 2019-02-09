@@ -3,11 +3,8 @@ require('dotenv').config({ path: `.env` });
 const { Mutation, Query } = require('./resolvers');
 const { createServer } = require('../config/server');
 const database = require('../config/database');
-const path = require('path');
 
 const server = createServer(database, { ...Mutation, ...Query });
-
-global.tempDir = path.resolve(__dirname + '/../.tmp');
 
 server.start({
     cors: {
