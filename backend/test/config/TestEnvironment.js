@@ -13,7 +13,7 @@ class TestEnvironment extends NodeEnvironment {
   }
 
   async setup() {
-    const server = createServer(database, { ...Mutation, ...Query });
+    const server = createServer(database, { Mutation, Query });
     const httpServer = await server.start({
       port: 0, // For randomly assigned port
       cors: {

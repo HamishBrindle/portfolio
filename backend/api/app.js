@@ -4,7 +4,7 @@ const { Mutation, Query } = require('./resolvers');
 const { createServer } = require('../config/server');
 const database = require('../config/database');
 
-const server = createServer(database, { ...Mutation, ...Query });
+const server = createServer(database, { Mutation, Query });
 
 server.start({
     cors: {
@@ -15,6 +15,5 @@ server.start({
     },
     port: process.env.SERVER_PORT
 }, (details) => {
-    (process.env.NODE_ENV === 'dev')
-        && console.log(`Server is now running on http://localhost:${details.port}!`);
+    (process.env.NODE_ENV === 'dev') && console.log(`Server is now running on http://localhost:${details.port}!`);
 });

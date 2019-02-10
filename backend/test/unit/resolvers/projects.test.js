@@ -8,20 +8,24 @@ beforeAll(async () => {
   global.host = `http://127.0.0.1:${port}`;
 });
 
-describe('Projects Resolvers: Mutations', () => {
+describe('Projects Resolvers: Mutations', async () => {
 
   test('can create a new project', async () => {
+    const projectName = "Goon Project";
+    const projectDescription = "This is a description of the goonest project ever constructed.";
+    const projectPageStyleShape = 'JAGGED';
+
     const mutation = gql`
       mutation {
         createProject(
-          name: "Goonjest"
-          description: "Wooo lets goo bud"
+          name: "${projectName}"
+          description: "${projectDescription}"
           page: {
             create: {
               route: "projects/gooon"
               style: {
                 create: {
-                  shape: JAGGED
+                  shape: ${projectPageStyleShape}
                   colors: {
                     create: [
                       { shade: DARK, type: PRIMARY, hex: "#333333" }
@@ -34,14 +38,31 @@ describe('Projects Resolvers: Mutations', () => {
           }
         ) {
           id
+          name
+          description
+          page {
+            style {
+              shape
+              colors {
+                shade
+                type
+                hex
+              }
+            }
+          }
         }
       }
     `;
 
     const response = await request(global.host, mutation);
 
-    console.log('RESPONSE:', response);
-
-    return true;
+    expect(response).toBeDefined();
+    expect(response.createProject).toBeDefined();
+    expect(response.createProject.id).toBeDefined();
+    expect(typeof response.createProject.id).toEqual('string');
+    expect(response.createProject.name).toEqual(projectName);
+    expect(response.createProject.description).toEqual(projectDescription);
+    expect(response.createProject.page.style.shape).toEqual(projectPageStyleShape);
+    expect(response.createProject.page.style.colors.length).toEqual(2);
   });
 });

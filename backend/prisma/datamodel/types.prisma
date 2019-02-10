@@ -23,12 +23,11 @@ type Project @model {
     technologies: [Technology!]
     startDate: DateTime
     finishDate: DateTime
-    # user: User!
     createdAt: DateTime!
     updatedAt: DateTime!
 }
 
-type Page {
+type Page @model {
     id: ID! @unique
     uid: String @unique
     route: String! # Relative to '/'
@@ -47,7 +46,7 @@ type ProjectImage @model {
     updatedAt: DateTime!
 }
 
-type Image {
+type Image @model{
     id: ID! @unique
     uid: String @unique
     url: String!
