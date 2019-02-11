@@ -17,7 +17,7 @@ type Project @model {
     uid: String @unique
     name: String!
     description: String!
-    page: Page!
+    page: Page
     projectImages: [ProjectImage!] @relation(name: "ProjectImageRelation", onDelete: CASCADE)
     tags: [String!]
     technologies: [Technology!]

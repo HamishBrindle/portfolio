@@ -6,7 +6,7 @@ type Mutation {
     createProject(
         name: String!
         description: String!
-        page: PageCreateOneInput!
+        page: PageCreateOneInput
         projectImages: ProjectImageCreateManyWithoutProjectInput	
         tags: ProjectCreatetagsInput	
         technologies: TechnologyCreateManyInput	

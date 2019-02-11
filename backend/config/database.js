@@ -3,11 +3,15 @@
  */
 const { Prisma } = require('prisma-binding');
 
+const ENDPOINT = (process.env.NODE_ENV === 'test')
+    ? 'TEST_PRISMA_ENDPOINT'
+    : 'PRISMA_ENDPOINT';
+
 const db = new Prisma({
     typeDefs: 'graphql/generated/prisma.graphql',
-    endpoint: process.env.PRISMA_ENDPOINT,
+    endpoint: process.env[ENDPOINT],
     secret: process.env.PRISMA_SECRET,
-    debug: true
+    debug: false
 });
 
 module.exports = db; 

@@ -933,10 +933,12 @@ input PageUpdateManyMutationInput {
   route: String
 }
 
-input PageUpdateOneRequiredInput {
+input PageUpdateOneInput {
   create: PageCreateInput
   update: PageUpdateDataInput
   upsert: PageUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
   connect: PageWhereUniqueInput
 }
 
@@ -1020,7 +1022,7 @@ type Project {
   uid: String
   name: String!
   description: String!
-  page: Page!
+  page: Page
   projectImages(where: ProjectImageWhereInput, orderBy: ProjectImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectImage!]
   tags: [String!]!
   technologies(where: TechnologyWhereInput, orderBy: TechnologyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Technology!]
@@ -1040,7 +1042,7 @@ input ProjectCreateInput {
   uid: String
   name: String!
   description: String!
-  page: PageCreateOneInput!
+  page: PageCreateOneInput
   projectImages: ProjectImageCreateManyWithoutProjectInput
   tags: ProjectCreatetagsInput
   technologies: TechnologyCreateManyInput
@@ -1061,7 +1063,7 @@ input ProjectCreateWithoutProjectImagesInput {
   uid: String
   name: String!
   description: String!
-  page: PageCreateOneInput!
+  page: PageCreateOneInput
   tags: ProjectCreatetagsInput
   technologies: TechnologyCreateManyInput
   startDate: DateTime
@@ -1376,7 +1378,7 @@ input ProjectUpdateInput {
   uid: String
   name: String
   description: String
-  page: PageUpdateOneRequiredInput
+  page: PageUpdateOneInput
   projectImages: ProjectImageUpdateManyWithoutProjectInput
   tags: ProjectUpdatetagsInput
   technologies: TechnologyUpdateManyInput
@@ -1408,7 +1410,7 @@ input ProjectUpdateWithoutProjectImagesDataInput {
   uid: String
   name: String
   description: String
-  page: PageUpdateOneRequiredInput
+  page: PageUpdateOneInput
   tags: ProjectUpdatetagsInput
   technologies: TechnologyUpdateManyInput
   startDate: DateTime

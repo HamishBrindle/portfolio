@@ -24,6 +24,8 @@ class TestEnvironment extends NodeEnvironment {
       },
     });
   
+    const { port } = httpServer.address();
+    this.global.host = `http://127.0.0.1:${port}`;
     this.global.httpServer = httpServer;
     this.global.TEMP_DIR = path.resolve(__dirname + '/../.tmp');
     this.global.TEST_ROOT = path.resolve(__dirname + '/../');

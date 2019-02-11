@@ -49,8 +49,8 @@ services:
     ports:
      - "${SQL_PORT}:3306"
     volumes:
-    - ./custom/:/etc/mysql/conf.d/my.cnf
     - mysql:/var/lib/mysql
+    # - ./custom/:/etc/mysql/conf.d/my.cnf
 
   mysql-test:
     image: mysql:5.7
