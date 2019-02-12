@@ -1,6 +1,6 @@
 const { forwardTo } = require('prisma-binding');
 
-const Files = {
+const Uploads = {
   async singleUpload(parent, args, ctx, info) {
     // ...
     console.log('singleUpload: args', args);
@@ -14,4 +14,4 @@ const Files = {
   }
 };
 
-module.exports = Files;
+module.exports = Uploads;

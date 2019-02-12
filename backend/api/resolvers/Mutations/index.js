@@ -1,9 +1,7 @@
-const Projects = require('./Projects.mutation');
-const Files = require('./Files.mutation');
-
 const Mutation = {
-	...Projects,
-	...Files
+	...require('./Projects.mutation'),
+	...require('./Pages.mutation'),
+	...require('./Uploads.mutation')
 };
 
 module.exports = Mutation;

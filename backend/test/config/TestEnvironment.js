@@ -13,7 +13,15 @@ class TestEnvironment extends NodeEnvironment {
   }
 
   async setup() {
-    const server = createServer(database, { Mutation, Query });
+    let server;
+    try {
+      // Any issues with resolvers made apperant here
+      server = createServer(database, { Mutation, Query });
+    } catch (error) {
+      console.error(error);
+      throw new Error('\n\n🚀💥 Error STARTING server 🚀💥\n');
+    }
+
     const httpServer = await server.start({
       port: 0, // For randomly assigned port
       cors: {
@@ -37,7 +45,8 @@ class TestEnvironment extends NodeEnvironment {
     try {
       this.global.httpServer.close();
     } catch (error) {
-      throw new Error('\n\n❌❌❌ Error closing server ❌❌❌\n', error);
+      console.error(error);
+      throw new Error('\n\n❌ Error CLOSING server ❌\n');
     }
 
     await super.teardown();

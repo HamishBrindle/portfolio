@@ -1,7 +1,5 @@
-const Projects = require('./Projects.query');
-
 const Query = {
-    ...Projects
+    ...require('./Projects.query')
 };
 
 module.exports = Query;

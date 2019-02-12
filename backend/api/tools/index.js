@@ -1,7 +1,9 @@
-const async = require('./async');
-const auth = require('./auth');
+import async from './async';
+import auth from './auth';
+import util from './util';
 
 module.exports = {
   async,
-  auth
+  auth,
+  util
 }
