@@ -1,0 +1,17 @@
+node_modules
+.DS_Store
+npm-debug.log
+
+# Idea
+.iml
+.idea
+.idea_modules
+
+# VSCode specific
+.vscode/
+
+# Project specific
+.env
+.tmp/*
+docker-clean.sh
+playground.graphql
