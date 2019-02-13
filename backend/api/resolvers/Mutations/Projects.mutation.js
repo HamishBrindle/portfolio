@@ -11,12 +11,25 @@ const Projects = {
 		return project;
 	},
 
+	async updateProject(parent, args, ctx, info) {
+		const updates = { ...args };
+		delete updates.id;
+		const project = await ctx.database.mutation.updateProject({
+			data: updates,
+			where: {
+				id: args.id
+			}
+		}, info);
+
+		return project;
+	},
+
 	async deleteProject(parent, args, ctx, info) {
 		const project = await ctx.database.mutation.deleteProject({
 			where: {
-				...args
+				id: args.id
 			}
-		});
+		}, info);
 
 		return project;
 	}

@@ -3,6 +3,7 @@
 scalar Upload
 
 type Mutation {
+
     # Projects
     createProject(
         name: String!
@@ -14,7 +15,24 @@ type Mutation {
         startDate: DateTime	
         finishDate: DateTime
     ): Project!
-    deleteProject(id: String): Project!
+
+    updateProject(
+        id: ID!
+        uid: String
+        name: String
+        description: String
+        page: PageUpdateOneInput
+        projectImages: ProjectImageUpdateManyWithoutProjectInput
+        tags: ProjectUpdatetagsInput
+        technologies: TechnologyUpdateManyInput
+        startDate: DateTime
+        finishDate: DateTime
+    ): Project!
+
+    deleteProject(
+        id: String
+    ): Project!
+
 
     # Pages
     createPage(
@@ -22,12 +40,25 @@ type Mutation {
         route: String!
         style: StyleCreateOneInput!
     ): Page!
-    deletePage(id: String): Page!
 
-    singleUpload (file: Upload!): File!	
-    multipleUpload (files: [Upload!]!): [File!]!
+    deletePage(
+        id: String
+    ): Page!
+
+
+    # Uploads
+    singleUpload(
+        file: Upload!
+    ): File!
+
+    multipleUpload(
+        files: [Upload!]!
+    ): [File!]!
 }
 
 type Query {
+
+    # Projects
     projects: [Project!]!
+    project(where: ProjectWhereUniqueInput!): Project
 }
