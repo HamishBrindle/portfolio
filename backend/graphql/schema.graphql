@@ -2,6 +2,13 @@
 
 scalar Upload
 
+# ███╗   ███╗██╗   ██╗████████╗ █████╗ ████████╗██╗ ██████╗ ███╗   ██╗
+# ████╗ ████║██║   ██║╚══██╔══╝██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║
+# ██╔████╔██║██║   ██║   ██║   ███████║   ██║   ██║██║   ██║██╔██╗ ██║
+# ██║╚██╔╝██║██║   ██║   ██║   ██╔══██║   ██║   ██║██║   ██║██║╚██╗██║
+# ██║ ╚═╝ ██║╚██████╔╝   ██║   ██║  ██║   ██║   ██║╚██████╔╝██║ ╚████║
+# ╚═╝     ╚═╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
+                                                                    
 type Mutation {
 
     # Projects
@@ -41,6 +48,13 @@ type Mutation {
         style: StyleCreateOneInput!
     ): Page!
 
+    updatePage(
+        id: ID!
+        uid: String
+        route: String
+        style: StyleUpdateOneRequiredInput
+    ): Page!
+
     deletePage(
         id: String
     ): Page!
@@ -56,9 +70,20 @@ type Mutation {
     ): [File!]!
 }
 
+#  ██████╗ ██╗   ██╗███████╗██████╗ ██╗   ██╗
+# ██╔═══██╗██║   ██║██╔════╝██╔══██╗╚██╗ ██╔╝
+# ██║   ██║██║   ██║█████╗  ██████╔╝ ╚████╔╝ 
+# ██║▄▄ ██║██║   ██║██╔══╝  ██╔══██╗  ╚██╔╝  
+# ╚██████╔╝╚██████╔╝███████╗██║  ██║   ██║   
+#  ╚══▀▀═╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝   
+                                           
 type Query {
 
     # Projects
     projects: [Project!]!
     project(where: ProjectWhereUniqueInput!): Project
+
+    # Pages
+    pages: [Page!]!
+    page(where: PageWhereUniqueInput!): Page
 }

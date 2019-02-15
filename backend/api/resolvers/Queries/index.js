@@ -1,5 +1,6 @@
 const Query = {
-    ...require('./Projects.query')
+    ...require('./Projects.query'),
+    ...require('./Pages.query')
 };
 
 module.exports = Query;

@@ -11,12 +11,26 @@ const Pages = {
 		return page;
 	},
 
+	async updatePage(parent, args, ctx, info) {
+		const updates = { ...args };
+		delete updates.id;
+		const page = await ctx.database.mutation.updatePage({
+			data: updates,
+			where: {
+				id: args.id
+			}
+		}, info);
+
+		return page;
+	},
+
+
 	async deletePage(parent, args, ctx, info) {
 		const page = await ctx.database.mutation.deletePage({
 			where: {
 				...args
 			}
-		});
+		}, info);
 
 		return page;
 	}
