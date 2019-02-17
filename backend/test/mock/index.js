@@ -1,7 +1,7 @@
 import faker from 'faker';
 import { util } from '../../api/tools';
 
-export const fakeHexColor = () => '#' + Math.floor(Math.random()*16777215).toString(16);
+export const fakeHexColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16);
 
 export const fakeRgbColor = () => {
   const num = Math.round(0xffffff * Math.random());
@@ -33,8 +33,12 @@ export const fakeColor = () => {
     'DARK'
   ];
 
-  const hex = fakeHexColor();
-  const rgb = util.hexToRgb(hex);
+  let hex;
+  let rgb;
+  while (!hex || !rgb) {
+    hex = fakeHexColor();
+    rgb = util.hexToRgb(hex);
+  }
 
   return {
     id: null,
