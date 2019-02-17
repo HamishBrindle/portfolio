@@ -40,7 +40,6 @@ type BatchPayload {
 
 type Color {
   id: ID!
-  uid: String
   shade: Shade!
   type: ColorType!
   hex: String!
@@ -56,7 +55,6 @@ type ColorConnection {
 }
 
 input ColorCreateInput {
-  uid: String
   shade: Shade
   type: ColorType
   hex: String!
@@ -81,8 +79,6 @@ type ColorEdge {
 enum ColorOrderByInput {
   id_ASC
   id_DESC
-  uid_ASC
-  uid_DESC
   shade_ASC
   shade_DESC
   type_ASC
@@ -99,7 +95,6 @@ enum ColorOrderByInput {
 
 type ColorPreviousValues {
   id: ID!
-  uid: String
   shade: Shade!
   type: ColorType!
   hex: String!
@@ -123,20 +118,6 @@ input ColorScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  uid: String
-  uid_not: String
-  uid_in: [String!]
-  uid_not_in: [String!]
-  uid_lt: String
-  uid_lte: String
-  uid_gt: String
-  uid_gte: String
-  uid_contains: String
-  uid_not_contains: String
-  uid_starts_with: String
-  uid_not_starts_with: String
-  uid_ends_with: String
-  uid_not_ends_with: String
   shade: Shade
   shade_not: Shade
   shade_in: [Shade!]
@@ -227,7 +208,6 @@ enum ColorType {
 }
 
 input ColorUpdateDataInput {
-  uid: String
   shade: Shade
   type: ColorType
   hex: String
@@ -235,7 +215,6 @@ input ColorUpdateDataInput {
 }
 
 input ColorUpdateInput {
-  uid: String
   shade: Shade
   type: ColorType
   hex: String
@@ -243,7 +222,6 @@ input ColorUpdateInput {
 }
 
 input ColorUpdateManyDataInput {
-  uid: String
   shade: Shade
   type: ColorType
   hex: String
@@ -262,7 +240,6 @@ input ColorUpdateManyInput {
 }
 
 input ColorUpdateManyMutationInput {
-  uid: String
   shade: Shade
   type: ColorType
   hex: String
@@ -312,20 +289,6 @@ input ColorWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  uid: String
-  uid_not: String
-  uid_in: [String!]
-  uid_not_in: [String!]
-  uid_lt: String
-  uid_lte: String
-  uid_gt: String
-  uid_gte: String
-  uid_contains: String
-  uid_not_contains: String
-  uid_starts_with: String
-  uid_not_starts_with: String
-  uid_ends_with: String
-  uid_not_ends_with: String
   shade: Shade
   shade_not: Shade
   shade_in: [Shade!]
@@ -385,13 +348,11 @@ input ColorWhereInput {
 
 input ColorWhereUniqueInput {
   id: ID
-  uid: String
 }
 
 scalar DateTime
 
 type File {
-  id: ID!
   path: String!
   filename: String!
   mimetype: String!
@@ -417,8 +378,6 @@ type FileEdge {
 }
 
 enum FileOrderByInput {
-  id_ASC
-  id_DESC
   path_ASC
   path_DESC
   filename_ASC
@@ -427,6 +386,8 @@ enum FileOrderByInput {
   mimetype_DESC
   encoding_ASC
   encoding_DESC
+  id_ASC
+  id_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -434,7 +395,6 @@ enum FileOrderByInput {
 }
 
 type FilePreviousValues {
-  id: ID!
   path: String!
   filename: String!
   mimetype: String!
@@ -459,13 +419,6 @@ input FileSubscriptionWhereInput {
   NOT: [FileSubscriptionWhereInput!]
 }
 
-input FileUpdateInput {
-  path: String
-  filename: String
-  mimetype: String
-  encoding: String
-}
-
 input FileUpdateManyMutationInput {
   path: String
   filename: String
@@ -474,20 +427,6 @@ input FileUpdateManyMutationInput {
 }
 
 input FileWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
   path: String
   path_not: String
   path_in: [String!]
@@ -549,13 +488,8 @@ input FileWhereInput {
   NOT: [FileWhereInput!]
 }
 
-input FileWhereUniqueInput {
-  id: ID
-}
-
 type Image {
   id: ID!
-  uid: String
   url: String!
   title: String!
   caption: String
@@ -570,7 +504,6 @@ type ImageConnection {
 }
 
 input ImageCreateInput {
-  uid: String
   url: String!
   title: String!
   caption: String
@@ -589,8 +522,6 @@ type ImageEdge {
 enum ImageOrderByInput {
   id_ASC
   id_DESC
-  uid_ASC
-  uid_DESC
   url_ASC
   url_DESC
   title_ASC
@@ -605,7 +536,6 @@ enum ImageOrderByInput {
 
 type ImagePreviousValues {
   id: ID!
-  uid: String
   url: String!
   title: String!
   caption: String
@@ -632,21 +562,18 @@ input ImageSubscriptionWhereInput {
 }
 
 input ImageUpdateDataInput {
-  uid: String
   url: String
   title: String
   caption: String
 }
 
 input ImageUpdateInput {
-  uid: String
   url: String
   title: String
   caption: String
 }
 
 input ImageUpdateManyMutationInput {
-  uid: String
   url: String
   title: String
   caption: String
@@ -688,20 +615,6 @@ input ImageWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  uid: String
-  uid_not: String
-  uid_in: [String!]
-  uid_not_in: [String!]
-  uid_lt: String
-  uid_lte: String
-  uid_gt: String
-  uid_gte: String
-  uid_contains: String
-  uid_not_contains: String
-  uid_starts_with: String
-  uid_not_starts_with: String
-  uid_ends_with: String
-  uid_not_ends_with: String
   url: String
   url_not: String
   url_in: [String!]
@@ -767,7 +680,6 @@ input ImageWhereInput {
 
 input ImageWhereUniqueInput {
   id: ID
-  uid: String
 }
 
 scalar Long
@@ -780,10 +692,7 @@ type Mutation {
   deleteColor(where: ColorWhereUniqueInput!): Color
   deleteManyColors(where: ColorWhereInput): BatchPayload!
   createFile(data: FileCreateInput!): File!
-  updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
   updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
-  upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
-  deleteFile(where: FileWhereUniqueInput!): File
   deleteManyFiles(where: FileWhereInput): BatchPayload!
   createImage(data: ImageCreateInput!): Image!
   updateImage(data: ImageUpdateInput!, where: ImageWhereUniqueInput!): Image
@@ -841,7 +750,6 @@ interface Node {
 
 type Page {
   id: ID!
-  uid: String
   route: String!
   style: Style!
   createdAt: DateTime!
@@ -855,7 +763,6 @@ type PageConnection {
 }
 
 input PageCreateInput {
-  uid: String
   route: String!
   style: StyleCreateOneInput!
 }
@@ -880,8 +787,6 @@ type PageInfo {
 enum PageOrderByInput {
   id_ASC
   id_DESC
-  uid_ASC
-  uid_DESC
   route_ASC
   route_DESC
   createdAt_ASC
@@ -892,7 +797,6 @@ enum PageOrderByInput {
 
 type PagePreviousValues {
   id: ID!
-  uid: String
   route: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -917,19 +821,16 @@ input PageSubscriptionWhereInput {
 }
 
 input PageUpdateDataInput {
-  uid: String
   route: String
   style: StyleUpdateOneRequiredInput
 }
 
 input PageUpdateInput {
-  uid: String
   route: String
   style: StyleUpdateOneRequiredInput
 }
 
 input PageUpdateManyMutationInput {
-  uid: String
   route: String
 }
 
@@ -962,20 +863,6 @@ input PageWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  uid: String
-  uid_not: String
-  uid_in: [String!]
-  uid_not_in: [String!]
-  uid_lt: String
-  uid_lte: String
-  uid_gt: String
-  uid_gte: String
-  uid_contains: String
-  uid_not_contains: String
-  uid_starts_with: String
-  uid_not_starts_with: String
-  uid_ends_with: String
-  uid_not_ends_with: String
   route: String
   route_not: String
   route_in: [String!]
@@ -1014,12 +901,10 @@ input PageWhereInput {
 
 input PageWhereUniqueInput {
   id: ID
-  uid: String
 }
 
 type Project {
   id: ID!
-  uid: String
   name: String!
   description: String!
   page: Page
@@ -1039,7 +924,6 @@ type ProjectConnection {
 }
 
 input ProjectCreateInput {
-  uid: String
   name: String!
   description: String!
   page: PageCreateOneInput
@@ -1060,7 +944,6 @@ input ProjectCreatetagsInput {
 }
 
 input ProjectCreateWithoutProjectImagesInput {
-  uid: String
   name: String!
   description: String!
   page: PageCreateOneInput
@@ -1077,7 +960,6 @@ type ProjectEdge {
 
 type ProjectImage {
   id: ID!
-  uid: String
   project: Project!
   image: Image!
   type: ProjectImageType!
@@ -1092,7 +974,6 @@ type ProjectImageConnection {
 }
 
 input ProjectImageCreateInput {
-  uid: String
   project: ProjectCreateOneWithoutProjectImagesInput!
   image: ImageCreateOneInput!
   type: ProjectImageType!
@@ -1104,7 +985,6 @@ input ProjectImageCreateManyWithoutProjectInput {
 }
 
 input ProjectImageCreateWithoutProjectInput {
-  uid: String
   image: ImageCreateOneInput!
   type: ProjectImageType!
 }
@@ -1117,8 +997,6 @@ type ProjectImageEdge {
 enum ProjectImageOrderByInput {
   id_ASC
   id_DESC
-  uid_ASC
-  uid_DESC
   type_ASC
   type_DESC
   createdAt_ASC
@@ -1129,7 +1007,6 @@ enum ProjectImageOrderByInput {
 
 type ProjectImagePreviousValues {
   id: ID!
-  uid: String
   type: ProjectImageType!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -1150,20 +1027,6 @@ input ProjectImageScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  uid: String
-  uid_not: String
-  uid_in: [String!]
-  uid_not_in: [String!]
-  uid_lt: String
-  uid_lte: String
-  uid_gt: String
-  uid_gte: String
-  uid_contains: String
-  uid_not_contains: String
-  uid_starts_with: String
-  uid_not_starts_with: String
-  uid_ends_with: String
-  uid_not_ends_with: String
   type: ProjectImageType
   type_not: ProjectImageType
   type_in: [ProjectImageType!]
@@ -1215,19 +1078,16 @@ enum ProjectImageType {
 }
 
 input ProjectImageUpdateInput {
-  uid: String
   project: ProjectUpdateOneRequiredWithoutProjectImagesInput
   image: ImageUpdateOneRequiredInput
   type: ProjectImageType
 }
 
 input ProjectImageUpdateManyDataInput {
-  uid: String
   type: ProjectImageType
 }
 
 input ProjectImageUpdateManyMutationInput {
-  uid: String
   type: ProjectImageType
 }
 
@@ -1248,7 +1108,6 @@ input ProjectImageUpdateManyWithWhereNestedInput {
 }
 
 input ProjectImageUpdateWithoutProjectDataInput {
-  uid: String
   image: ImageUpdateOneRequiredInput
   type: ProjectImageType
 }
@@ -1279,20 +1138,6 @@ input ProjectImageWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  uid: String
-  uid_not: String
-  uid_in: [String!]
-  uid_not_in: [String!]
-  uid_lt: String
-  uid_lte: String
-  uid_gt: String
-  uid_gte: String
-  uid_contains: String
-  uid_not_contains: String
-  uid_starts_with: String
-  uid_not_starts_with: String
-  uid_ends_with: String
-  uid_not_ends_with: String
   project: ProjectWhereInput
   image: ImageWhereInput
   type: ProjectImageType
@@ -1322,14 +1167,11 @@ input ProjectImageWhereInput {
 
 input ProjectImageWhereUniqueInput {
   id: ID
-  uid: String
 }
 
 enum ProjectOrderByInput {
   id_ASC
   id_DESC
-  uid_ASC
-  uid_DESC
   name_ASC
   name_DESC
   description_ASC
@@ -1346,7 +1188,6 @@ enum ProjectOrderByInput {
 
 type ProjectPreviousValues {
   id: ID!
-  uid: String
   name: String!
   description: String!
   tags: [String!]!
@@ -1375,7 +1216,6 @@ input ProjectSubscriptionWhereInput {
 }
 
 input ProjectUpdateInput {
-  uid: String
   name: String
   description: String
   page: PageUpdateOneInput
@@ -1387,7 +1227,6 @@ input ProjectUpdateInput {
 }
 
 input ProjectUpdateManyMutationInput {
-  uid: String
   name: String
   description: String
   tags: ProjectUpdatetagsInput
@@ -1407,7 +1246,6 @@ input ProjectUpdatetagsInput {
 }
 
 input ProjectUpdateWithoutProjectImagesDataInput {
-  uid: String
   name: String
   description: String
   page: PageUpdateOneInput
@@ -1437,20 +1275,6 @@ input ProjectWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  uid: String
-  uid_not: String
-  uid_in: [String!]
-  uid_not_in: [String!]
-  uid_lt: String
-  uid_lte: String
-  uid_gt: String
-  uid_gte: String
-  uid_contains: String
-  uid_not_contains: String
-  uid_starts_with: String
-  uid_not_starts_with: String
-  uid_ends_with: String
-  uid_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -1525,14 +1349,12 @@ input ProjectWhereInput {
 
 input ProjectWhereUniqueInput {
   id: ID
-  uid: String
 }
 
 type Query {
   color(where: ColorWhereUniqueInput!): Color
   colors(where: ColorWhereInput, orderBy: ColorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Color]!
   colorsConnection(where: ColorWhereInput, orderBy: ColorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ColorConnection!
-  file(where: FileWhereUniqueInput!): File
   files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
   filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
   image(where: ImageWhereUniqueInput!): Image
@@ -1572,7 +1394,6 @@ enum Shape {
 
 type Style {
   id: ID!
-  uid: String
   colors(where: ColorWhereInput, orderBy: ColorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Color!]
   shape: Shape!
   createdAt: DateTime!
@@ -1586,7 +1407,6 @@ type StyleConnection {
 }
 
 input StyleCreateInput {
-  uid: String
   colors: ColorCreateManyInput
   shape: Shape
 }
@@ -1604,8 +1424,6 @@ type StyleEdge {
 enum StyleOrderByInput {
   id_ASC
   id_DESC
-  uid_ASC
-  uid_DESC
   shape_ASC
   shape_DESC
   createdAt_ASC
@@ -1616,7 +1434,6 @@ enum StyleOrderByInput {
 
 type StylePreviousValues {
   id: ID!
-  uid: String
   shape: Shape!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -1641,19 +1458,16 @@ input StyleSubscriptionWhereInput {
 }
 
 input StyleUpdateDataInput {
-  uid: String
   colors: ColorUpdateManyInput
   shape: Shape
 }
 
 input StyleUpdateInput {
-  uid: String
   colors: ColorUpdateManyInput
   shape: Shape
 }
 
 input StyleUpdateManyMutationInput {
-  uid: String
   shape: Shape
 }
 
@@ -1684,20 +1498,6 @@ input StyleWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  uid: String
-  uid_not: String
-  uid_in: [String!]
-  uid_not_in: [String!]
-  uid_lt: String
-  uid_lte: String
-  uid_gt: String
-  uid_gte: String
-  uid_contains: String
-  uid_not_contains: String
-  uid_starts_with: String
-  uid_not_starts_with: String
-  uid_ends_with: String
-  uid_not_ends_with: String
   colors_every: ColorWhereInput
   colors_some: ColorWhereInput
   colors_none: ColorWhereInput
@@ -1728,7 +1528,6 @@ input StyleWhereInput {
 
 input StyleWhereUniqueInput {
   id: ID
-  uid: String
 }
 
 type Subscription {
@@ -1745,7 +1544,6 @@ type Subscription {
 
 type Technology {
   id: ID!
-  uid: String
   name: String!
   image: Image
   color: Color!
@@ -1760,7 +1558,6 @@ type TechnologyConnection {
 }
 
 input TechnologyCreateInput {
-  uid: String
   name: String!
   image: ImageCreateOneInput
   color: ColorCreateOneInput!
@@ -1779,8 +1576,6 @@ type TechnologyEdge {
 enum TechnologyOrderByInput {
   id_ASC
   id_DESC
-  uid_ASC
-  uid_DESC
   name_ASC
   name_DESC
   createdAt_ASC
@@ -1791,7 +1586,6 @@ enum TechnologyOrderByInput {
 
 type TechnologyPreviousValues {
   id: ID!
-  uid: String
   name: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -1812,20 +1606,6 @@ input TechnologyScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  uid: String
-  uid_not: String
-  uid_in: [String!]
-  uid_not_in: [String!]
-  uid_lt: String
-  uid_lte: String
-  uid_gt: String
-  uid_gte: String
-  uid_contains: String
-  uid_not_contains: String
-  uid_starts_with: String
-  uid_not_starts_with: String
-  uid_ends_with: String
-  uid_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -1880,21 +1660,18 @@ input TechnologySubscriptionWhereInput {
 }
 
 input TechnologyUpdateDataInput {
-  uid: String
   name: String
   image: ImageUpdateOneInput
   color: ColorUpdateOneRequiredInput
 }
 
 input TechnologyUpdateInput {
-  uid: String
   name: String
   image: ImageUpdateOneInput
   color: ColorUpdateOneRequiredInput
 }
 
 input TechnologyUpdateManyDataInput {
-  uid: String
   name: String
 }
 
@@ -1910,7 +1687,6 @@ input TechnologyUpdateManyInput {
 }
 
 input TechnologyUpdateManyMutationInput {
-  uid: String
   name: String
 }
 
@@ -1945,20 +1721,6 @@ input TechnologyWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  uid: String
-  uid_not: String
-  uid_in: [String!]
-  uid_not_in: [String!]
-  uid_lt: String
-  uid_lte: String
-  uid_gt: String
-  uid_gte: String
-  uid_contains: String
-  uid_not_contains: String
-  uid_starts_with: String
-  uid_not_starts_with: String
-  uid_ends_with: String
-  uid_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -1998,12 +1760,10 @@ input TechnologyWhereInput {
 
 input TechnologyWhereUniqueInput {
   id: ID
-  uid: String
 }
 
 type User {
   id: ID!
-  uid: String
   name: String!
   email: String!
   nickname: String
@@ -2020,7 +1780,6 @@ type UserConnection {
 }
 
 input UserCreateInput {
-  uid: String
   name: String!
   email: String!
   nickname: String
@@ -2036,8 +1795,6 @@ type UserEdge {
 enum UserOrderByInput {
   id_ASC
   id_DESC
-  uid_ASC
-  uid_DESC
   name_ASC
   name_DESC
   email_ASC
@@ -2054,7 +1811,6 @@ enum UserOrderByInput {
 
 type UserPreviousValues {
   id: ID!
-  uid: String
   name: String!
   email: String!
   nickname: String
@@ -2082,7 +1838,6 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateInput {
-  uid: String
   name: String
   email: String
   nickname: String
@@ -2091,7 +1846,6 @@ input UserUpdateInput {
 }
 
 input UserUpdateManyMutationInput {
-  uid: String
   name: String
   email: String
   nickname: String
@@ -2113,20 +1867,6 @@ input UserWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  uid: String
-  uid_not: String
-  uid_in: [String!]
-  uid_not_in: [String!]
-  uid_lt: String
-  uid_lte: String
-  uid_gt: String
-  uid_gte: String
-  uid_contains: String
-  uid_not_contains: String
-  uid_starts_with: String
-  uid_not_starts_with: String
-  uid_ends_with: String
-  uid_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -2201,5 +1941,4 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
-  uid: String
 }

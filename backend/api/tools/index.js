@@ -1,9 +1,5 @@
-import async from './async';
-import auth from './auth';
-import util from './util';
-
 module.exports = {
-  async,
-  auth,
-  util
+  async: require('./async'),
+  auth: require('./auth'),
+  util: require('./util')
 }

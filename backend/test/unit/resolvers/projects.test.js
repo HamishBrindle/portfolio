@@ -2,6 +2,7 @@ import { request } from 'graphql-request';
 import gql from 'graphql-tag';
 import shortid from 'shortid';
 import { util } from '../../../api/tools';
+import * as Promise from 'bluebird';
                                                                             
 describe('Projects Resolvers: Mutations', async () => {
 
@@ -607,7 +608,9 @@ describe('Projects Resolvers: Queries', async () => {
                                                               
   test('can query all projects', async () => {
     const mutations = [];
-    for (let i = 0; i < 6; i++) {
+    const numMutations = 4;
+
+    for (let i = 0; i < numMutations; i++) {
       mutations.push(gql`
         mutation {
           createProject(
@@ -620,7 +623,7 @@ describe('Projects Resolvers: Queries', async () => {
       `);
     }
 
-    mutations.forEach(async (mutation) => {
+    await Promise.each(mutations, async (mutation) => {
       const mutationResponse = await request(global.host, mutation);
       expect(mutationResponse).toBeTruthy();
     });
@@ -636,6 +639,8 @@ describe('Projects Resolvers: Queries', async () => {
 
     const queryResponse = await request(global.host, query);
     expect(queryResponse).toBeTruthy();
+    expect(queryResponse.projects.length).toBeGreaterThanOrEqual(numMutations);
+
   });
 
   // ███████╗██╗███╗   ██╗██████╗      ██████╗ ███╗   ██╗███████╗

@@ -25,7 +25,6 @@ type Mutation {
 
     updateProject(
         id: ID!
-        uid: String
         name: String
         description: String
         page: PageUpdateOneInput
@@ -43,14 +42,12 @@ type Mutation {
 
     # Pages
     createPage(
-        uid: String
         route: String!
         style: StyleCreateOneInput!
     ): Page!
 
     updatePage(
         id: ID!
-        uid: String
         route: String
         style: StyleUpdateOneRequiredInput
     ): Page!
@@ -59,6 +56,39 @@ type Mutation {
         id: String
     ): Page!
 
+    # Technologies
+    createTechnology(
+        name: String!
+        image: ImageCreateOneInput
+        color: ColorCreateOneInput!
+    ): Technology!
+
+    updateTechnology(
+        id: ID!
+        name: String
+        image: ImageUpdateOneInput
+        color: ColorUpdateOneRequiredInput
+    ): Technology!
+
+    deleteTechnology(
+        id: String
+    ): Technology!
+
+    # Styles
+    createStyle(
+        colors: ColorCreateManyInput
+        shape: Shape
+    ): Style!
+
+    updateStyle(
+        id: ID!
+        colors: ColorUpdateManyInput
+        shape: Shape
+    ): Style!
+
+    deleteStyle(
+        id: String
+    ): Style!
 
     # Uploads
     singleUpload(
@@ -86,4 +116,12 @@ type Query {
     # Pages
     pages: [Page!]!
     page(where: PageWhereUniqueInput!): Page
+
+    # Technologies
+    technologies: [Technology!]!
+    technology(where: TechnologyWhereUniqueInput!): Technology
+
+    # Styles
+    styles: [Style!]!
+    style(where: StyleWhereUniqueInput!): Style
 }

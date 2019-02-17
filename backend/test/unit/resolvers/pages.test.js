@@ -2,7 +2,7 @@ import { request } from 'graphql-request';
 import gql from 'graphql-tag';
 import shortid from 'shortid';
 import { util } from '../../../api/tools';
-
+import * as Promise from 'bluebird';
 
 describe('Pages Resolvers: Mutations', async () => {
 
@@ -244,7 +244,9 @@ describe('Pages Resolvers: Queries', async () => {
 
   test('can query all pages', async () => {
     const mutations = [];
-    for (let i = 0; i < 4; i++) {
+    const numMutations = 4;
+
+    for (let i = 0; i < numMutations; i++) {
       mutations.push(gql`
         mutation {
           createPage(
@@ -268,7 +270,7 @@ describe('Pages Resolvers: Queries', async () => {
       `);
     }
 
-    mutations.forEach(async (mutation) => {
+    await Promise.each(mutations, async (mutation) => {
       const mutationResponse = await request(global.host, mutation);
       expect(mutationResponse).toBeTruthy();
     });
@@ -290,7 +292,7 @@ describe('Pages Resolvers: Queries', async () => {
 
     const queryResponse = await request(global.host, query);
     expect(queryResponse).toBeTruthy();
-    expect(queryResponse.pages.length).toBeGreaterThanOrEqual(4);
+    expect(queryResponse.pages.length).toBeGreaterThanOrEqual(numMutations);
   });
 
   // ███████╗██╗███╗   ██╗██████╗      ██████╗ ███╗   ██╗███████╗
