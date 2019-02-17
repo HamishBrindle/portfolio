@@ -1,5 +1,6 @@
 import { request } from 'graphql-request';
-import gql from 'graphql-tag';
+import { gql } from 'apollo-server-express';
+import { print } from 'graphql/language/printer';
 import shortid from 'shortid';
 import { util } from '../../../api/tools';
 import * as Promise from 'bluebird';
@@ -57,7 +58,7 @@ describe('Projects Resolvers: Mutations', async () => {
       }
     `;
 
-    const response = await request(global.host, mutation);
+    const response = await request(global.host, print(mutation));
 
     expect(response).toBeDefined();
     expect(response.createProject).toBeDefined();
@@ -205,7 +206,7 @@ describe('Projects Resolvers: Mutations', async () => {
       }
     `;
 
-    const response = await request(global.host, mutation);
+    const response = await request(global.host, print(mutation));
 
     // Response and mutation
     expect(response).toBeDefined();
@@ -406,7 +407,7 @@ describe('Projects Resolvers: Mutations', async () => {
       }
     `;
 
-    const response = await request(global.host, mutation);
+    const response = await request(global.host, print(mutation));
 
     // Response and mutation
     expect(response).toBeDefined();
@@ -506,7 +507,7 @@ describe('Projects Resolvers: Mutations', async () => {
       }
     `;
 
-    const updateResponse = await request(global.host, updateMutation);
+    const updateResponse = await request(global.host, print(updateMutation));
 
     // Response and mutation
     expect(updateResponse).toBeDefined();
@@ -568,7 +569,7 @@ describe('Projects Resolvers: Mutations', async () => {
       }
     `;
 
-    const mutationResponse = await request(global.host, mutation);
+    const mutationResponse = await request(global.host, print(mutation));
 
     expect(mutationResponse).toBeTruthy();
     expect(mutationResponse.createProject.name).toEqual(project.name);
@@ -588,7 +589,7 @@ describe('Projects Resolvers: Mutations', async () => {
       }
     `;
 
-    const queryResponse = await request(global.host, deleteMutation);
+    const queryResponse = await request(global.host, print(deleteMutation));
 
     expect(queryResponse).toBeTruthy();
     expect(queryResponse.deleteProject.name).toEqual(project.name);
@@ -624,7 +625,7 @@ describe('Projects Resolvers: Queries', async () => {
     }
 
     await Promise.each(mutations, async (mutation) => {
-      const mutationResponse = await request(global.host, mutation);
+      const mutationResponse = await request(global.host, print(mutation));
       expect(mutationResponse).toBeTruthy();
     });
 
@@ -637,7 +638,7 @@ describe('Projects Resolvers: Queries', async () => {
       }
     `;
 
-    const queryResponse = await request(global.host, query);
+    const queryResponse = await request(global.host, print(query));
     expect(queryResponse).toBeTruthy();
     expect(queryResponse.projects.length).toBeGreaterThanOrEqual(numMutations);
 
@@ -669,7 +670,7 @@ describe('Projects Resolvers: Queries', async () => {
       }
     `;
 
-    const mutationResponse = await request(global.host, mutation);
+    const mutationResponse = await request(global.host, print(mutation));
 
     expect(mutationResponse).toBeTruthy();
     expect(mutationResponse.createProject.name).toEqual(project.name);
@@ -691,7 +692,7 @@ describe('Projects Resolvers: Queries', async () => {
       }
     `;
 
-    const queryResponse = await request(global.host, query);
+    const queryResponse = await request(global.host, print(query));
 
     expect(queryResponse).toBeTruthy();
     expect(queryResponse.project.name).toEqual(project.name);

@@ -1,7 +1,5 @@
 # import * from './generated/prisma.graphql'
 
-scalar Upload
-
 # ███╗   ███╗██╗   ██╗████████╗ █████╗ ████████╗██╗ ██████╗ ███╗   ██╗
 # ████╗ ████║██║   ██║╚══██╔══╝██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║
 # ██╔████╔██║██║   ██║   ██║   ███████║   ██║   ██║██║   ██║██╔██╗ ██║
@@ -91,13 +89,13 @@ type Mutation {
     ): Style!
 
     # Uploads
-    singleUpload(
-        file: Upload!
-    ): File!
+    # singleUpload(
+    #     file: Upload!
+    # ): File!
 
-    multipleUpload(
-        files: [Upload!]!
-    ): [File!]!
+    # multipleUpload(
+    #     files: [Upload!]!
+    # ): [File!]!
 }
 
 #  ██████╗ ██╗   ██╗███████╗██████╗ ██╗   ██╗

@@ -3,7 +3,7 @@ const Mutation = {
 	...require('./Pages.mutation'),
 	...require('./Technologies.mutation'),
 	...require('./Styles.mutation'),
-	...require('./Uploads.mutation'),
+	// ...require('./Uploads.mutation'),
 };
 
 module.exports = Mutation;

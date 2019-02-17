@@ -1,5 +1,6 @@
 import { request } from 'graphql-request';
-import gql from 'graphql-tag';
+import { gql } from 'apollo-server-express';
+import { print } from 'graphql/language/printer';
 import { util } from '../../../api/tools';
 import { fakeStyle, fakeColor } from '../../mock';
 import * as Promise from 'bluebird';
@@ -49,7 +50,7 @@ describe('Style Resolvers: Mutations', async () => {
       }
     `;
 
-    const response = await request(global.host, mutation);
+    const response = await request(global.host, print(mutation));
 
     expect(response.createStyle.shape).toEqual(Style.shape);
     expect(response.createStyle.colors.length).toEqual(numColor);
@@ -106,7 +107,7 @@ describe('Style Resolvers: Mutations', async () => {
       }
     `;
 
-    const response = await request(global.host, mutation);
+    const response = await request(global.host, print(mutation));
 
     expect(response).toBeDefined();
     expect(response.createStyle.id).toBeDefined();
@@ -168,7 +169,7 @@ describe('Style Resolvers: Mutations', async () => {
       }
     `;
 
-    const updateResponse = await request(global.host, updateMutation);
+    const updateResponse = await request(global.host, print(updateMutation));
 
     expect(updateResponse).toBeDefined();
     expect(updateResponse.updateStyle.id).toBeDefined();
@@ -226,7 +227,7 @@ describe('Style Resolvers: Mutations', async () => {
       }
     `;
 
-    const response = await request(global.host, mutation);
+    const response = await request(global.host, print(mutation));
 
     expect(response).toBeDefined();
     expect(response.createStyle).toBeDefined();
@@ -250,7 +251,7 @@ describe('Style Resolvers: Mutations', async () => {
       }
     `;
 
-    const deleteResponse = await request(global.host, deleteMutation);
+    const deleteResponse = await request(global.host, print(deleteMutation));
 
     expect(deleteResponse.deleteStyle.shape).toEqual(Style.shape);
     expect(deleteResponse.deleteStyle.colors.length).toEqual(0);
@@ -315,7 +316,7 @@ describe('Style Resolvers: Queries', async () => {
     }
 
     await Promise.each(mutations, async (mutation) => {
-      const mutationResponse = await request(global.host, mutation);
+      const mutationResponse = await request(global.host, print(mutation));
       expect(mutationResponse).toBeTruthy();
     });
 
@@ -334,7 +335,7 @@ describe('Style Resolvers: Queries', async () => {
       }
     `;
 
-    const queryResponse = await request(global.host, query);
+    const queryResponse = await request(global.host, print(query));
     expect(queryResponse).toBeTruthy();
     expect(queryResponse.styles.length).toBeGreaterThanOrEqual(numMutations);
   });
@@ -382,7 +383,7 @@ describe('Style Resolvers: Queries', async () => {
       }
     `;
 
-    const response = await request(global.host, mutation);
+    const response = await request(global.host, print(mutation));
 
     expect(response).toBeDefined();
     expect(response.createStyle).toBeDefined();
@@ -408,7 +409,7 @@ describe('Style Resolvers: Queries', async () => {
       }
     `;
 
-    const queryResponse = await request(global.host, query);
+    const queryResponse = await request(global.host, print(query));
 
     expect(queryResponse.style.shape).toEqual(Style.shape);
     expect(queryResponse.style.colors.length).toEqual(numColor);

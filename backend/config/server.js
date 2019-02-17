@@ -1,12 +1,14 @@
-const { GraphQLServer } = require('graphql-yoga');
+const path = require('path');
+const { importSchema } = require('graphql-import');
+const { ApolloServer, gql } = require('apollo-server-express');
 
 const createServer = (database, resolvers) => {
-    return new GraphQLServer({
-        typeDefs: 'graphql/schema.graphql',
+    return new ApolloServer({
+        typeDefs: importSchema(path.resolve('graphql/schema.graphql')),
         resolvers,
-        resolverValidationOptions: {
-            requireResolversForResolveType: false,
-        },
+        // resolverValidationOptions: {
+        //     requireResolversForResolveType: false,
+        // },
         context: req => ({ ...req, database })
     });
 }
