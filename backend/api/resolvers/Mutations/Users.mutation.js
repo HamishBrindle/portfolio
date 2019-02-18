@@ -4,6 +4,10 @@ const { async } = require('../../tools');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
+const { transport, makeEmail } = require('../../services/mail');
+const { util } = require('../../tools');
+
+const html = util.tag;
 
 const Users = {
 	async signUp(parent, args, ctx, info) {
@@ -74,8 +78,25 @@ const Users = {
       data: { resetToken, resetTokenExpiry }
     });
 
+    try {
+      await transport.sendMail({
+        from: 'hamishbrindle@gmail.com',
+        to: args.email,
+        subject: 'Password reset token!',
+        html: makeEmail('resetPassword', html`
+          Your password reset token is available here:
+          <a href="${process.env.FRONTEND_URL}/reset?resetToken=${resetToken}">
+            Click Here to Reset!
+          </a>
+        `)
+      });
+    } catch (err) {
+      console.error(err);
+      throw new Error(`Unable to send a password reset token. I am ashamed 😞`);
+    }
+
     return {
-      message: 'Reset request succesful.'
+      message: 'Reset request successful. Email sent!'
     }
   },
 
