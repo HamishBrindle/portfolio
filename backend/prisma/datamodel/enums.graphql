@@ -1,3 +1,9 @@
+enum Permisson {
+    ADMIN
+    USER
+    PERMISSON_UPDATE
+}
+
 enum Shade {
     LIGHT
     DARK

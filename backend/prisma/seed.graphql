@@ -1,1 +1,11 @@
 # GraphQL seeding queries
+
+mutation adminUser {
+  user: createUser(data: {
+    name: "hamishbrindle"
+    email: "hamishbrindle@gmail.com"
+    password: "$2a$10$HNJK19TyK7tGF7otF3OtsedCYv6GEcEMfVwhe7HQAPp9vBDvqnGoi"
+  }) {
+    id
+  }
+}

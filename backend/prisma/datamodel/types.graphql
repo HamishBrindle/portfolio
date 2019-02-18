@@ -3,10 +3,14 @@
 type User {
     id: ID! @unique
     name: String!
-    email: String!
+    email: String! @unique
+    password: String!
     nickname: String
     avatar: Image
     lastLoggedIn: DateTime
+    resetToken: String
+    resetTokenExpiry: Float
+    permissions: [Permisson]
     createdAt: DateTime!
     updatedAt: DateTime!
 }
@@ -27,7 +31,7 @@ type Project {
 
 type Page {
     id: ID! @unique
-    route: String! # Relative to '/'
+    route: String! # Relative to /
     style: Style!
     createdAt: DateTime!
     updatedAt: DateTime!

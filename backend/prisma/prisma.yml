@@ -14,5 +14,5 @@ hooks:
   post-deploy:
     - prisma generate --env-file .env
 
-# seed:
-#   import: seed.graphql
+seed:
+  import: seed.graphql

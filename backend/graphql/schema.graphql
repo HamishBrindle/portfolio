@@ -9,7 +9,46 @@
 
 scalar Upload
 
+# Basic Structures
+type SuccessMessage {
+    message: String
+}
+
+# Overrides
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    nickname: String
+    avatar: Image
+    lastLoggedIn: DateTime
+    permissions: [Permisson]
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
 type Mutation {
+    # Users
+    signUp(
+        name: String!
+        email: String!
+        password: String!
+    ): User!
+
+    signIn(
+        email: String!
+        password: String!
+    ): User!
+
+    signOut: SuccessMessage
+
+    requestReset(email: String!): SuccessMessage
+
+    resetPassword(
+        resetToken: String!
+        password: String!
+        confirmPassword: String!
+    ): User!
 
     # Projects
     createProject(
@@ -107,6 +146,11 @@ type Mutation {
 #  ╚══▀▀═╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝   
                                            
 type Query {
+
+    # Users
+    currentUser: User
+    users: [User!]!
+    user(where: UserWhereUniqueInput!): User
 
     # Projects
     projects: [Project!]!

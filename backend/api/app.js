@@ -1,10 +1,12 @@
 require('dotenv').config({ path: `.env` });
 
+const cookieParser = require('cookie-parser');
 const express = require('express');
 const { graphqlUploadExpress } = require('graphql-upload');
 const resolvers = require('./resolvers');
 const { createServer } = require('../config/server');
 const database = require('../config/database');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 
@@ -14,6 +16,16 @@ app.use(
 		maxFiles: 20
 	})
 );
+
+app.use(cookieParser());
+app.use((req, res, next) => {
+	const { token } = req.cookies;
+	if (token) {
+		const { userId } = jwt.verify(token, process.env.APP_SECRET);
+		req.userId = userId;
+	}
+	next();
+});
 
 const server = createServer(database, resolvers);
 
