@@ -18,7 +18,7 @@ const Users = {
 			data: {
         ...args,
         password,
-        permissions: { set: ['ADMIN', 'USER', 'PERMISSON_UPDATE'] },
+        permissions: { set: ['USER'] },
         lastLoggedIn: moment.utc().format()
 			}
     }, info);
