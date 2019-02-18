@@ -46,7 +46,7 @@ describe('Pages Resolvers: Mutations', async () => {
       }
     `;
 
-    const response = await request(global.host, print(mutation));
+    const response = await request(global.HOST, print(mutation));
 
     expect(response).toBeDefined();
     expect(response.createPage).toBeDefined();
@@ -105,7 +105,7 @@ describe('Pages Resolvers: Mutations', async () => {
       }
     `;
 
-    const response = await request(global.host, print(mutation));
+    const response = await request(global.HOST, print(mutation));
 
     expect(response).toBeDefined();
     expect(response.createPage).toBeDefined();
@@ -163,7 +163,7 @@ describe('Pages Resolvers: Mutations', async () => {
       }
     `;
 
-    const updateResponse = await request(global.host, print(updateMutation));
+    const updateResponse = await request(global.HOST, print(updateMutation));
 
     expect(typeof updateResponse.updatePage.id).toEqual('string');
     expect(updateResponse.updatePage.route).toEqual(newPageRoute);
@@ -209,7 +209,7 @@ describe('Pages Resolvers: Mutations', async () => {
       }
     `;
 
-    const mutationResponse = await request(global.host, print(mutation));
+    const mutationResponse = await request(global.HOST, print(mutation));
 
     expect(mutationResponse.createPage.id).toBeTruthy();
     expect(mutationResponse.createPage.route).toEqual(pageRoute);
@@ -226,7 +226,7 @@ describe('Pages Resolvers: Mutations', async () => {
       }
     `;
 
-    const deleteResponse = await request(global.host, print(deleteMutation));
+    const deleteResponse = await request(global.HOST, print(deleteMutation));
 
     expect(deleteResponse).toBeTruthy();
     expect(deleteResponse.deletePage.id).toEqual(pageId);
@@ -272,7 +272,7 @@ describe('Pages Resolvers: Queries', async () => {
     }
 
     await Promise.each(mutations, async (mutation) => {
-      const mutationResponse = await request(global.host, print(mutation));
+      const mutationResponse = await request(global.HOST, print(mutation));
       expect(mutationResponse).toBeTruthy();
     });
 
@@ -291,7 +291,7 @@ describe('Pages Resolvers: Queries', async () => {
       }
     `;
 
-    const queryResponse = await request(global.host, print(query));
+    const queryResponse = await request(global.HOST, print(query));
     expect(queryResponse).toBeTruthy();
     expect(queryResponse.pages.length).toBeGreaterThanOrEqual(numMutations);
   });
@@ -330,7 +330,7 @@ describe('Pages Resolvers: Queries', async () => {
       }
     `;
 
-    const mutationResponse = await request(global.host, print(mutation));
+    const mutationResponse = await request(global.HOST, print(mutation));
 
     expect(mutationResponse).toBeTruthy();
     expect(mutationResponse.createPage.route).toEqual(page.route);
@@ -353,7 +353,7 @@ describe('Pages Resolvers: Queries', async () => {
       }
     `;
 
-    const queryResponse = await request(global.host, print(query));
+    const queryResponse = await request(global.HOST, print(query));
 
     expect(queryResponse).toBeTruthy();
     expect(queryResponse.page.route).toEqual(page.route);

@@ -6,7 +6,9 @@
 # ██║╚██╔╝██║██║   ██║   ██║   ██╔══██║   ██║   ██║██║   ██║██║╚██╗██║
 # ██║ ╚═╝ ██║╚██████╔╝   ██║   ██║  ██║   ██║   ██║╚██████╔╝██║ ╚████║
 # ╚═╝     ╚═╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
-                                                                    
+
+scalar Upload
+
 type Mutation {
 
     # Projects
@@ -88,14 +90,13 @@ type Mutation {
         id: String
     ): Style!
 
-    # Uploads
-    # singleUpload(
-    #     file: Upload!
-    # ): File!
-
-    # multipleUpload(
-    #     files: [Upload!]!
-    # ): [File!]!
+    # Images
+    createImage(
+        url: String!
+        title: String!
+        caption: String
+        file: Upload!
+    ): Image!
 }
 
 #  ██████╗ ██╗   ██╗███████╗██████╗ ██╗   ██╗

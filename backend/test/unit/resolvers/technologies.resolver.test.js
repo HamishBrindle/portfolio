@@ -53,7 +53,7 @@ describe('Technology Resolvers: Mutations', async () => {
       }
     `;
 
-    const response = await request(global.host, print(mutation))
+    const response = await request(global.HOST, print(mutation))
 
     expect(response).toBeDefined();
     expect(response.createTechnology.id).toBeDefined();
@@ -114,7 +114,7 @@ describe('Technology Resolvers: Mutations', async () => {
       }
     `;
 
-    const response = await request(global.host, print(mutation))
+    const response = await request(global.HOST, print(mutation))
 
     expect(response).toBeDefined();
     expect(response.createTechnology.id).toBeDefined();
@@ -159,7 +159,7 @@ describe('Technology Resolvers: Mutations', async () => {
       }
     `;
 
-    const updateResponse = await request(global.host, print(updateMutation));
+    const updateResponse = await request(global.HOST, print(updateMutation));
 
     expect(updateResponse).toBeDefined();
     expect(updateResponse.updateTechnology.id).toEqual(Technology.id);
@@ -220,7 +220,7 @@ describe('Technology Resolvers: Mutations', async () => {
       }
     `;
 
-    const response = await request(global.host, print(mutation))
+    const response = await request(global.HOST, print(mutation))
 
     expect(response).toBeDefined();
     expect(response.createTechnology.id).toBeDefined();
@@ -237,7 +237,7 @@ describe('Technology Resolvers: Mutations', async () => {
       }
     `;
 
-    const deleteResponse = await request(global.host, print(deleteMutation));
+    const deleteResponse = await request(global.HOST, print(deleteMutation));
 
     expect(deleteResponse).toBeTruthy();
     expect(deleteResponse.deleteTechnology.id).toEqual(Technology.id);
@@ -298,7 +298,7 @@ describe('Technology Resolvers: Queries', async () => {
     }
 
     await Promise.each(mutations, async (mutation) => {
-      const mutationResponse = await request(global.host, print(mutation));
+      const mutationResponse = await request(global.HOST, print(mutation));
       expect(mutationResponse).toBeTruthy();
     });
 
@@ -317,7 +317,7 @@ describe('Technology Resolvers: Queries', async () => {
       }
     `;
 
-    const queryResponse = await request(global.host, print(query));
+    const queryResponse = await request(global.HOST, print(query));
     expect(queryResponse).toBeTruthy();
     expect(queryResponse.pages.length).toBeGreaterThanOrEqual(numMutations);
   });
@@ -369,7 +369,7 @@ describe('Technology Resolvers: Queries', async () => {
       }
     `;
 
-    const response = await request(global.host, print(mutation))
+    const response = await request(global.HOST, print(mutation))
 
     expect(response).toBeDefined();
     expect(response.createTechnology.id).toBeDefined();
@@ -408,7 +408,7 @@ describe('Technology Resolvers: Queries', async () => {
       }
     `;
 
-    const queryResponse = await request(global.host, print(query));
+    const queryResponse = await request(global.HOST, print(query));
 
     expect(queryResponse).toBeDefined();
     expect(queryResponse.technology.id).toBeDefined();

@@ -1,6 +1,6 @@
 # Types
 
-type User @model {
+type User {
     id: ID! @unique
     name: String!
     email: String!
@@ -11,7 +11,7 @@ type User @model {
     updatedAt: DateTime!
 }
 
-type Project @model {
+type Project {
     id: ID! @unique
     name: String!
     description: String!
@@ -25,7 +25,7 @@ type Project @model {
     updatedAt: DateTime!
 }
 
-type Page @model {
+type Page {
     id: ID! @unique
     route: String! # Relative to '/'
     style: Style!
@@ -33,7 +33,7 @@ type Page @model {
     updatedAt: DateTime!
 }
 
-type ProjectImage @model {
+type ProjectImage {
     id: ID! @unique
     project: Project! @relation(name: "ProjectImageRelation", onDelete: SET_NULL)
     image: Image!
@@ -42,7 +42,7 @@ type ProjectImage @model {
     updatedAt: DateTime!
 }
 
-type Image @model{
+type Image {
     id: ID! @unique
     url: String!
     title: String!
@@ -51,7 +51,7 @@ type Image @model{
     updatedAt: DateTime!
 }
 
-type Technology @model {
+type Technology {
     id: ID! @unique
     name: String!
     image: Image
@@ -60,7 +60,7 @@ type Technology @model {
     updatedAt: DateTime!
 }
 
-type Style @model {
+type Style {
     id: ID! @unique
     colors: [Color!]
     shape: Shape! @default(value: "ROUND")
@@ -68,7 +68,7 @@ type Style @model {
     updatedAt: DateTime!
 }
 
-type Color @model {
+type Color {
     id: ID! @unique
     shade: Shade! @default(value: "LIGHT")
     type: ColorType! @default(value: "MISC")
@@ -76,11 +76,4 @@ type Color @model {
     rgb: String
     createdAt: DateTime!
     updatedAt: DateTime!
-}
-
-type File @model {
-    path: String!
-    filename: String!
-    mimetype: String!
-    encoding: String!
 }

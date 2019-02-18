@@ -1,13 +1,13 @@
 require('dotenv').config({ path: __dirname + '/../../.env' });
 
 const NodeEnvironment = require('jest-environment-node');
+const { graphqlUploadExpress } = require('graphql-upload');
 const express = require('express');
 const path = require('path');
-const { util } = require('../../api/tools');
 
-const { Mutation, Query } = require('../../api/resolvers');
-const { createServer } = require('../../config/server');
+const resolvers = require('../../api/resolvers');
 const database = require('../../config/database');
+const { createServer } = require('../../config/server');
 
 class TestEnvironment extends NodeEnvironment {
   constructor(config) {
@@ -16,11 +16,18 @@ class TestEnvironment extends NodeEnvironment {
 
   async setup() {
     const app = express();
+
+    app.use(
+      graphqlUploadExpress({
+        maxFileSize: 10000000, // 10 MB
+        maxFiles: 20
+      })
+    );
     
     let server;
     try {
       // Any issues with resolvers made apperant here
-      server = createServer(database, { Mutation, Query });
+      server = createServer(database, resolvers);
       server.applyMiddleware({ app });
     } catch (error) {
       console.log('\n\n💥 Error creating server 💥:\n');
@@ -42,8 +49,8 @@ class TestEnvironment extends NodeEnvironment {
     });
 
     const { port } = httpServer.address();
-    this.global.host = `http://127.0.0.1:${port}${server.graphqlPath}`;
-    this.global.httpServer = httpServer;
+    this.global.HOST = `http://127.0.0.1:${port}${server.graphqlPath}`;
+    this.global.HTTP_SERVER = httpServer;
     this.global.TEMP_DIR = path.resolve(__dirname + '/../.tmp');
     this.global.TEST_ROOT = path.resolve(__dirname + '/../');
 
@@ -53,7 +60,7 @@ class TestEnvironment extends NodeEnvironment {
   async teardown() {
     await new Promise((resolve, reject) => {
       try {
-        this.global.httpServer.close(() => resolve()); // Successfully closed.
+        this.global.HTTP_SERVER.close(() => resolve()); // Successfully closed.
       } catch (error) {
         console.log('\n\n❌ Error closing server ❌:\n');
         console.log(error);

@@ -80,3 +80,12 @@ export const fakeStyle = (numColor = 1) => {
   
   return style;
 };
+
+export const fakeFile = (buffer) => {
+  return {
+    filename: 'fake-image.jpg',
+    mimetype: 'image/jpeg',
+    encoding: 'base64',
+    stream: buffer
+  };
+}

@@ -6,9 +6,10 @@ const createServer = (database, resolvers) => {
     return new ApolloServer({
         typeDefs: importSchema(path.resolve('graphql/schema.graphql')),
         resolvers,
-        // resolverValidationOptions: {
-        //     requireResolversForResolveType: false,
-        // },
+        resolverValidationOptions: {
+            requireResolversForResolveType: false,
+        },
+        uploads: false,
         context: req => ({ ...req, database })
     });
 }

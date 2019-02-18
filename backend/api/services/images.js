@@ -33,6 +33,18 @@ cloudinary.config({
 const uploadImage = async (filepath, options) => 
   async.promisify(cloudinary.v2.uploader.upload)(filepath, options);
 
+/**
+ * Upload an image to Cloudinary via stream
+ * 
+ * @param {String} stream - image stream
+ * @param {Object} [options] - config for upload
+ * 
+ * @returns {Promise}
+ */
+const uploadImageStream = async (stream, options) => 
+  async.promisify(cloudinary.v2.uploader.upload_stream)(stream, options);
+
 module.exports = { 
-  uploadImage
+  uploadImage,
+  uploadImageStream
 };
