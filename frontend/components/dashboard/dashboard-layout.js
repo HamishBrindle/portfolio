@@ -2,7 +2,6 @@ import * as React from 'react'
 import styled from 'styled-components';
 import Head from '../head'
 import Nav from './dashboard-nav'
-import Footer from './dashboard-footer'
 
 const StyledDashboard = styled.div`
   display: flex;
@@ -16,8 +15,7 @@ function DashboardLayout({ children }) {
       <Head title="Dashboard" />
       <StyledDashboard>
         <Nav />
-          {children}
-        <Footer />
+        {children}
       </StyledDashboard>
     </div>
   )
