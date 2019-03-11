@@ -5,7 +5,7 @@ import shortid from 'shortid';
 import { util } from '../../../api/tools';
 import * as Promise from 'bluebird';
 
-describe('Pages Resolvers: Mutations', async () => {
+describe('Pages Resolvers: Mutations', () => {
 
   //  ██████╗██████╗ ███████╗ █████╗ ████████╗███████╗
   // ██╔════╝██╔══██╗██╔════╝██╔══██╗╚══██╔══╝██╔════╝
@@ -234,7 +234,7 @@ describe('Pages Resolvers: Mutations', async () => {
 });
 
 
-describe('Pages Resolvers: Queries', async () => {
+describe('Pages Resolvers: Queries', () => {
 
   // ███████╗██╗███╗   ██╗██████╗      █████╗ ██╗     ██╗     
   // ██╔════╝██║████╗  ██║██╔══██╗    ██╔══██╗██║     ██║     

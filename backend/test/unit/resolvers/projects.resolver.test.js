@@ -5,7 +5,7 @@ import shortid from 'shortid';
 import { util } from '../../../api/tools';
 import * as Promise from 'bluebird';
                                                                             
-describe('Projects Resolvers: Mutations', async () => {
+describe('Projects Resolvers: Mutations', () => {
 
   //  ██████╗██████╗ ███████╗ █████╗ ████████╗███████╗
   // ██╔════╝██╔══██╗██╔════╝██╔══██╗╚══██╔══╝██╔════╝
@@ -598,7 +598,7 @@ describe('Projects Resolvers: Mutations', async () => {
 });
 
                                                      
-describe('Projects Resolvers: Queries', async () => {
+describe('Projects Resolvers: Queries', () => {
 
   // ███████╗██╗███╗   ██╗██████╗      █████╗ ██╗     ██╗     
   // ██╔════╝██║████╗  ██║██╔══██╗    ██╔══██╗██║     ██║     

@@ -7,7 +7,7 @@ import shortid from 'shortid';
 import { util } from '../../../api/tools';
 import * as Promise from 'bluebird';
 
-describe('Image Resolvers: Mutations', async () => {
+describe('Image Resolvers: Mutations', () => {
 
   //  ██████╗██████╗ ███████╗ █████╗ ████████╗███████╗
   // ██╔════╝██╔══██╗██╔════╝██╔══██╗╚══██╔══╝██╔════╝
@@ -81,7 +81,7 @@ describe('Image Resolvers: Mutations', async () => {
 });
 
 
-describe('Image Resolvers: Queries', async () => {
+describe('Image Resolvers: Queries', () => {
 
   // ███████╗██╗███╗   ██╗██████╗      █████╗ ██╗     ██╗     
   // ██╔════╝██║████╗  ██║██╔══██╗    ██╔══██╗██║     ██║     

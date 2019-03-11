@@ -5,7 +5,7 @@ import { util } from '../../../api/tools';
 import { fakeStyle, fakeColor } from '../../mock';
 import * as Promise from 'bluebird';
 
-describe('Style Resolvers: Mutations', async () => {
+describe('Style Resolvers: Mutations', () => {
 
   //  ██████╗██████╗ ███████╗ █████╗ ████████╗███████╗
   // ██╔════╝██╔══██╗██╔════╝██╔══██╗╚══██╔══╝██╔════╝
@@ -266,7 +266,7 @@ describe('Style Resolvers: Mutations', async () => {
 });
 
 
-describe('Style Resolvers: Queries', async () => {
+describe('Style Resolvers: Queries', () => {
 
   // ███████╗██╗███╗   ██╗██████╗      █████╗ ██╗     ██╗     
   // ██╔════╝██║████╗  ██║██╔══██╗    ██╔══██╗██║     ██║     

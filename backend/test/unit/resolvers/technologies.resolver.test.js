@@ -4,7 +4,7 @@ import { print } from 'graphql/language/printer';
 import { fakeTechnology } from '../../mock';
 import * as Promise from 'bluebird';
 
-describe('Technology Resolvers: Mutations', async () => {
+describe('Technology Resolvers: Mutations', () => {
 
   //  ██████╗██████╗ ███████╗ █████╗ ████████╗███████╗
   // ██╔════╝██╔══██╗██╔════╝██╔══██╗╚══██╔══╝██╔════╝
@@ -245,7 +245,7 @@ describe('Technology Resolvers: Mutations', async () => {
 });
 
 
-describe('Technology Resolvers: Queries', async () => {
+describe('Technology Resolvers: Queries', () => {
 
   // ███████╗██╗███╗   ██╗██████╗      █████╗ ██╗     ██╗     
   // ██╔════╝██║████╗  ██║██╔══██╗    ██╔══██╗██║     ██║     
