@@ -1,13 +1,13 @@
 import * as React from 'react'
 import styled from 'styled-components';
-import Head from './head';
-import Nav from './nav'
-import Brand from './brand'
-import Main from './main'
-import SideNav from './admin/sidenav'
-import Footer from './footer'
+import Head from '../head';
+import Nav from '../nav'
+import Brand from '../brand'
+import Main from '../main'
+import SideNav from './sidenav'
+import Footer from '../footer'
 
-const StyledLayout = styled.div`
+const StyledAdminLayout = styled.div`
   display: grid;
   grid-template-columns: 24rem 1fr;
   grid-template-rows: 8rem 1fr 5rem;
@@ -18,9 +18,9 @@ const StyledLayout = styled.div`
   height: 100vh;
 `;
 
-function Layout({ children, title = 'Hamish Brindle' }) {
+function AdminLayout({ children, title = 'Hamish Brindle' }) {
   return(
-    <StyledLayout>
+    <StyledAdminLayout>
       <Head title={title} />
       <Brand />
       <Nav />
@@ -29,8 +29,8 @@ function Layout({ children, title = 'Hamish Brindle' }) {
         { children }
       </Main>
       <Footer />
-    </StyledLayout>
+    </StyledAdminLayout>
   )
 }
 
-export default Layout
+export default AdminLayout
