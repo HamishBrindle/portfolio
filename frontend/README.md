@@ -1,2 +1,0 @@
-# Frontend
-Built with Nextjs.

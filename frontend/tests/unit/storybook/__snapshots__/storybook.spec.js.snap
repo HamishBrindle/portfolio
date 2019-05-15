@@ -1,0 +1,3420 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Button Danger 1`] = `
+<button
+  class="el-button m-button el-button--danger"
+  type="button"
+>
+  <!---->
+  <!---->
+  <span>
+    Danger
+  </span>
+</button>
+`;
+
+exports[`Storyshots Button Default 1`] = `<!---->`;
+
+exports[`Storyshots Button Info 1`] = `
+<button
+  class="el-button m-button el-button--info"
+  type="button"
+>
+  <!---->
+  <!---->
+  <span>
+    Info
+  </span>
+</button>
+`;
+
+exports[`Storyshots Button Primary 1`] = `
+<button
+  class="el-button m-button el-button--primary"
+  type="button"
+>
+  <!---->
+  <!---->
+  <span>
+    Primary
+  </span>
+</button>
+`;
+
+exports[`Storyshots Button Primary and plain 1`] = `
+<button
+  class="el-button m-button el-button--primary is-plain"
+  type="button"
+>
+  <!---->
+  <!---->
+  <span>
+    Plain
+  </span>
+</button>
+`;
+
+exports[`Storyshots Button Primary with text and icon 1`] = `
+<button
+  class="el-button m-button el-button--primary"
+  type="button"
+>
+  <!---->
+  <i
+    class="el-icon-edit-outline"
+  />
+  <span>
+    Edit
+  </span>
+</button>
+`;
+
+exports[`Storyshots Button Primary with text and icon, and opens a message-box 1`] = `
+<button
+  class="el-button m-button el-button--primary"
+  type="button"
+>
+  <!---->
+  <i
+    class="el-icon-check"
+  />
+  <span>
+    Confirm
+  </span>
+</button>
+`;
+
+exports[`Storyshots Button Rounded 1`] = `
+<button
+  class="el-button m-button el-button--primary is-round"
+  type="button"
+>
+  <!---->
+  <!---->
+  <span>
+    Rounded
+  </span>
+</button>
+`;
+
+exports[`Storyshots Button Success 1`] = `
+<button
+  class="el-button m-button el-button--success"
+  type="button"
+>
+  <!---->
+  <!---->
+  <span>
+    Success
+  </span>
+</button>
+`;
+
+exports[`Storyshots Button Success as circle with icon 1`] = `
+<button
+  class="el-button m-button el-button--success is-circle"
+  type="button"
+>
+  <!---->
+  <i
+    class="el-icon-star-on"
+  />
+  <!---->
+</button>
+`;
+
+exports[`Storyshots Button Warning 1`] = `
+<button
+  class="el-button m-button el-button--warning"
+  type="button"
+>
+  <!---->
+  <!---->
+  <span>
+    Warning
+  </span>
+</button>
+`;
+
+exports[`Storyshots Checkbox Multiple checkboxes in checkbox-group 1`] = `
+<div>
+  <!---->
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Select Option B
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Storyshots Checkbox Multiple checkboxes in checkbox-group and minimum (1) / maximum (3) items checked 1`] = `
+<div
+  aria-label="checkbox-group"
+  class="el-checkbox-group m-checkbox-group"
+  role="group"
+>
+  <label
+    aria-checked="true"
+    class="el-checkbox m-checkbox is-checked"
+    role="checkbox"
+  >
+    <span
+      aria-checked="mixed"
+      class="el-checkbox__input is-checked"
+    >
+      <span
+        class="el-checkbox__inner"
+      />
+      <input
+        aria-hidden="true"
+        class="el-checkbox__original"
+        type="checkbox"
+        value="Shanghai"
+      />
+    </span>
+    <span
+      class="el-checkbox__label"
+    >
+      Shanghai
+      <!---->
+    </span>
+  </label>
+  <label
+    aria-checked="true"
+    class="el-checkbox m-checkbox is-checked"
+    role="checkbox"
+  >
+    <span
+      aria-checked="mixed"
+      class="el-checkbox__input is-checked"
+    >
+      <span
+        class="el-checkbox__inner"
+      />
+      <input
+        aria-hidden="true"
+        class="el-checkbox__original"
+        type="checkbox"
+        value="Beijing"
+      />
+    </span>
+    <span
+      class="el-checkbox__label"
+    >
+      Beijing
+      <!---->
+    </span>
+  </label>
+  <label
+    class="el-checkbox m-checkbox"
+    role="checkbox"
+  >
+    <span
+      aria-checked="mixed"
+      class="el-checkbox__input"
+    >
+      <span
+        class="el-checkbox__inner"
+      />
+      <input
+        aria-hidden="true"
+        class="el-checkbox__original"
+        type="checkbox"
+        value="Guangzhou"
+      />
+    </span>
+    <span
+      class="el-checkbox__label"
+    >
+      Guangzhou
+      <!---->
+    </span>
+  </label>
+  <label
+    class="el-checkbox m-checkbox"
+    role="checkbox"
+  >
+    <span
+      aria-checked="mixed"
+      class="el-checkbox__input"
+    >
+      <span
+        class="el-checkbox__inner"
+      />
+      <input
+        aria-hidden="true"
+        class="el-checkbox__original"
+        type="checkbox"
+        value="Shenzhen"
+      />
+    </span>
+    <span
+      class="el-checkbox__label"
+    >
+      Shenzhen
+      <!---->
+    </span>
+  </label>
+</div>
+`;
+
+exports[`Storyshots Checkbox Multiple checkboxes in checkbox-group with an indeterminate 1`] = `
+<div>
+  <label
+    aria-checked="mixed"
+    aria-controls="undefined"
+    class="el-checkbox m-checkbox"
+    role="checkbox"
+  >
+    <span
+      aria-checked="mixed"
+      class="el-checkbox__input is-indeterminate"
+    >
+      <span
+        class="el-checkbox__inner"
+      />
+      <input
+        aria-hidden="true"
+        class="el-checkbox__original"
+        type="checkbox"
+        value=""
+      />
+    </span>
+    <span
+      class="el-checkbox__label"
+    >
+      Check all
+      <!---->
+    </span>
+  </label>
+   
+  <div
+    style="margin: 15px 0px;"
+  />
+   
+  <div
+    aria-label="checkbox-group"
+    class="el-checkbox-group m-checkbox-group"
+    role="group"
+  >
+    <label
+      aria-checked="true"
+      class="el-checkbox m-checkbox is-checked"
+      role="checkbox"
+    >
+      <span
+        aria-checked="mixed"
+        class="el-checkbox__input is-checked"
+      >
+        <span
+          class="el-checkbox__inner"
+        />
+        <input
+          aria-hidden="true"
+          class="el-checkbox__original"
+          type="checkbox"
+          value="Shanghai"
+        />
+      </span>
+      <span
+        class="el-checkbox__label"
+      >
+        Shanghai
+        <!---->
+      </span>
+    </label>
+    <label
+      aria-checked="true"
+      class="el-checkbox m-checkbox is-checked"
+      role="checkbox"
+    >
+      <span
+        aria-checked="mixed"
+        class="el-checkbox__input is-checked"
+      >
+        <span
+          class="el-checkbox__inner"
+        />
+        <input
+          aria-hidden="true"
+          class="el-checkbox__original"
+          type="checkbox"
+          value="Beijing"
+        />
+      </span>
+      <span
+        class="el-checkbox__label"
+      >
+        Beijing
+        <!---->
+      </span>
+    </label>
+    <label
+      class="el-checkbox m-checkbox"
+      role="checkbox"
+    >
+      <span
+        aria-checked="mixed"
+        class="el-checkbox__input"
+      >
+        <span
+          class="el-checkbox__inner"
+        />
+        <input
+          aria-hidden="true"
+          class="el-checkbox__original"
+          type="checkbox"
+          value="Guangzhou"
+        />
+      </span>
+      <span
+        class="el-checkbox__label"
+      >
+        Guangzhou
+        <!---->
+      </span>
+    </label>
+    <label
+      class="el-checkbox m-checkbox"
+      role="checkbox"
+    >
+      <span
+        aria-checked="mixed"
+        class="el-checkbox__input"
+      >
+        <span
+          class="el-checkbox__inner"
+        />
+        <input
+          aria-hidden="true"
+          class="el-checkbox__original"
+          type="checkbox"
+          value="Shenzhen"
+        />
+      </span>
+      <span
+        class="el-checkbox__label"
+      >
+        Shenzhen
+        <!---->
+      </span>
+    </label>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Checkbox Multiple checkboxes in checkbox-group with button styles 1`] = `
+<div>
+  <div>
+    <div
+      aria-label="checkbox-group"
+      class="el-checkbox-group m-checkbox-group"
+      role="group"
+    >
+      <!---->
+      <!---->
+      <!---->
+      <!---->
+    </div>
+  </div>
+   
+  <div
+    style="margin-top: 20px;"
+  >
+    <div
+      aria-label="checkbox-group"
+      class="el-checkbox-group m-checkbox-group"
+      role="group"
+    >
+      <!---->
+      <!---->
+      <!---->
+      <!---->
+    </div>
+  </div>
+   
+  <div
+    style="margin-top: 20px;"
+  >
+    <div
+      aria-label="checkbox-group"
+      class="el-checkbox-group m-checkbox-group"
+      role="group"
+    >
+      <!---->
+      <!---->
+      <!---->
+      <!---->
+    </div>
+  </div>
+   
+  <div
+    style="margin-top: 20px;"
+  >
+    <div
+      aria-label="checkbox-group"
+      class="el-checkbox-group m-checkbox-group"
+      role="group"
+    >
+      <!---->
+      <!---->
+      <!---->
+      <!---->
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Checkbox Single checkbox 1`] = `
+<div>
+  <!---->
+   
+  <p>
+    Option 1 is checked: false
+  </p>
+</div>
+`;
+
+exports[`Storyshots Icon Arrow-down 1`] = `
+<i
+  class="m-icon el-icon-arrow-down"
+/>
+`;
+
+exports[`Storyshots Icon Arrow-left 1`] = `
+<i
+  class="m-icon el-icon-arrow-left"
+/>
+`;
+
+exports[`Storyshots Icon Arrow-right 1`] = `
+<i
+  class="m-icon el-icon-arrow-right"
+/>
+`;
+
+exports[`Storyshots Icon Arrow-up 1`] = `
+<i
+  class="m-icon el-icon-arrow-up"
+/>
+`;
+
+exports[`Storyshots Icon Back 1`] = `
+<i
+  class="m-icon el-icon-back"
+/>
+`;
+
+exports[`Storyshots Icon Bell 1`] = `
+<i
+  class="m-icon el-icon-bell"
+/>
+`;
+
+exports[`Storyshots Icon Caret-bottom 1`] = `
+<i
+  class="m-icon el-icon-caret-bottom"
+/>
+`;
+
+exports[`Storyshots Icon Caret-left 1`] = `
+<i
+  class="m-icon el-icon-caret-left"
+/>
+`;
+
+exports[`Storyshots Icon Caret-right 1`] = `
+<i
+  class="m-icon el-icon-caret-right"
+/>
+`;
+
+exports[`Storyshots Icon Caret-top 1`] = `
+<i
+  class="m-icon el-icon-caret-top"
+/>
+`;
+
+exports[`Storyshots Icon Check 1`] = `
+<i
+  class="m-icon el-icon-check"
+/>
+`;
+
+exports[`Storyshots Icon Circle-check 1`] = `
+<i
+  class="m-icon el-icon-circle-check"
+/>
+`;
+
+exports[`Storyshots Icon Circle-check-outline 1`] = `
+<i
+  class="m-icon el-icon-circle-check-outline"
+/>
+`;
+
+exports[`Storyshots Icon Circle-close 1`] = `
+<i
+  class="m-icon el-icon-circle-close"
+/>
+`;
+
+exports[`Storyshots Icon Circle-close-outline 1`] = `
+<i
+  class="m-icon el-icon-circle-close-outline"
+/>
+`;
+
+exports[`Storyshots Icon Circle-plus 1`] = `
+<i
+  class="m-icon el-icon-circle-plus"
+/>
+`;
+
+exports[`Storyshots Icon Circle-plus-outline 1`] = `
+<i
+  class="m-icon el-icon-circle-plus-outline"
+/>
+`;
+
+exports[`Storyshots Icon Close 1`] = `
+<i
+  class="m-icon el-icon-close"
+/>
+`;
+
+exports[`Storyshots Icon D-arrow-left 1`] = `
+<i
+  class="m-icon el-icon-d-arrow-left"
+/>
+`;
+
+exports[`Storyshots Icon D-arrow-right 1`] = `
+<i
+  class="m-icon el-icon-d-arrow-right"
+/>
+`;
+
+exports[`Storyshots Icon D-caret 1`] = `
+<i
+  class="m-icon el-icon-d-caret"
+/>
+`;
+
+exports[`Storyshots Icon Date 1`] = `
+<i
+  class="m-icon el-icon-date"
+/>
+`;
+
+exports[`Storyshots Icon Delete 1`] = `
+<i
+  class="m-icon el-icon-delete"
+/>
+`;
+
+exports[`Storyshots Icon Document 1`] = `
+<i
+  class="m-icon el-icon-document"
+/>
+`;
+
+exports[`Storyshots Icon Download 1`] = `
+<i
+  class="m-icon el-icon-download"
+/>
+`;
+
+exports[`Storyshots Icon Edit 1`] = `
+<i
+  class="m-icon el-icon-edit"
+/>
+`;
+
+exports[`Storyshots Icon Edit-outline 1`] = `
+<i
+  class="m-icon el-icon-edit-outline"
+/>
+`;
+
+exports[`Storyshots Icon Error 1`] = `
+<i
+  class="m-icon el-icon-error"
+/>
+`;
+
+exports[`Storyshots Icon Goods 1`] = `
+<i
+  class="m-icon el-icon-goods"
+/>
+`;
+
+exports[`Storyshots Icon Info 1`] = `
+<i
+  class="m-icon el-icon-info"
+/>
+`;
+
+exports[`Storyshots Icon Loading 1`] = `
+<i
+  class="m-icon el-icon-loading"
+/>
+`;
+
+exports[`Storyshots Icon Location 1`] = `
+<i
+  class="m-icon el-icon-location"
+/>
+`;
+
+exports[`Storyshots Icon Location-outline 1`] = `
+<i
+  class="m-icon el-icon-location-outline"
+/>
+`;
+
+exports[`Storyshots Icon Menu 1`] = `
+<i
+  class="m-icon el-icon-menu"
+/>
+`;
+
+exports[`Storyshots Icon Message 1`] = `
+<i
+  class="m-icon el-icon-message"
+/>
+`;
+
+exports[`Storyshots Icon Minus 1`] = `
+<i
+  class="m-icon el-icon-minus"
+/>
+`;
+
+exports[`Storyshots Icon Mobile-phone 1`] = `
+<i
+  class="m-icon el-icon-mobile-phone"
+/>
+`;
+
+exports[`Storyshots Icon More 1`] = `
+<i
+  class="m-icon el-icon-more"
+/>
+`;
+
+exports[`Storyshots Icon More-outline 1`] = `
+<i
+  class="m-icon el-icon-more-outline"
+/>
+`;
+
+exports[`Storyshots Icon News 1`] = `
+<i
+  class="m-icon el-icon-news"
+/>
+`;
+
+exports[`Storyshots Icon Phone 1`] = `
+<i
+  class="m-icon el-icon-phone"
+/>
+`;
+
+exports[`Storyshots Icon Phone-outline 1`] = `
+<i
+  class="m-icon el-icon-phone-outline"
+/>
+`;
+
+exports[`Storyshots Icon Picture 1`] = `
+<i
+  class="m-icon el-icon-picture"
+/>
+`;
+
+exports[`Storyshots Icon Picture-outline 1`] = `
+<i
+  class="m-icon el-icon-picture-outline"
+/>
+`;
+
+exports[`Storyshots Icon Plus 1`] = `
+<i
+  class="m-icon el-icon-plus"
+/>
+`;
+
+exports[`Storyshots Icon Printer 1`] = `
+<i
+  class="m-icon el-icon-printer"
+/>
+`;
+
+exports[`Storyshots Icon Question 1`] = `
+<i
+  class="m-icon el-icon-question"
+/>
+`;
+
+exports[`Storyshots Icon Rank 1`] = `
+<i
+  class="m-icon el-icon-rank"
+/>
+`;
+
+exports[`Storyshots Icon Refresh 1`] = `
+<i
+  class="m-icon el-icon-refresh"
+/>
+`;
+
+exports[`Storyshots Icon Remove 1`] = `
+<i
+  class="m-icon el-icon-remove"
+/>
+`;
+
+exports[`Storyshots Icon Remove-outline 1`] = `
+<i
+  class="m-icon el-icon-remove-outline"
+/>
+`;
+
+exports[`Storyshots Icon Search 1`] = `
+<i
+  class="m-icon el-icon-search"
+/>
+`;
+
+exports[`Storyshots Icon Service 1`] = `
+<i
+  class="m-icon el-icon-service"
+/>
+`;
+
+exports[`Storyshots Icon Setting 1`] = `
+<i
+  class="m-icon el-icon-setting"
+/>
+`;
+
+exports[`Storyshots Icon Share 1`] = `
+<i
+  class="m-icon el-icon-share"
+/>
+`;
+
+exports[`Storyshots Icon Sold-out 1`] = `
+<i
+  class="m-icon el-icon-sold-out"
+/>
+`;
+
+exports[`Storyshots Icon Sort 1`] = `
+<i
+  class="m-icon el-icon-sort"
+/>
+`;
+
+exports[`Storyshots Icon Sort-down 1`] = `
+<i
+  class="m-icon el-icon-sort-down"
+/>
+`;
+
+exports[`Storyshots Icon Sort-up 1`] = `
+<i
+  class="m-icon el-icon-sort-up"
+/>
+`;
+
+exports[`Storyshots Icon Star-off 1`] = `
+<i
+  class="m-icon el-icon-star-off"
+/>
+`;
+
+exports[`Storyshots Icon Star-on 1`] = `
+<i
+  class="m-icon el-icon-star-on"
+/>
+`;
+
+exports[`Storyshots Icon Success 1`] = `
+<i
+  class="m-icon el-icon-success"
+/>
+`;
+
+exports[`Storyshots Icon Tickets 1`] = `
+<i
+  class="m-icon el-icon-tickets"
+/>
+`;
+
+exports[`Storyshots Icon Time 1`] = `
+<i
+  class="m-icon el-icon-time"
+/>
+`;
+
+exports[`Storyshots Icon Upload 1`] = `
+<i
+  class="m-icon el-icon-upload"
+/>
+`;
+
+exports[`Storyshots Icon Upload2 1`] = `
+<i
+  class="m-icon el-icon-upload2"
+/>
+`;
+
+exports[`Storyshots Icon View 1`] = `
+<i
+  class="m-icon el-icon-view"
+/>
+`;
+
+exports[`Storyshots Icon Warning 1`] = `
+<i
+  class="m-icon el-icon-warning"
+/>
+`;
+
+exports[`Storyshots Icon Zoom-in 1`] = `
+<i
+  class="m-icon el-icon-zoom-in"
+/>
+`;
+
+exports[`Storyshots Icon Zoom-out 1`] = `
+<i
+  class="m-icon el-icon-zoom-out"
+/>
+`;
+
+exports[`Storyshots Input Autocomplete (custom template) 1`] = `
+<div
+  aria-haspopup="listbox"
+  aria-owns="el-autocomplete-6487"
+  class="el-autocomplete m-autocomplete"
+  role="combobox"
+>
+  <div
+    class="el-input el-input--suffix"
+  >
+    <!---->
+    <input
+      aria-activedescendant="el-autocomplete-6487-item--1"
+      aria-autocomplete="list"
+      aria-controls="id"
+      autocomplete="off"
+      class="el-input__inner"
+      debounce="300"
+      fetchsuggestions="function () { [native code] }"
+      placeholder="Please input"
+      placement="bottom-start"
+      popperappendtobody="true"
+      popperclass="my-autocomplete"
+      role="textbox"
+      triggeronfocus="true"
+      type="text"
+      valuekey="value"
+    />
+    <!---->
+    <span
+      class="el-input__suffix"
+    >
+      <span
+        class="el-input__suffix-inner"
+      >
+        <i
+          class="el-icon-edit el-input__icon"
+        />
+        <!---->
+        <!---->
+        <!---->
+      </span>
+      <!---->
+    </span>
+    <!---->
+  </div>
+  <div
+    class="el-autocomplete-suggestion el-popper my-autocomplete"
+    role="region"
+    style="display: none;"
+  >
+    <div
+      class="el-scrollbar"
+    >
+      <div
+        class="el-autocomplete-suggestion__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+      >
+        <ul
+          class="el-scrollbar__view el-autocomplete-suggestion__list"
+          id="el-autocomplete-6487"
+          role="listbox"
+        />
+      </div>
+      <div
+        class="el-scrollbar__bar is-horizontal"
+      >
+        <div
+          class="el-scrollbar__thumb"
+          style="width: 0px; transform: translateX(0%); webkit-transform: translateX(0%);"
+        />
+      </div>
+      <div
+        class="el-scrollbar__bar is-vertical"
+      >
+        <div
+          class="el-scrollbar__thumb"
+          style="height: 0px; transform: translateY(0%); webkit-transform: translateY(0%);"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Input Autocomplete (fetch + timeout error) 1`] = `
+<div>
+  <div
+    aria-haspopup="listbox"
+    aria-owns="el-autocomplete-8033"
+    class="el-autocomplete m-autocomplete"
+    role="combobox"
+  >
+    <div
+      class="el-input"
+    >
+      <!---->
+      <input
+        aria-activedescendant="el-autocomplete-8033-item--1"
+        aria-autocomplete="list"
+        aria-controls="id"
+        autocomplete="off"
+        class="el-input__inner"
+        debounce="300"
+        fetchsuggestions="function () { [native code] }"
+        placeholder="Please input"
+        placement="bottom-start"
+        popperappendtobody="true"
+        role="textbox"
+        triggeronfocus="true"
+        type="text"
+        valuekey="value"
+      />
+      <!---->
+      <!---->
+      <!---->
+    </div>
+    <div
+      class="el-autocomplete-suggestion el-popper"
+      role="region"
+      style="display: none;"
+    >
+      <div
+        class="el-scrollbar"
+      >
+        <div
+          class="el-autocomplete-suggestion__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+        >
+          <ul
+            class="el-scrollbar__view el-autocomplete-suggestion__list"
+            id="el-autocomplete-8033"
+            role="listbox"
+          />
+        </div>
+        <div
+          class="el-scrollbar__bar is-horizontal"
+        >
+          <div
+            class="el-scrollbar__thumb"
+            style="width: 0px; transform: translateX(0%); webkit-transform: translateX(0%);"
+          />
+        </div>
+        <div
+          class="el-scrollbar__bar is-vertical"
+        >
+          <div
+            class="el-scrollbar__thumb"
+            style="height: 0px; transform: translateY(0%); webkit-transform: translateY(0%);"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+   
+  <code>
+    No Error
+  </code>
+</div>
+`;
+
+exports[`Storyshots Input Autocomplete (fetch) 1`] = `
+<div
+  aria-haspopup="listbox"
+  aria-owns="el-autocomplete-6430"
+  class="el-autocomplete m-autocomplete"
+  role="combobox"
+>
+  <div
+    class="el-input"
+  >
+    <!---->
+    <input
+      aria-activedescendant="el-autocomplete-6430-item--1"
+      aria-autocomplete="list"
+      aria-controls="id"
+      autocomplete="off"
+      class="el-input__inner"
+      debounce="300"
+      fetchsuggestions="function () { [native code] }"
+      placeholder="Please input"
+      placement="bottom-start"
+      popperappendtobody="true"
+      role="textbox"
+      triggeronfocus="true"
+      type="text"
+      valuekey="value"
+    />
+    <!---->
+    <!---->
+    <!---->
+  </div>
+  <div
+    class="el-autocomplete-suggestion el-popper"
+    role="region"
+    style="display: none;"
+  >
+    <div
+      class="el-scrollbar"
+    >
+      <div
+        class="el-autocomplete-suggestion__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+      >
+        <ul
+          class="el-scrollbar__view el-autocomplete-suggestion__list"
+          id="el-autocomplete-6430"
+          role="listbox"
+        />
+      </div>
+      <div
+        class="el-scrollbar__bar is-horizontal"
+      >
+        <div
+          class="el-scrollbar__thumb"
+          style="width: 0px; transform: translateX(0%); webkit-transform: translateX(0%);"
+        />
+      </div>
+      <div
+        class="el-scrollbar__bar is-vertical"
+      >
+        <div
+          class="el-scrollbar__thumb"
+          style="height: 0px; transform: translateY(0%); webkit-transform: translateY(0%);"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Input Autocomplete 1`] = `<!---->`;
+
+exports[`Storyshots Input Basic (use accessability methods) 1`] = `
+<div>
+  <div
+    class="m-input el-input"
+    placeholder="Search..."
+  >
+    <!---->
+    <input
+      autocomplete="off"
+      class="el-input__inner"
+      placeholder="Search..."
+      type="text"
+    />
+    <!---->
+    <!---->
+    <!---->
+  </div>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Select
+    </span>
+  </button>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Focus
+    </span>
+  </button>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Blur
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Storyshots Input Basic 1`] = `
+<div>
+  <!---->
+   
+  <p>
+    <strong>
+      Searching for:
+    </strong>
+     Empty
+  </p>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Set Value
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Storyshots Input Clearable 1`] = `
+<div>
+  <div
+    class="m-input el-input el-input--suffix"
+    placeholder="Search..."
+  >
+    <!---->
+    <input
+      autocomplete="off"
+      class="el-input__inner"
+      placeholder="Search..."
+      type="text"
+    />
+    <!---->
+    <!---->
+    <!---->
+  </div>
+   
+  <p>
+    <strong>
+      Searching for:
+    </strong>
+     Empty
+  </p>
+</div>
+`;
+
+exports[`Storyshots Input Disabled 1`] = `
+<div>
+  <div
+    class="m-input el-input is-disabled"
+    placeholder="Search..."
+  >
+    <!---->
+    <input
+      autocomplete="off"
+      class="el-input__inner"
+      disabled="disabled"
+      placeholder="Search..."
+      type="text"
+    />
+    <!---->
+    <!---->
+    <!---->
+  </div>
+</div>
+`;
+
+exports[`Storyshots Input Icons on field 1`] = `
+<div>
+  <div
+    class="demo-input-suffix"
+  >
+    <span
+      class="demo-input-label"
+    >
+      Using attributes
+    </span>
+     
+    <div
+      class="m-input el-input el-input--suffix"
+      placeholder="Pick a date"
+    >
+      <!---->
+      <input
+        autocomplete="off"
+        class="el-input__inner"
+        placeholder="Pick a date"
+        type="text"
+      />
+      <!---->
+      <span
+        class="el-input__suffix"
+      >
+        <span
+          class="el-input__suffix-inner"
+        >
+          <i
+            class="el-input__icon el-icon-date"
+          />
+          <!---->
+          <!---->
+        </span>
+        <!---->
+      </span>
+      <!---->
+    </div>
+     
+    <div
+      class="m-input el-input el-input--prefix"
+      placeholder="Type something"
+    >
+      <!---->
+      <input
+        autocomplete="off"
+        class="el-input__inner"
+        placeholder="Type something"
+        type="text"
+      />
+      <span
+        class="el-input__prefix"
+      >
+        <i
+          class="el-input__icon el-icon-search"
+        />
+      </span>
+      <!---->
+      <!---->
+    </div>
+  </div>
+   
+  <div
+    class="demo-input-suffix"
+  >
+    <span
+      class="demo-input-label"
+    >
+      Using slots (TODO: the styling is off)
+    </span>
+     
+    <div
+      class="m-input el-input el-input--suffix"
+      placeholder="Pick a date"
+    >
+      <!---->
+      <input
+        autocomplete="off"
+        class="el-input__inner"
+        placeholder="Pick a date"
+        type="text"
+      />
+      <!---->
+      <span
+        class="el-input__suffix"
+      >
+        <span
+          class="el-input__suffix-inner"
+        >
+          <i
+            class="el-icon-date"
+            style="width: 2.5rem;"
+          />
+          <!---->
+          <!---->
+          <!---->
+        </span>
+        <!---->
+      </span>
+      <!---->
+    </div>
+     
+    <div
+      class="m-input el-input el-input--prefix"
+      placeholder="Type something"
+    >
+      <!---->
+      <input
+        autocomplete="off"
+        class="el-input__inner"
+        placeholder="Type something"
+        type="text"
+      />
+      <span
+        class="el-input__prefix"
+      >
+        <i
+          class="el-icon-search"
+        />
+        <!---->
+      </span>
+      <!---->
+      <!---->
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Input Mixed input 1`] = `
+<div>
+  <div>
+    <div
+      class="m-input el-input el-input-group el-input-group--prepend"
+      placeholder="Please input"
+    >
+      <div
+        class="el-input-group__prepend"
+      >
+        Http://
+      </div>
+      <input
+        autocomplete="off"
+        class="el-input__inner"
+        placeholder="Please input"
+        type="text"
+      />
+      <!---->
+      <!---->
+      <!---->
+    </div>
+  </div>
+   
+  <div
+    style="margin-top: 15px;"
+  >
+    <div
+      class="m-input el-input el-input-group el-input-group--append"
+      placeholder="Please input"
+    >
+      <!---->
+      <input
+        autocomplete="off"
+        class="el-input__inner"
+        placeholder="Please input"
+        type="text"
+      />
+      <!---->
+      <!---->
+      <div
+        class="el-input-group__append"
+      >
+        .com
+      </div>
+    </div>
+  </div>
+   
+  <div
+    style="margin-top: 15px;"
+  >
+    <div
+      class="m-input input-with-select el-input el-input-group el-input-group--append el-input-group--prepend"
+      placeholder="Please input"
+    >
+      <div
+        class="el-input-group__prepend"
+      >
+        <!---->
+      </div>
+      <input
+        autocomplete="off"
+        class="el-input__inner"
+        placeholder="Please input"
+        type="text"
+      />
+      <!---->
+      <!---->
+      <div
+        class="el-input-group__append"
+      >
+        <button
+          class="el-button m-button el-button--default"
+          type="button"
+        >
+          <!---->
+          <i
+            class="el-icon-search"
+          />
+          <!---->
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Input Password field 1`] = `
+<div>
+  <div
+    class="m-input el-input el-input--suffix"
+    placeholder="Please input password"
+  >
+    <!---->
+    <input
+      autocomplete="off"
+      class="el-input__inner"
+      placeholder="Please input password"
+      type="password"
+    />
+    <!---->
+    <span
+      class="el-input__suffix"
+    >
+      <span
+        class="el-input__suffix-inner"
+      >
+        <!---->
+        <!---->
+        <!---->
+      </span>
+      <!---->
+    </span>
+    <!---->
+  </div>
+</div>
+`;
+
+exports[`Storyshots Input Sizes 1`] = `
+<div>
+  <div
+    class="demo-input-size"
+  >
+    <div
+      class="m-input el-input"
+      placeholder="Please Input"
+    >
+      <!---->
+      <input
+        autocomplete="off"
+        class="el-input__inner"
+        placeholder="Please Input"
+        type="text"
+      />
+      <!---->
+      <!---->
+      <!---->
+    </div>
+     
+    <div
+      class="m-input el-input el-input--medium"
+      placeholder="Please Input"
+    >
+      <!---->
+      <input
+        autocomplete="off"
+        class="el-input__inner"
+        placeholder="Please Input"
+        type="text"
+      />
+      <!---->
+      <!---->
+      <!---->
+    </div>
+     
+    <div
+      class="m-input el-input el-input--small"
+      placeholder="Please Input"
+    >
+      <!---->
+      <input
+        autocomplete="off"
+        class="el-input__inner"
+        placeholder="Please Input"
+        type="text"
+      />
+      <!---->
+      <!---->
+      <!---->
+    </div>
+     
+    <div
+      class="m-input el-input el-input--mini"
+      placeholder="Please Input"
+    >
+      <!---->
+      <input
+        autocomplete="off"
+        class="el-input__inner"
+        placeholder="Please Input"
+        type="text"
+      />
+      <!---->
+      <!---->
+      <!---->
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Input Textarea (Autosizing) 1`] = `
+<div>
+  <div
+    class="m-input el-textarea"
+    placeholder="Please input"
+  >
+    <textarea
+      autocomplete="off"
+      class="el-textarea__inner"
+      placeholder="Please input"
+    />
+  </div>
+   
+  <p>
+    <strong>
+      Textarea #2 contains:
+    </strong>
+     Empty
+  </p>
+   
+  <div
+    style="margin: 20px 0px;"
+  />
+   
+  <div
+    class="m-input el-textarea"
+    placeholder="Please input"
+  >
+    <textarea
+      autocomplete="off"
+      class="el-textarea__inner"
+      placeholder="Please input"
+    />
+  </div>
+   
+  <p>
+    <strong>
+      Textarea #3 contains:
+    </strong>
+     Empty
+  </p>
+</div>
+`;
+
+exports[`Storyshots Input Textarea 1`] = `
+<div>
+  <div
+    class="m-input el-textarea"
+    placeholder="Please input"
+    rows="2"
+  >
+    <textarea
+      autocomplete="off"
+      class="el-textarea__inner"
+      placeholder="Please input"
+      rows="2"
+    />
+  </div>
+   
+  <p>
+    <strong>
+      Textarea contains:
+    </strong>
+     Empty
+  </p>
+</div>
+`;
+
+exports[`Storyshots InputNumber Basic 1`] = `
+<div>
+  <!---->
+   
+  <p>
+    <strong>
+      Selected number:
+    </strong>
+     1
+  </p>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Select
+    </span>
+  </button>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Focus
+    </span>
+  </button>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Set to 10
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Storyshots InputNumber Controls position 1`] = `
+<div>
+  <div
+    class="m-input-number el-input-number is-controls-right"
+  >
+    <span
+      class="el-input-number__decrease is-disabled"
+      role="button"
+    >
+      <i
+        class="el-icon-arrow-down"
+      />
+    </span>
+    <span
+      class="el-input-number__increase"
+      role="button"
+    >
+      <i
+        class="el-icon-arrow-up"
+      />
+    </span>
+    <div
+      class="el-input"
+    >
+      <!---->
+      <input
+        aria-disabled="undefined"
+        aria-valuemax="10"
+        aria-valuemin="1"
+        aria-valuenow="1"
+        autocomplete="off"
+        class="el-input__inner"
+        max="10"
+        min="1"
+        role="spinbutton"
+        type="text"
+      />
+      <!---->
+      <!---->
+      <!---->
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots InputNumber Disabled 1`] = `
+<div>
+  <div
+    class="m-input-number el-input-number is-disabled"
+  >
+    <span
+      class="el-input-number__decrease is-disabled"
+      role="button"
+    >
+      <i
+        class="el-icon-minus"
+      />
+    </span>
+    <span
+      class="el-input-number__increase"
+      role="button"
+    >
+      <i
+        class="el-icon-plus"
+      />
+    </span>
+    <div
+      class="el-input is-disabled"
+    >
+      <!---->
+      <input
+        aria-disabled="true"
+        aria-valuemax="10"
+        aria-valuemin="1"
+        aria-valuenow="1"
+        autocomplete="off"
+        class="el-input__inner"
+        disabled="disabled"
+        max="10"
+        min="1"
+        role="spinbutton"
+        type="text"
+      />
+      <!---->
+      <!---->
+      <!---->
+    </div>
+  </div>
+   
+  <p>
+    <strong>
+      Selected number:
+    </strong>
+     1
+  </p>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Select
+    </span>
+  </button>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Focus
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Storyshots InputNumber Precision 1`] = `
+<div>
+  <div
+    class="m-input-number el-input-number"
+  >
+    <span
+      class="el-input-number__decrease"
+      role="button"
+    >
+      <i
+        class="el-icon-minus"
+      />
+    </span>
+    <span
+      class="el-input-number__increase"
+      role="button"
+    >
+      <i
+        class="el-icon-plus"
+      />
+    </span>
+    <div
+      class="el-input"
+    >
+      <!---->
+      <input
+        aria-disabled="undefined"
+        aria-valuemax="10"
+        aria-valuemin="-Infinity"
+        aria-valuenow="1"
+        autocomplete="off"
+        class="el-input__inner"
+        max="10"
+        min="-Infinity"
+        role="spinbutton"
+        type="text"
+      />
+      <!---->
+      <!---->
+      <!---->
+    </div>
+  </div>
+   
+  <p>
+    <strong>
+      Selected number:
+    </strong>
+     1
+  </p>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Select
+    </span>
+  </button>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Focus
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Storyshots InputNumber Sizes 1`] = `
+<div>
+  <div
+    class="m-input-number el-input-number"
+  >
+    <span
+      class="el-input-number__decrease"
+      role="button"
+    >
+      <i
+        class="el-icon-minus"
+      />
+    </span>
+    <span
+      class="el-input-number__increase"
+      role="button"
+    >
+      <i
+        class="el-icon-plus"
+      />
+    </span>
+    <div
+      class="el-input"
+    >
+      <!---->
+      <input
+        aria-disabled="undefined"
+        aria-valuemax="Infinity"
+        aria-valuemin="-Infinity"
+        aria-valuenow="1"
+        autocomplete="off"
+        class="el-input__inner"
+        max="Infinity"
+        min="-Infinity"
+        role="spinbutton"
+        type="text"
+      />
+      <!---->
+      <!---->
+      <!---->
+    </div>
+  </div>
+   
+  <div
+    class="m-input-number el-input-number el-input-number--medium"
+  >
+    <span
+      class="el-input-number__decrease"
+      role="button"
+    >
+      <i
+        class="el-icon-minus"
+      />
+    </span>
+    <span
+      class="el-input-number__increase"
+      role="button"
+    >
+      <i
+        class="el-icon-plus"
+      />
+    </span>
+    <div
+      class="el-input el-input--medium"
+    >
+      <!---->
+      <input
+        aria-disabled="undefined"
+        aria-valuemax="Infinity"
+        aria-valuemin="-Infinity"
+        aria-valuenow="1"
+        autocomplete="off"
+        class="el-input__inner"
+        max="Infinity"
+        min="-Infinity"
+        role="spinbutton"
+        type="text"
+      />
+      <!---->
+      <!---->
+      <!---->
+    </div>
+  </div>
+   
+  <div
+    class="m-input-number el-input-number el-input-number--small"
+  >
+    <span
+      class="el-input-number__decrease"
+      role="button"
+    >
+      <i
+        class="el-icon-minus"
+      />
+    </span>
+    <span
+      class="el-input-number__increase"
+      role="button"
+    >
+      <i
+        class="el-icon-plus"
+      />
+    </span>
+    <div
+      class="el-input el-input--small"
+    >
+      <!---->
+      <input
+        aria-disabled="undefined"
+        aria-valuemax="Infinity"
+        aria-valuemin="-Infinity"
+        aria-valuenow="1"
+        autocomplete="off"
+        class="el-input__inner"
+        max="Infinity"
+        min="-Infinity"
+        role="spinbutton"
+        type="text"
+      />
+      <!---->
+      <!---->
+      <!---->
+    </div>
+  </div>
+   
+  <div
+    class="m-input-number el-input-number el-input-number--mini"
+  >
+    <span
+      class="el-input-number__decrease"
+      role="button"
+    >
+      <i
+        class="el-icon-minus"
+      />
+    </span>
+    <span
+      class="el-input-number__increase"
+      role="button"
+    >
+      <i
+        class="el-icon-plus"
+      />
+    </span>
+    <div
+      class="el-input el-input--mini"
+    >
+      <!---->
+      <input
+        aria-disabled="undefined"
+        aria-valuemax="Infinity"
+        aria-valuemin="-Infinity"
+        aria-valuenow="1"
+        autocomplete="off"
+        class="el-input__inner"
+        max="Infinity"
+        min="-Infinity"
+        role="spinbutton"
+        type="text"
+      />
+      <!---->
+      <!---->
+      <!---->
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots InputNumber Steps (5) 1`] = `
+<div>
+  <div
+    class="m-input-number el-input-number"
+  >
+    <span
+      class="el-input-number__decrease is-disabled"
+      role="button"
+    >
+      <i
+        class="el-icon-minus"
+      />
+    </span>
+    <span
+      class="el-input-number__increase"
+      role="button"
+    >
+      <i
+        class="el-icon-plus"
+      />
+    </span>
+    <div
+      class="el-input"
+    >
+      <!---->
+      <input
+        aria-disabled="undefined"
+        aria-valuemax="Infinity"
+        aria-valuemin="1"
+        aria-valuenow="1"
+        autocomplete="off"
+        class="el-input__inner"
+        max="Infinity"
+        min="1"
+        role="spinbutton"
+        type="text"
+      />
+      <!---->
+      <!---->
+      <!---->
+    </div>
+  </div>
+   
+  <p>
+    <strong>
+      Selected number:
+    </strong>
+     1
+  </p>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Select
+    </span>
+  </button>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Focus
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Storyshots Radio Multiple radio-buttons inside radio-group 1`] = `
+<div>
+  <div
+    class="el-radio-group m-radio-group"
+    role="radiogroup"
+  >
+    <!---->
+     
+    <!---->
+     
+    <!---->
+  </div>
+   
+  <p>
+    Selected is: 2
+  </p>
+</div>
+`;
+
+exports[`Storyshots Radio Multiple radios inside radio-group 1`] = `
+<div>
+  <div>
+    <!---->
+     
+    <p>
+      Selected is: B
+    </p>
+  </div>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Select Option B
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Storyshots Radio Single radio 1`] = `
+<div>
+  <!---->
+   
+  <p>
+    Selected is: 2
+  </p>
+</div>
+`;
+
+exports[`Storyshots Radio Single radio with border 1`] = `
+<div>
+  <label
+    class="el-radio m-radio is-bordered"
+    role="radio"
+    tabindex="0"
+  >
+    <span
+      class="el-radio__input"
+    >
+      <span
+        class="el-radio__inner"
+      />
+      <input
+        aria-hidden="true"
+        class="el-radio__original"
+        tabindex="-1"
+        type="radio"
+        value="1"
+      />
+    </span>
+    <span
+      class="el-radio__label"
+    >
+      Option 1
+      <!---->
+    </span>
+  </label>
+   
+  <p>
+    Selected is: 2
+  </p>
+</div>
+`;
+
+exports[`Storyshots Select Basic 1`] = `
+<div>
+  <div
+    class="el-select m-select"
+  >
+    <!---->
+    <div
+      class="el-input el-input--suffix"
+    >
+      <!---->
+      <input
+        autocomplete="off"
+        class="el-input__inner"
+        placeholder="Select"
+        readonly="readonly"
+        type="text"
+      />
+      <!---->
+      <span
+        class="el-input__suffix"
+      >
+        <span
+          class="el-input__suffix-inner"
+        >
+          <i
+            class="el-select__caret el-input__icon el-icon-arrow-up"
+          />
+          <!---->
+          <!---->
+          <!---->
+          <!---->
+        </span>
+        <!---->
+      </span>
+      <!---->
+    </div>
+    <div
+      class="el-select-dropdown el-popper"
+      style="display: none;"
+    >
+      <div
+        class="el-scrollbar"
+        style="display: none;"
+      >
+        <div
+          class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+        >
+          <ul
+            class="el-scrollbar__view el-select-dropdown__list"
+          >
+            <!---->
+              
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option 1
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option 2
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option 3
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option 4
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option 5
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="el-scrollbar__bar is-horizontal"
+        >
+          <div
+            class="el-scrollbar__thumb"
+            style="width: 0px; transform: translateX(0%); webkit-transform: translateX(0%);"
+          />
+        </div>
+        <div
+          class="el-scrollbar__bar is-vertical"
+        >
+          <div
+            class="el-scrollbar__thumb"
+            style="height: 0px; transform: translateY(0%); webkit-transform: translateY(0%);"
+          />
+        </div>
+      </div>
+      <p
+        class="el-select-dropdown__empty"
+      >
+        
+          No data
+        
+      </p>
+    </div>
+  </div>
+   
+  <p>
+    <strong>
+      Selected:
+    </strong>
+     
+  </p>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Focus
+    </span>
+  </button>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Blur
+    </span>
+  </button>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Set Option 3
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Storyshots Select Basic multiple select 1`] = `
+<div>
+  <div
+    class="el-select m-select"
+    style="min-width: 35rem;"
+  >
+    <div
+      class="el-select__tags"
+      style="max-width: -32px; width: 100%;"
+    >
+      <!---->
+      <span />
+      <!---->
+    </div>
+    <div
+      class="el-input el-input--suffix"
+    >
+      <!---->
+      <input
+        autocomplete="off"
+        class="el-input__inner"
+        placeholder="Select"
+        readonly="readonly"
+        type="text"
+      />
+      <!---->
+      <span
+        class="el-input__suffix"
+      >
+        <span
+          class="el-input__suffix-inner"
+        >
+          <i
+            class="el-select__caret el-input__icon el-icon-arrow-up"
+          />
+          <!---->
+          <!---->
+          <!---->
+          <!---->
+        </span>
+        <!---->
+      </span>
+      <!---->
+    </div>
+    <div
+      class="el-select-dropdown el-popper is-multiple"
+      style="display: none;"
+    >
+      <div
+        class="el-scrollbar"
+        style="display: none;"
+      >
+        <div
+          class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+        >
+          <ul
+            class="el-scrollbar__view el-select-dropdown__list"
+          >
+            <!---->
+              
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option1
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option2
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option3
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option4
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option5
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="el-scrollbar__bar is-horizontal"
+        >
+          <div
+            class="el-scrollbar__thumb"
+            style="width: 0px; transform: translateX(0%); webkit-transform: translateX(0%);"
+          />
+        </div>
+        <div
+          class="el-scrollbar__bar is-vertical"
+        >
+          <div
+            class="el-scrollbar__thumb"
+            style="height: 0px; transform: translateY(0%); webkit-transform: translateY(0%);"
+          />
+        </div>
+      </div>
+      <p
+        class="el-select-dropdown__empty"
+      >
+        
+          No data
+        
+      </p>
+    </div>
+  </div>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Add Option5
+    </span>
+  </button>
+   
+  <div
+    class="el-select m-select"
+    style="min-width: 35rem; margin-left: 2rem;"
+  >
+    <div
+      class="el-select__tags"
+      style="max-width: -32px; width: 100%;"
+    >
+      <!---->
+      <!---->
+      <!---->
+    </div>
+    <div
+      class="el-input el-input--suffix"
+    >
+      <!---->
+      <input
+        autocomplete="off"
+        class="el-input__inner"
+        placeholder="Select"
+        readonly="readonly"
+        type="text"
+      />
+      <!---->
+      <span
+        class="el-input__suffix"
+      >
+        <span
+          class="el-input__suffix-inner"
+        >
+          <i
+            class="el-select__caret el-input__icon el-icon-arrow-up"
+          />
+          <!---->
+          <!---->
+          <!---->
+          <!---->
+        </span>
+        <!---->
+      </span>
+      <!---->
+    </div>
+    <div
+      class="el-select-dropdown el-popper is-multiple"
+      style="display: none;"
+    >
+      <div
+        class="el-scrollbar"
+        style="display: none;"
+      >
+        <div
+          class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+        >
+          <ul
+            class="el-scrollbar__view el-select-dropdown__list"
+          >
+            <!---->
+              
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option1
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option2
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option3
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option4
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option5
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="el-scrollbar__bar is-horizontal"
+        >
+          <div
+            class="el-scrollbar__thumb"
+            style="width: 0px; transform: translateX(0%); webkit-transform: translateX(0%);"
+          />
+        </div>
+        <div
+          class="el-scrollbar__bar is-vertical"
+        >
+          <div
+            class="el-scrollbar__thumb"
+            style="height: 0px; transform: translateY(0%); webkit-transform: translateY(0%);"
+          />
+        </div>
+      </div>
+      <p
+        class="el-select-dropdown__empty"
+      >
+        
+          No data
+        
+      </p>
+    </div>
+  </div>
+   
+  <!---->
+</div>
+`;
+
+exports[`Storyshots Select Clearable single select 1`] = `
+<div>
+  <div
+    class="el-select m-select"
+  >
+    <!---->
+    <div
+      class="el-input el-input--suffix"
+    >
+      <!---->
+      <input
+        autocomplete="off"
+        class="el-input__inner"
+        placeholder="Select"
+        readonly="readonly"
+        type="text"
+      />
+      <!---->
+      <span
+        class="el-input__suffix"
+      >
+        <span
+          class="el-input__suffix-inner"
+        >
+          <i
+            class="el-select__caret el-input__icon el-icon-arrow-up"
+          />
+          <!---->
+          <!---->
+          <!---->
+          <!---->
+        </span>
+        <!---->
+      </span>
+      <!---->
+    </div>
+    <div
+      class="el-select-dropdown el-popper"
+      style="display: none;"
+    >
+      <div
+        class="el-scrollbar"
+        style="display: none;"
+      >
+        <div
+          class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+        >
+          <ul
+            class="el-scrollbar__view el-select-dropdown__list"
+          >
+            <!---->
+              
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option 1
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option 2
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option selected"
+            >
+              <span>
+                Option 3
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="el-scrollbar__bar is-horizontal"
+        >
+          <div
+            class="el-scrollbar__thumb"
+            style="width: 0px; transform: translateX(0%); webkit-transform: translateX(0%);"
+          />
+        </div>
+        <div
+          class="el-scrollbar__bar is-vertical"
+        >
+          <div
+            class="el-scrollbar__thumb"
+            style="height: 0px; transform: translateY(0%); webkit-transform: translateY(0%);"
+          />
+        </div>
+      </div>
+      <p
+        class="el-select-dropdown__empty"
+      >
+        
+          No data
+        
+      </p>
+    </div>
+  </div>
+   
+  <p>
+    <strong>
+      Selected:
+    </strong>
+     3
+  </p>
+</div>
+`;
+
+exports[`Storyshots Select Custom template (emojis) 1`] = `
+<div
+  class="el-select m-select"
+  style="min-width: 30rem;"
+>
+  <!---->
+  <div
+    class="el-input el-input--suffix"
+  >
+    <!---->
+    <input
+      autocomplete="off"
+      class="el-input__inner"
+      placeholder="Select"
+      readonly="readonly"
+      type="text"
+    />
+    <!---->
+    <span
+      class="el-input__suffix"
+    >
+      <span
+        class="el-input__suffix-inner"
+      >
+        <i
+          class="el-select__caret el-input__icon el-icon-arrow-up"
+        />
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+      </span>
+      <!---->
+    </span>
+    <!---->
+  </div>
+  <div
+    class="el-select-dropdown el-popper"
+    style="display: none;"
+  >
+    <div
+      class="el-scrollbar"
+      style="display: none;"
+    >
+      <div
+        class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+      >
+        <ul
+          class="el-scrollbar__view el-select-dropdown__list"
+        >
+          <!---->
+            
+          <li
+            class="el-select-dropdown__item m-option"
+          >
+            <span
+              style="float: left;"
+            >
+              🙏
+            </span>
+             
+            <span
+              style="float: right; color: rgb(132, 146, 166); font-size: 1.3rem;"
+            >
+              Prayers Up!
+            </span>
+          </li>
+          <li
+            class="el-select-dropdown__item m-option"
+          >
+            <span
+              style="float: left;"
+            >
+              🍉
+            </span>
+             
+            <span
+              style="float: right; color: rgb(132, 146, 166); font-size: 1.3rem;"
+            >
+              Om Nom Nom
+            </span>
+          </li>
+          <li
+            class="el-select-dropdown__item m-option"
+          >
+            <span
+              style="float: left;"
+            >
+              🛴
+            </span>
+             
+            <span
+              style="float: right; color: rgb(132, 146, 166); font-size: 1.3rem;"
+            >
+              Do a barrel roll
+            </span>
+          </li>
+          <li
+            class="el-select-dropdown__item m-option"
+          >
+            <span
+              style="float: left;"
+            >
+              🔥
+            </span>
+             
+            <span
+              style="float: right; color: rgb(132, 146, 166); font-size: 1.3rem;"
+            >
+              Fuego
+            </span>
+          </li>
+          <li
+            class="el-select-dropdown__item m-option"
+          >
+            <span
+              style="float: left;"
+            >
+              👽
+            </span>
+             
+            <span
+              style="float: right; color: rgb(132, 146, 166); font-size: 1.3rem;"
+            >
+              Ayy Lmao
+            </span>
+          </li>
+          <li
+            class="el-select-dropdown__item m-option"
+          >
+            <span
+              style="float: left;"
+            >
+              🇦🇺
+            </span>
+             
+            <span
+              style="float: right; color: rgb(132, 146, 166); font-size: 1.3rem;"
+            >
+              Oye Mate
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div
+        class="el-scrollbar__bar is-horizontal"
+      >
+        <div
+          class="el-scrollbar__thumb"
+          style="width: 0px; transform: translateX(0%); webkit-transform: translateX(0%);"
+        />
+      </div>
+      <div
+        class="el-scrollbar__bar is-vertical"
+      >
+        <div
+          class="el-scrollbar__thumb"
+          style="height: 0px; transform: translateY(0%); webkit-transform: translateY(0%);"
+        />
+      </div>
+    </div>
+    <p
+      class="el-select-dropdown__empty"
+    >
+      
+          No data
+        
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Select Custom template 1`] = `
+<div
+  class="el-select m-select"
+  style="min-width: 30rem;"
+>
+  <!---->
+  <div
+    class="el-input el-input--suffix"
+  >
+    <!---->
+    <input
+      autocomplete="off"
+      class="el-input__inner"
+      placeholder="Select"
+      readonly="readonly"
+      type="text"
+    />
+    <!---->
+    <span
+      class="el-input__suffix"
+    >
+      <span
+        class="el-input__suffix-inner"
+      >
+        <i
+          class="el-select__caret el-input__icon el-icon-arrow-up"
+        />
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+      </span>
+      <!---->
+    </span>
+    <!---->
+  </div>
+  <div
+    class="el-select-dropdown el-popper"
+    style="display: none;"
+  >
+    <div
+      class="el-scrollbar"
+      style="display: none;"
+    >
+      <div
+        class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+      >
+        <ul
+          class="el-scrollbar__view el-select-dropdown__list"
+        >
+          <!---->
+            
+          <li
+            class="el-select-dropdown__item m-option"
+          >
+            <span
+              style="float: left;"
+            >
+              Vancouver
+            </span>
+             
+            <span
+              style="float: right; color: rgb(132, 146, 166); font-size: 1.3rem;"
+            >
+              Vancouver
+            </span>
+          </li>
+          <li
+            class="el-select-dropdown__item m-option"
+          >
+            <span
+              style="float: left;"
+            >
+              Calgary
+            </span>
+             
+            <span
+              style="float: right; color: rgb(132, 146, 166); font-size: 1.3rem;"
+            >
+              Calgary
+            </span>
+          </li>
+          <li
+            class="el-select-dropdown__item m-option"
+          >
+            <span
+              style="float: left;"
+            >
+              Edmonton
+            </span>
+             
+            <span
+              style="float: right; color: rgb(132, 146, 166); font-size: 1.3rem;"
+            >
+              Edmonton
+            </span>
+          </li>
+          <li
+            class="el-select-dropdown__item m-option"
+          >
+            <span
+              style="float: left;"
+            >
+              Regina
+            </span>
+             
+            <span
+              style="float: right; color: rgb(132, 146, 166); font-size: 1.3rem;"
+            >
+              Regina
+            </span>
+          </li>
+          <li
+            class="el-select-dropdown__item m-option"
+          >
+            <span
+              style="float: left;"
+            >
+              Toronto
+            </span>
+             
+            <span
+              style="float: right; color: rgb(132, 146, 166); font-size: 1.3rem;"
+            >
+              Toronto
+            </span>
+          </li>
+          <li
+            class="el-select-dropdown__item m-option"
+          >
+            <span
+              style="float: left;"
+            >
+              Montreal
+            </span>
+             
+            <span
+              style="float: right; color: rgb(132, 146, 166); font-size: 1.3rem;"
+            >
+              Montreal
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div
+        class="el-scrollbar__bar is-horizontal"
+      >
+        <div
+          class="el-scrollbar__thumb"
+          style="width: 0px; transform: translateX(0%); webkit-transform: translateX(0%);"
+        />
+      </div>
+      <div
+        class="el-scrollbar__bar is-vertical"
+      >
+        <div
+          class="el-scrollbar__thumb"
+          style="height: 0px; transform: translateY(0%); webkit-transform: translateY(0%);"
+        />
+      </div>
+    </div>
+    <p
+      class="el-select-dropdown__empty"
+    >
+      
+          No data
+        
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Select Disabled options 1`] = `
+<div>
+  <div
+    class="el-select m-select"
+  >
+    <!---->
+    <div
+      class="el-input el-input--suffix"
+    >
+      <!---->
+      <input
+        autocomplete="off"
+        class="el-input__inner"
+        placeholder="Select"
+        readonly="readonly"
+        type="text"
+      />
+      <!---->
+      <span
+        class="el-input__suffix"
+      >
+        <span
+          class="el-input__suffix-inner"
+        >
+          <i
+            class="el-select__caret el-input__icon el-icon-arrow-up"
+          />
+          <!---->
+          <!---->
+          <!---->
+          <!---->
+        </span>
+        <!---->
+      </span>
+      <!---->
+    </div>
+    <div
+      class="el-select-dropdown el-popper"
+      style="display: none;"
+    >
+      <div
+        class="el-scrollbar"
+        style="display: none;"
+      >
+        <div
+          class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+        >
+          <ul
+            class="el-scrollbar__view el-select-dropdown__list"
+          >
+            <!---->
+              
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option 1
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option 2
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option is-disabled"
+            >
+              <span>
+                Option 3
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option is-disabled"
+            >
+              <span>
+                Option 4
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option 5
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="el-scrollbar__bar is-horizontal"
+        >
+          <div
+            class="el-scrollbar__thumb"
+            style="width: 0px; transform: translateX(0%); webkit-transform: translateX(0%);"
+          />
+        </div>
+        <div
+          class="el-scrollbar__bar is-vertical"
+        >
+          <div
+            class="el-scrollbar__thumb"
+            style="height: 0px; transform: translateY(0%); webkit-transform: translateY(0%);"
+          />
+        </div>
+      </div>
+      <p
+        class="el-select-dropdown__empty"
+      >
+        
+          No data
+        
+      </p>
+    </div>
+  </div>
+   
+  <p>
+    <strong>
+      Selected:
+    </strong>
+     
+  </p>
+</div>
+`;
+
+exports[`Storyshots Select Disabled select 1`] = `
+<div>
+  <div
+    class="el-select m-select"
+  >
+    <!---->
+    <div
+      class="el-input is-disabled el-input--suffix"
+    >
+      <!---->
+      <input
+        autocomplete="off"
+        class="el-input__inner"
+        disabled="disabled"
+        placeholder="Select"
+        readonly="readonly"
+        type="text"
+      />
+      <!---->
+      <span
+        class="el-input__suffix"
+      >
+        <span
+          class="el-input__suffix-inner"
+        >
+          <i
+            class="el-select__caret el-input__icon el-icon-arrow-up"
+          />
+          <!---->
+          <!---->
+          <!---->
+          <!---->
+        </span>
+        <!---->
+      </span>
+      <!---->
+    </div>
+    <div
+      class="el-select-dropdown el-popper"
+      style="display: none;"
+    >
+      <div
+        class="el-scrollbar"
+        style="display: none;"
+      >
+        <div
+          class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+        >
+          <ul
+            class="el-scrollbar__view el-select-dropdown__list"
+          >
+            <!---->
+              
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option 1
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option"
+            >
+              <span>
+                Option 2
+              </span>
+            </li>
+            <li
+              class="el-select-dropdown__item m-option selected"
+            >
+              <span>
+                Option 3
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="el-scrollbar__bar is-horizontal"
+        >
+          <div
+            class="el-scrollbar__thumb"
+            style="width: 0px; transform: translateX(0%); webkit-transform: translateX(0%);"
+          />
+        </div>
+        <div
+          class="el-scrollbar__bar is-vertical"
+        >
+          <div
+            class="el-scrollbar__thumb"
+            style="height: 0px; transform: translateY(0%); webkit-transform: translateY(0%);"
+          />
+        </div>
+      </div>
+      <p
+        class="el-select-dropdown__empty"
+      >
+        
+          No data
+        
+      </p>
+    </div>
+  </div>
+   
+  <p>
+    <strong>
+      Selected:
+    </strong>
+     3
+  </p>
+</div>
+`;
+
+exports[`Storyshots Select Option grouping 1`] = `
+<div>
+  <div
+    class="el-select m-select"
+  >
+    <!---->
+    <div
+      class="el-input el-input--suffix"
+    >
+      <!---->
+      <input
+        autocomplete="off"
+        class="el-input__inner"
+        placeholder="Select"
+        readonly="readonly"
+        type="text"
+      />
+      <!---->
+      <span
+        class="el-input__suffix"
+      >
+        <span
+          class="el-input__suffix-inner"
+        >
+          <i
+            class="el-select__caret el-input__icon el-icon-arrow-up"
+          />
+          <!---->
+          <!---->
+          <!---->
+          <!---->
+        </span>
+        <!---->
+      </span>
+      <!---->
+    </div>
+    <div
+      class="el-select-dropdown el-popper"
+      style="display: none;"
+    >
+      <div
+        class="el-scrollbar"
+        style="display: none;"
+      >
+        <div
+          class="el-select-dropdown__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+        >
+          <ul
+            class="el-scrollbar__view el-select-dropdown__list"
+          >
+            <!---->
+              
+            <!---->
+            <!---->
+          </ul>
+        </div>
+        <div
+          class="el-scrollbar__bar is-horizontal"
+        >
+          <div
+            class="el-scrollbar__thumb"
+            style="width: 0px; transform: translateX(0%); webkit-transform: translateX(0%);"
+          />
+        </div>
+        <div
+          class="el-scrollbar__bar is-vertical"
+        >
+          <div
+            class="el-scrollbar__thumb"
+            style="height: 0px; transform: translateY(0%); webkit-transform: translateY(0%);"
+          />
+        </div>
+      </div>
+      <p
+        class="el-select-dropdown__empty"
+      >
+        
+          No data
+        
+      </p>
+    </div>
+  </div>
+   
+  <button
+    class="el-button m-button el-button--default"
+    type="button"
+  >
+    <!---->
+    <!---->
+    <span>
+      Select Vancouver
+    </span>
+  </button>
+</div>
+`;

@@ -18,7 +18,7 @@ const Users = {
 			data: {
         ...args,
         password,
-        permissions: { set: ['USER'] },
+        permissions: { set: ['ADMIN', 'USER', 'PERMISSON_UPDATE'] },
         lastLoggedIn: moment.utc().format()
 			}
     }, info);
@@ -52,6 +52,8 @@ const Users = {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 365
     });
+
+    console.log(ctx.res)
 
     return user;
   },

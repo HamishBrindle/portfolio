@@ -1,0 +1,145 @@
+/**
+ * Global SCSS Variables
+ *
+ * Using Webpack to create a custom `get(key)` function,
+ * we now have access to styles set in `styles/json/_variables.json`
+ * to keep things more accessible app-wide. Any variables we
+ * set in the javascript will be both available in JS and SCSS.
+ *
+ */
+$colors: (
+  primary: #162752,
+  secondary: #7F8FA4,
+  warning: #E6A23C,
+  success: #0F9D58,
+  danger: #DB4437,
+  info: #909399,
+  textPrimary: #303133,
+  textRegular: #606266,
+  textSecondary: #909399,
+  textPlaceholder: #c0c4cc,
+  borderBase: #dcdfe6,
+  borderLight: #e4e7ed,
+  borderLighter: #ebeef5,
+  borderExtraLight: #f2f6fc,
+  backgroundBase: #f5f7fa,
+  backgroundDark: #3F3F44,
+  wht: #FFFFFF,
+  blk: #222222,
+);
+
+$transitions: (
+  all: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+  fade: opacity 300ms cubic-bezier(0.23, 1, 0.32, 1),
+  fadeLinear: opacity 200ms linear,
+  mdFade: (transform 300ms cubic-bezier(0.23, 1, 0.32, 1), opacity 300ms cubic-bezier(0.23, 1, 0.32, 1)),
+  borderBase: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1),
+  colorBase: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1),
+);
+
+/**
+ * Use the following classes for hiding elements at different
+ * breakpoints:
+ *
+ * hidden-xs-only - hide when on extra small viewports only
+ * hidden-sm-only - hide when on small viewports and down
+ * hidden-sm-and-down - hide when on small viewports and down
+ * hidden-sm-and-up - hide when on small viewports and up
+ * hidden-md-only - hide when on medium viewports only
+ * hidden-md-and-down - hide when on medium viewports and down
+ * hidden-md-and-up - hide when on medium viewports and up
+ * hidden-lg-only - hide when on large viewports only
+ * hidden-lg-and-down - hide when on large viewports and down
+ * hidden-lg-and-up - hide when on large viewports and up
+ * hidden-xl-only - hide when on extra large viewports only
+ *
+ */
+$breakpoints: (
+  xs: 414px,
+  sm: 768px,
+  md: 992px,
+  lg: 1200px,
+  xl: 1920px,
+);
+
+$fonts: (
+  primary: 'Futura-PT',
+  sizeExtraLarge: 21px,
+  sizeLarge: 19px,
+  sizeMedium: 17px,
+  sizeBase: 15px,
+  sizeSmall: 14px,
+  sizeExtraSmall: 13px,
+);
+
+$box-shadows: (
+  boxShadowBase: (0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04)),
+  boxShadowDark: (0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.12)),
+  boxShadowLight: 0 2px 12px 0 rgba(0, 0, 0, 0.1),
+);
+
+/**
+ * For importing into javascript. The variables - regardless of nesting - 
+ * will be flattened into one object. An example of the way they'll be 
+ * named:
+ *
+ * breakpoint-lg: "1200px"
+ * breakpoint-md: "992px"
+ * ...
+ * color-backgroundBase: "#f5f7fa"
+ * color-backgroundDark: "#3f3f44"
+ * color-blk: "#222"
+ * ...
+ * 
+ * Each parent level is separated by hyphen (kebab) whereas the variable
+ * name remains camelCase - a formatting abomination.
+ */
+:export {
+  color: {
+    primary: map-get($colors, primary);
+    secondary: map-get($colors, secondary);
+    warning: map-get($colors, warning);
+    success: map-get($colors, success);
+    danger: map-get($colors, danger);
+    info: map-get($colors, info);
+    textPrimary: map-get($colors, textPrimary);
+    textRegular: map-get($colors, textRegular);
+    textSecondary: map-get($colors, textSecondary);
+    textPlaceholder: map-get($colors, textPlaceholder);
+    borderBase: map-get($colors, borderBase);
+    borderLight: map-get($colors, borderLight);
+    borderLighter: map-get($colors, borderLighter);
+    borderExtraLight: map-get($colors, borderExtraLight);
+    backgroundBase: map-get($colors, backgroundBase);
+    backgroundDark: map-get($colors, backgroundDark);
+    wht: map-get($colors, wht);
+    blk: map-get($colors, blk);  
+  };
+  
+  transition: {
+    all: map-get($transitions, all);
+    fade: map-get($transitions, fade);
+    fadeLinear: map-get($transitions, fadeLinear);
+    mdFade: map-get($transitions, mdFade);
+    borderBase: map-get($transitions, borderBase);
+    colorBase: map-get($transitions, colorBase);
+  };
+  
+  breakpoint: {
+    xs: map-get($breakpoints, xs);
+    sm: map-get($breakpoints, sm);
+    md: map-get($breakpoints, md);
+    lg: map-get($breakpoints, lg);
+    xl: map-get($breakpoints, xl);
+  };
+
+  font: {
+    primary: map-get($fonts, primary);
+    sizeExtraLarge: map-get($fonts, sizeExtraLarge);
+    sizeLarge: map-get($fonts, sizeLarge);
+    sizeMedium: map-get($fonts, sizeMedium);
+    sizeBase: map-get($fonts, sizeBase);
+    sizeSmall: map-get($fonts, sizeSmall);
+    sizeExtraSmall: map-get($fonts, sizeExtraSmall);
+  }
+}

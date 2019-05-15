@@ -12,8 +12,7 @@
     "prisma:delete": "prisma delete --env-file .env -f"
   },
   "dependencies": {
-    "apollo-client": "^2.4.13",
-    "apollo-server-express": "^2.4.2",
+    "apollo-server-express": "*",
     "bcryptjs": "*",
     "bluebird": "^3.5.3",
     "cloudinary": "^1.13.2",
@@ -38,7 +37,6 @@
     "url": "https://github.com/HamishBrindle/portfolio/"
   },
   "devDependencies": {
-    "nodemon": "*",
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
     "babel-jest": "^24.0.0",
@@ -47,6 +45,7 @@
     "graphql-request": "^1.8.2",
     "jest": "^24.0.0",
     "jest-environment-node": "^24.0.0",
+    "nodemon": "*",
     "shelljs": "^0.8.3"
   }
 }

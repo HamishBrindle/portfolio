@@ -1,0 +1,51 @@
+$fade-duration: 100ms;
+$slide-duration: 250ms;
+$breadcrumb-duration: 500ms;
+
+// Fades
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity $fade-duration ease;
+}
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+
+// Slides
+.slide {
+  transition: all $slide-duration cubic-bezier(0.55, 0, 0.1, 1);    
+  position: absolute;
+}
+.slide-left-enter,
+.slide-right-leave-active {
+  opacity: 0;
+  -webkit-transform: translate(3rem, 0);
+  transform: translate(3rem, 0);
+}
+.slide-left-leave-active,
+.slide-right-enter {
+  opacity: 0;
+  -webkit-transform: translate(-3rem, 0);
+  transform: translate(-3rem, 0);
+}
+
+// Breadcrumbs
+.breadcrumb-enter-active,
+.breadcrumb-leave-active {
+  transition: all $breadcrumb-duration;
+}
+
+.breadcrumb-enter,
+.breadcrumb-leave-active {
+  opacity: 0;
+  transform: translateX(2rem);
+}
+
+.breadcrumb-move {
+  transition: all $breadcrumb-duration;
+}
+
+.breadcrumb-leave-active {
+  position: absolute;
+}

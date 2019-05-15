@@ -17,6 +17,11 @@ app.use(
 	})
 );
 
+var corsOptions = {
+  origin: process.env.FRONTEND_URL,
+  credentials: true
+};
+
 app.use(cookieParser());
 app.use((req, res, next) => {
 	const { token } = req.cookies;
@@ -29,7 +34,11 @@ app.use((req, res, next) => {
 
 const server = createServer(database, resolvers);
 
-server.applyMiddleware({ app });
+server.applyMiddleware({
+  app,
+  path: '/graphql',
+  cors: corsOptions, // disables the apollo-server-express cors to allow the cors middleware use
+})
 
 const httpServer = app.listen({ port: process.env.SERVER_PORT }, () => {
 	console.log(`🚀🚀🚀 Server ready at http://localhost:${process.env.SERVER_PORT}${server.graphqlPath} 🚀🚀🚀`);
