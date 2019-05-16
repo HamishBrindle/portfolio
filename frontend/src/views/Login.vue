@@ -15,7 +15,7 @@
         >
           <m-card>
             <h1 class="login__greeting">
-              Welcome back!
+              {{ welcomeMessage }}
             </h1>
             <m-form
               ref="loginForm"
@@ -80,6 +80,7 @@ import { USER_LOGIN } from '@/store/types/actions.js';
 export default {
   data() {
     return {
+      welcomeMessage: 'Goons only.',
       loginForm: {
         email: '',
         password: '',

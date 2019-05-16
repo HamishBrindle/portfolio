@@ -5,6 +5,8 @@ import store from '@/store';
 import {
   USER_UPDATE, BREADCRUMBS, TABS, NAVIGATION_INDEX,
 } from '@/store/types/actions.js';
+import { apolloClient } from '@/apollo';
+import gql from 'graphql-tag';
 
 Vue.use(Router);
 
@@ -111,18 +113,42 @@ const router = new Router({
   ],
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    store.dispatch(USER_UPDATE);
-    const { auth } = store.state.user;
+    // Using authentication token stored in cookies,
+    // we send off query for the currently active user.
+    const { data } = await apolloClient.query({
+      query: gql`
+      query currentUser {
+        currentUser {
+          id
+          name
+          email
+          permissions
+          lastLoggedIn
+        }
+      }
+      `,
+      variables: {},
+    });
 
-    // TODO: Need roles and better gaurding
-    if (!auth || !auth.token) {
+    if (!data.currentUser) {
       next({ name: 'login' });
       return false;
     }
 
-    next();
+    console.log('Logged in.');
+
+    const {
+      id, name, email, permissions, lastLoggedIn,
+    } = data.currentUser;
+
+    store.dispatch(USER_UPDATE, {
+      id, name, email, permissions, lastLoggedIn,
+    }).then(() => {
+      next();
+    });
+
     return true;
   }
 
