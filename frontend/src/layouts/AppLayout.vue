@@ -7,16 +7,9 @@
       direction="horizontal"
       class="default-layout__body"
     >
-      <transition
-        name="slide"
-        mode="out-in"
-      >
-        <div
-          v-if="showOverlay"
-          class="default-layout__overlay"
-        />
-      </transition>
-
+      <div
+        :class="`default-layout__overlay ${(asideOpen) ? 'default-layout__overlay--show' : ''}`"
+      />
       <div :class="sidebarClassList">
         <m-sidebar />
       </div>
@@ -41,19 +34,16 @@ import {
   GET_NAVIGATION_OPEN,
   GET_WINDOW_DIMENSIONS,
 } from '@/store/types/getters.js';
-
 /**
  * Strips the 'px' at the end of the breakpoint width,
  * converts to number.
  */
 const parseBreakpoint = breakpoint => parseFloat(breakpoint);
-
 export default {
   components: {
     'm-navbar': () => import(/* webpackChunkName: "chunk-components-navbar" */ '@/components/Navigation/Navbar.vue'),
     'm-sidebar': () => import(/* webpackChunkName: "chunk-components-sidebar" */ '@/components/Navigation/Sidebar.vue'),
   },
-
   computed: {
     ...mapGetters({
       asideOpen: GET_NAVIGATION_OPEN,
@@ -66,29 +56,36 @@ export default {
         (!this.asideOpen) ? 'default-layout__side--collapse' : '',
       ].join('\n');
     },
-    showOverlay() {
+    renderOverlay() {
       return this.asideOpen && this.windowDimensions.width <= parseBreakpoint(styles['breakpoint-md']);
     },
   },
-
 };
 </script>
 
 <style lang="scss">
+$sidebarWidth: 6.4rem;
+$navbarHeight: 6rem;
 .default-layout {
+  height: 100%;
   &__overlay {
     width: 100%;
     height: 100%;
     background: black;
-    opacity: 0.3;
+    opacity: 0;
     position: fixed;
     pointer-events: none;
-    z-index: 3;
+    z-index: 5;
+    transition: map-get($transitions, fade);
+    &--show {
+      opacity: 0.3;
+    }
   }
   &__main {
     overflow-x: hidden;
     display: flex;
     justify-content: center;
+    transition: map-get($transitions, mdFade);
   }
   &__main-content {
     width: 100%;
@@ -102,23 +99,47 @@ export default {
     z-index: 9000;
   }
   &__body {
-    padding-top: 6rem;
+    padding-top: $navbarHeight;
     display: flex;
     flex-direction: row;
-    height: 100vh;
+    height: 100%;
     overflow-x: none;
   }
   &__side {
     height: 100%;
     z-index: 3000;
+    .m-sidebar.m-menu > .m-menu-item > .m-nav-item__link .m-sidebar__link-text {
+      transition: map-get($transitions, fade);
+      transition-delay: 100ms;
+      opacity: 1;
+    }
+    &--collapse {
+      .m-sidebar.m-menu > .m-menu-item > .m-nav-item__link .m-sidebar__link-text {
+        opacity: 0;
+      }
+    }
     .m-sidebar {
       height: 100%;
     }
   }
-  @media screen and (max-width: map-get($breakpoints, sm)) {
-    &__side--collapse {
-      transition: map-get($transitions, all);
-      margin-left: -6.4rem;
+}
+@media screen and (max-width: map-get($breakpoints, xs)) {
+  .default-layout {
+    &__side {
+      transition: map-get($transitions, mdFade);
+      &--collapse {
+        margin-left: -$sidebarWidth;
+      }
+    }
+    &__main {
+      margin-left: $sidebarWidth !important;
+    }
+  }
+}
+@media screen and (max-width: map-get($breakpoints, md)) {
+  .default-layout {
+    &__main {
+      margin-left: $sidebarWidth;
     }
   }
 }

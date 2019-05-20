@@ -3,117 +3,135 @@ import Router from 'vue-router';
 import Home from '@/views/Home.vue';
 import store from '@/store';
 import {
-  USER_UPDATE, BREADCRUMBS, TABS, NAVIGATION_INDEX,
+  USER_UPDATE, BREADCRUMBS, TABS, NAVIGATION_INDEX, ROUTE,
 } from '@/store/types/actions.js';
 import { apolloClient } from '@/apollo';
 import gql from 'graphql-tag';
 
 Vue.use(Router);
 
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: Home,
+  },
+  {
+    path: '/projects',
+    name: 'projects',
+    component: () => import(/* webpackChunkName: "chunk-views-projects" */ '@/views/Projects.vue'),
+    meta: {
+      index: '0',
+    },
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import(/* webpackChunkName: "chunk-views-about" */ '@/views/About.vue'),
+    meta: {
+      index: '1',
+    },
+  },
+  {
+    path: '/contact',
+    name: 'contact',
+    component: () => import(/* webpackChunkName: "chunk-views-contact" */ '@/views/Contact.vue'),
+    meta: {
+      index: '2',
+    },
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import(/* webpackChunkName: "chunk-views-login" */ '@/views/Login.vue'),
+    meta: {
+      layout: 'full-screen',
+    },
+  },
+  {
+    path: '*',
+    name: '404',
+    component: () => import(/* webpackChunkName: "chunk-views-notFound" */ '@/views/NotFound.vue'),
+    meta: {
+      layout: 'full-screen',
+    },
+  },
+];
+
+const dashboardRoutes = [
+  {
+    path: '/dashboard',
+    component: () => import(/* webpackChunkName: "chunk-views-dashboard" */ '@/views/Dashboard'),
+    meta: {
+      breadcrumb: { label: 'Dashboard', route: 'dashboard' },
+      requiresAuth: true,
+    },
+    children: [
+      {
+        path: '',
+        name: 'dashboard',
+        component: () => import(/* webpackChunkName: "chunk-views-dashboard" */ '@/views/Dashboard/Home.vue'),
+        meta: {
+          breadcrumb: { label: 'Home', route: 'dashboard' },
+          requiresAuth: true,
+          icon: 'home',
+          index: '0',
+        },
+      },
+      {
+        path: 'projects',
+        name: 'dashboard-projects',
+        component: () => import(/* webpackChunkName: "chunk-views-dashboard-projects" */ '@/views/Dashboard/Projects'),
+        meta: {
+          breadcrumb: { label: 'Projects', route: 'dashboard-projects' },
+          requiresAuth: true,
+          icon: 'star',
+          index: '1',
+          tabs: [
+            { label: 'List', route: 'dashboard-projects-list', index: '1-0' },
+            { label: 'Add', route: 'dashboard-projects-add', index: '1-1' },
+            // { label: 'List', route: 'dashboard-projects-list', index: '1-2' },
+          ],
+        },
+        children: [
+          {
+            path: 'list',
+            name: 'dashboard-projects-list',
+            component: () => import(/* webpackChunkName: "chunk-views-dashboard-projects" */ '@/views/Dashboard/Projects/List.vue'),
+            meta: {
+              breadcrumb: { label: 'List', route: 'dashboard-projects-list' },
+              requiresAuth: true,
+              index: '1-0',
+            },
+          },
+          {
+            path: 'add',
+            name: 'dashboard-projects-add',
+            component: () => import(/* webpackChunkName: "chunk-views-dashboard-projects" */ '@/views/Dashboard/Projects/Add.vue'),
+            meta: {
+              breadcrumb: { label: 'Add', route: 'dashboard-projects-add' },
+              requiresAuth: true,
+              index: '1-1',
+            },
+          },
+        ],
+      },
+    ],
+  },
+];
+
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home,
-    },
-    {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: () => import(/* webpackChunkName: "chunk-views-dashboard" */ '@/views/Dashboard.vue'),
-      meta: {
-        requiresAuth: true,
-      },
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import(/* webpackChunkName: "chunk-views-about" */ '@/views/About.vue'),
-    },
-    {
-      path: '/contact',
-      name: 'contact',
-      component: () => import(/* webpackChunkName: "chunk-views-contact" */ '@/views/Contact.vue'),
-    },
-    {
-      path: '/projects',
-      name: 'projects',
-      component: () => import(/* webpackChunkName: "chunk-views-projects" */ '@/views/Projects.vue'),
-    },
-
-    // {
-    //   path: '/customers',
-    //   component: () => import(/* webpackChunkName: "chunk-views-customers" */ '@/views/Customers'),
-    //   meta: {
-    //     breadcrumb: { label: 'Customers', route: 'customers' },
-    //     icon: 'users',
-    //     requiresAuth: true,
-    //     index: '5',
-    //   },
-    //   children: [
-    //     {
-    //       path: '',
-    //       name: 'customers',
-    //       component: () => import(/* webpackChunkName: "chunk-views-customers" */ '@/views/Customers/List.vue'),
-    //       meta: {
-    //         breadcrumb: { label: 'List', route: 'customers' },
-    //         icon: 'users',
-    //         requiresAuth: true,
-    //       },
-    //     },
-    //     {
-    //       path: 'view/:uid',
-    //       name: 'customers-view',
-    //       component: () => import(/* webpackChunkName: "chunk-views-customers" */ '@/views/Customers/View'),
-    //       meta: {
-    //         breadcrumb: { label: 'View & Edit', route: 'customers-view' },
-    //         tabs: [
-    //           { label: 'Address', route: 'customers-view-address', index: '1' },
-    //           { label: 'Tax, Terms & Pricelists', route: 'customers-view-tax-terms-pricelist', index: '2' },
-    //           { label: 'Order History', route: 'customers-view-order-history', index: '3' },
-    //           { label: 'Shop Access', route: 'customers-view-shop-access', index: '4' },
-    //           { label: 'Activate Account', route: 'customers-view-activate-account', index: '5' },
-    //         ],
-    //         icon: 'users',
-    //         requiresAuth: true,
-    //       },
-    //       children: [
-    //         {
-    //           path: '/customers/view/:uid/address',
-    //           name: 'customers-view-address',
-    //           component: () => import(/* webpackChunkName: "chunk-views-customers" */ '@/views/Customers/View/Address.vue'),
-    //           meta: {
-    //             breadcrumb: { label: 'Address', route: 'customers-view-address' },
-    //             isSubnav: true,
-    //             requiresAuth: true,
-    //           },
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import(/* webpackChunkName: "chunk-views-login" */ '@/views/Login.vue'),
-      meta: {
-        layout: 'full-screen',
-      },
-    },
-    {
-      path: '*',
-      name: '404',
-      component: () => import(/* webpackChunkName: "chunk-views-notFound" */ '@/views/NotFound.vue'),
-      meta: {
-        layout: 'full-screen',
-      },
-    },
-  ],
+  routes: dashboardRoutes.concat(routes),
 });
 
 router.beforeEach(async (to, from, next) => {
+  const currentRoute = to.name;
+  if (currentRoute) {
+    store.dispatch(ROUTE, currentRoute);
+  }
+
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // Using authentication token stored in cookies,
     // we send off query for the currently active user.
@@ -137,8 +155,6 @@ router.beforeEach(async (to, from, next) => {
       return false;
     }
 
-    console.log('Logged in.');
-
     const {
       id, name, email, permissions, lastLoggedIn,
     } = data.currentUser;
@@ -157,7 +173,10 @@ router.beforeEach(async (to, from, next) => {
 });
 
 router.afterEach((to) => {
-  const matchedIndex = to.matched.filter(route => route.meta && route.meta.index);
+  // TODO: Clean this up no need to filter each time
+  const matchedMeta = to.matched.filter(route => route.meta);
+
+  const matchedIndex = matchedMeta.filter(route => route.meta.index);
   if (matchedIndex && matchedIndex.length > 0) {
     // We only need top-most route for displaying current
     // navigation index
@@ -166,27 +185,25 @@ router.afterEach((to) => {
     store.dispatch(NAVIGATION_INDEX, '-1');
   }
 
-  if (to.meta.breadcrumb) {
-    const matchedBreadcrumbs = to.matched.filter(item => item.meta);
-    if (!matchedBreadcrumbs) return;
+  const matchedBreadcrumbs = matchedMeta
+    .filter(item => item.meta && !item.meta.isSubnav && item.meta.breadcrumb);
+  if (matchedBreadcrumbs) {
     // Some breadcrumbs shouldn't be stored globally because
     // we only need them to render in specific sub-views, so
     // we check for `isSubnav`
     const breadcrumbs = matchedBreadcrumbs
-      .filter(item => item.meta && !item.meta.isSubnav && item.meta.breadcrumb)
       .map(item => item.meta.breadcrumb);
     store.dispatch(BREADCRUMBS, breadcrumbs);
   } else {
     store.dispatch(BREADCRUMBS, []);
   }
 
-  if (to.meta.tabs) {
-    const matchedTabs = to.matched.filter(item => item.meta);
-    if (!matchedTabs) return;
+  const matchedTabs = matchedMeta
+    .filter(item => item.meta.tabs);
+  if (matchedTabs) {
     const tabs = matchedTabs
-      .filter(item => item.meta && item.meta.tabs)
       .map(item => item.meta.tabs);
-    store.dispatch(TABS, tabs);
+    store.dispatch(TABS, (tabs && tabs[tabs.length - 1]) || []);
   } else {
     store.dispatch(TABS, []);
   }

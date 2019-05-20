@@ -55,6 +55,8 @@ export default {
 
 <style lang="scss">
   .m-sidebar {
+    background: map-get($colors, backgroundBase);
+    position: fixed;
     &__link-icon {
       margin-right: 1rem;
     }
@@ -72,7 +74,6 @@ export default {
       }
     }
   }
-
   .m-menu-vertical:not(.el-menu--collapse) {
     width: 30rem;
     min-height: 40rem;

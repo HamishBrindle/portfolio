@@ -1,21 +1,18 @@
-import links from '@/components/Navigation/nav-links.js';
+import links, { dashboardLinks } from '@/config/navigation.js';
 import { mapActions, mapGetters } from 'vuex';
 import { NAVIGATION_INDEX, NAVIGATION_OPEN } from '@/store/types/actions.js';
 import {
   GET_NAVIGATION_OPEN,
   GET_NAVIGATION_INDEX,
+  GET_ROUTE,
 } from '@/store/types/getters.js';
 
 const navigationMixin = {
-  data() {
-    return {
-      siteLinks: links,
-    };
-  },
   computed: {
     ...mapGetters({
       getNavigationOpen: GET_NAVIGATION_OPEN,
       getNavigationIndex: GET_NAVIGATION_INDEX,
+      getRoute: GET_ROUTE,
     }),
     activeIndex: {
       get() {
@@ -33,12 +30,19 @@ const navigationMixin = {
         this.navigationOpen(open);
       },
     },
+    siteLinks() {
+      return (this.isDashboard(this.getRoute)) ? dashboardLinks : links;
+    },
   },
   methods: {
     ...mapActions({
       navigationIndex: NAVIGATION_INDEX,
       navigationOpen: NAVIGATION_OPEN,
     }),
+    isDashboard(route) {
+      console.log(route);
+      return route.includes('dashboard');
+    },
   },
 };
 

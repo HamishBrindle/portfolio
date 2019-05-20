@@ -29,21 +29,22 @@
       </div>
       <div class="m-crumbnav__bar-right">
         <!-- TODO: Get this working - somethings fucked. -->
-        <!--
         <m-menu
-          :default-active="activeIndex"
+          :default-active="activeTab"
           mode="horizontal"
+          :background-color="bgColor"
+          :text-color="textColor"
+          :active-text-color="activeTextColor"
         >
-          <m-menu-item
+          <m-nav-item
             v-for="tab in tabsList"
             :key="tab.index"
             :index="tab.index"
-            :route="{ name: tab.route }"
+            :to="{ name: tab.route }"
           >
             {{ tab.label }}
-          </m-menu-item>
+          </m-nav-item>
         </m-menu>
-        -->
       </div>
     </div>
   </div>
@@ -60,14 +61,14 @@ export default {
     'm-breadcrumb': () => import(/* webpackChunkName: "chunk-components-breadcrumb" */ '@/components/Breadcrumb/Breadcrumb.vue'),
     'm-breadcrumb-item': () => import(/* webpackChunkName: "chunk-components-breadcrumb" */ '@/components/Breadcrumb/BreadcrumbItem.vue'),
 
-    // eslint-disable-next-line vue/no-unused-components
     'm-menu': () => import(/* webpackChunkName: "chunk-components-menu" */ '@/components/Menu/Menu.vue'),
-    // eslint-disable-next-line vue/no-unused-components
-    'm-menu-item': () => import(/* webpackChunkName: "chunk-components-menu" */ '@/components/Menu/MenuItem.vue'),
+    'm-nav-item': () => import(/* webpackChunkName: "chunk-components-navigation" */ '@/components/Navigation/NavItem.vue'),
   },
   data() {
     return {
-      activeIndex: '0',
+      bgColor: styles['color-wht'],
+      textColor: styles['color-textRegular'],
+      activeTextColor: styles['color-primary'],
     };
   },
   computed: {
@@ -78,12 +79,26 @@ export default {
     showBreadcrumb() {
       return !!this.breadcrumbList;
     },
+    activeTab() {
+      return (this.$route.meta
+        && this.$route.meta.index.includes('-') // This is hack to determine if child route or not
+        && this.$route.meta.index)
+        || '-1';
+    },
     icon() {
-      return (this.$route.matched
-        && this.$route.matched[0]
-        && this.$route.matched[0].meta
-        && this.$route.matched[0].meta.icon)
-        || null;
+      const { matched } = this.$route;
+      if (!matched || !matched.length) {
+        return null;
+      }
+      let icon = null;
+      for (let i = 0; i < matched.length; i++) {
+        const m = matched[i];
+        if (m.meta && m.meta.icon) {
+          // eslint-disable-next-line prefer-destructuring
+          icon = m.meta.icon;
+        }
+      }
+      return icon;
     },
     iconColor() {
       return styles['color-textPrimary'];
@@ -102,11 +117,25 @@ export default {
       margin-right: 1rem;
     }
   }
+  &__tab {
+    text-transform: lowercase;
+  }
   &__bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    min-height: 6rem;
+    .m-crumbnav__bar-right > .m-menu > .m-nav-item {
+      padding: 0;
+      margin: 0;
+      min-width: 7rem;
+      .m-nav-item__link {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+    }
   }
 }
 </style>

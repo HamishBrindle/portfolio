@@ -15,7 +15,11 @@
             class="m-navbar__site-name-button"
             @click="onMenuSiteNameClick"
           >
-            <span class="m-navbar__site-name-button-text text-bold">{{ siteName }}</span>
+            <!-- <span class="m-navbar__site-name-button-text text-bold">{{ siteName }}</span> -->
+            <m-image
+              class="m-navbar__brand-image"
+              :src="brandImg"
+            />
           </m-button>
         </div>
       </div>
@@ -24,6 +28,9 @@
           class="m-navbar__links"
           :default-active="activeIndex"
           mode="horizontal"
+          :background-color="bgColor"
+          :text-color="textColor"
+          :active-text-color="activeTextColor"
         >
           <m-nav-item
             v-for="link in siteLinks"
@@ -38,7 +45,7 @@
       </div>
       <div class="m-navbar__right hidden-xs-only">
         <div
-          v-if="!!auth"
+          v-if="!!user"
           class="m-navbar__user"
         >
           <m-dropdown
@@ -81,6 +88,8 @@
 import styles from 'global-styles';
 import navigationMixin from '@/mixins/navigation.js';
 import { mapState } from 'vuex';
+import hbLogoWhite from '@/assets/img/hb-logo-white.png';
+// import hbLogoBlack from '@/assets/img/hb-logo-black.png';
 
 export default {
   name: 'MNavbar',
@@ -96,7 +105,10 @@ export default {
   data() {
     return {
       siteName: 'HB',
-      color: styles['color-primary'],
+      bgColor: styles['color-primary'],
+      textColor: styles['color-textPlaceholder'],
+      activeTextColor: styles['color-wht'],
+      brandImg: hbLogoWhite,
       userDropdown: [
         {
           label: 'Logout',
@@ -109,13 +121,12 @@ export default {
   computed: {
     ...mapState({
       user: state => state.user.user,
-      auth: state => state.user.auth,
     }),
   },
   methods: {
     onMenuButtonClick() {},
     onMenuSiteNameClick() {
-      this.$router.push({ name: 'dashboard' });
+      this.$router.push({ name: 'home' });
     },
     onMenuUserDropdownSelect(command) {
       if (command === 'logout') {
@@ -139,6 +150,7 @@ export default {
   align-items: center;
   box-shadow: map-get($box-shadows, boxShadowLight);
   padding: 0 1.5rem;
+  background: map-get($colors, primary);
   &__wrapper {
     z-index: 9000;
   }
@@ -150,25 +162,33 @@ export default {
   &__left {
     justify-content: space-around;
   }
-  &__mid {
-    min-width: 69.5rem;
-  }
   &__hamburger-button {
-    color: map-get($colors, textPrimary);
-    padding-right: 2rem;
+    color: map-get($colors, wht);
+    margin-right: 2rem;
   }
   &__hamburger-button:hover {
     color: map-get($colors, primary);
   }
   &__site-name-button {
     font-size: 2.3rem;
-    color: map-get($colors, textPrimary);
+    color: map-get($colors, wht);
+  }
+  &__brand-image {
+    width: 100%;
+    height: 100%;
+    img {
+      max-width: 3rem;
+      transition: map-get($transitions, all);
+    }
+    img:hover {
+      transform: scale(1.1);
+    }
   }
   &__user-dropdown {
     cursor: pointer;
     font-size: 2rem;
     font-weight: 300;
-    color: map-get($colors, textPrimary);
+    color: map-get($colors, wht);
     &:focus {
       outline: none;
     }

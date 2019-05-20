@@ -81,7 +81,7 @@ export default {
     .hamburger-inner,
     .hamburger-inner::before,
     .hamburger-inner::after {
-      background-color: map-get($colors, textPrimary);
+      background-color: map-get($colors, wht);
     }
   }
   &:hover, &.is-active:hover {
@@ -89,7 +89,7 @@ export default {
     .hamburger-inner,
     .hamburger-inner::before,
     .hamburger-inner::after {
-      background-color: map-get($colors, primary);
+      background-color: map-get($colors, wht);
     }
   }
   &:focus {

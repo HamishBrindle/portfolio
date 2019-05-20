@@ -1,5 +1,3 @@
-import TimeoutError from '@/utils/errors/TimeoutError.js';
-
 export default {
   /**
    * Converts an asynchronous function to return a promise.
@@ -19,7 +17,7 @@ export default {
     const timeout = new Promise((resolve, reject) => {
       const id = setTimeout(() => {
         clearTimeout(id);
-        reject(new TimeoutError(`Timed out in ${ms}ms.`));
+        reject(new Error(`Timed out in ${ms}ms.`));
       }, ms);
     });
 

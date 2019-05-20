@@ -40,4 +40,10 @@ export default {
 
 <style lang="scss">
 @import "assets/styles/main.scss";
+html {
+  height: 100%;
+}
+#app {
+  height: 100%;
+}
 </style>

@@ -53,8 +53,6 @@ const Users = {
       maxAge: 1000 * 60 * 60 * 24 * 365
     });
 
-    console.log(ctx.res)
-
     return user;
   },
 

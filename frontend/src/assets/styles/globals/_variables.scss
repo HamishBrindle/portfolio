@@ -1,3 +1,6 @@
+// Need this to make calculations
+$colorPrimary: #162752;
+
 /**
  * Global SCSS Variables
  *
@@ -8,7 +11,7 @@
  *
  */
 $colors: (
-  primary: #162752,
+  primary: $colorPrimary,
   secondary: #7F8FA4,
   warning: #E6A23C,
   success: #0F9D58,
@@ -22,7 +25,7 @@ $colors: (
   borderLight: #e4e7ed,
   borderLighter: #ebeef5,
   borderExtraLight: #f2f6fc,
-  backgroundBase: #f5f7fa,
+  backgroundBase: lighten($colorPrimary, 78%),
   backgroundDark: #3F3F44,
   wht: #FFFFFF,
   blk: #222222,

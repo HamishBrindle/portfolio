@@ -4,6 +4,7 @@ import {
   SET_WINDOW_DIMENSIONS,
   SET_BREADCRUMBS,
   SET_TABS,
+  SET_ROUTE,
 } from '@/store/types/mutations.js';
 import {
   NAVIGATION_OPEN,
@@ -11,6 +12,7 @@ import {
   WINDOW_DIMENSIONS,
   BREADCRUMBS,
   TABS,
+  ROUTE,
 } from '@/store/types/actions.js';
 import {
   GET_NAVIGATION_OPEN,
@@ -18,6 +20,7 @@ import {
   GET_WINDOW_DIMENSIONS,
   GET_BREADCRUMBS,
   GET_TABS,
+  GET_ROUTE,
 } from '@/store/types/getters.js';
 
 export default {
@@ -32,6 +35,7 @@ export default {
     },
     breadcrumbs: [],
     tabs: [],
+    route: '',
   },
   mutations: {
     [SET_NAVIGATION_OPEN](state, open) {
@@ -50,6 +54,9 @@ export default {
     [SET_TABS](state, tabs) {
       state.tabs = tabs;
     },
+    [SET_ROUTE](state, route) {
+      state.route = route;
+    },
   },
   actions: {
     [NAVIGATION_OPEN]({ commit }, open) {
@@ -67,6 +74,9 @@ export default {
     [TABS]({ commit }, tabs) {
       commit(SET_TABS, tabs);
     },
+    [ROUTE]({ commit }, route) {
+      commit(SET_ROUTE, route);
+    },
   },
   getters: {
     [GET_NAVIGATION_OPEN]: state => state.navbar.open,
@@ -74,5 +84,6 @@ export default {
     [GET_WINDOW_DIMENSIONS]: state => state.window,
     [GET_BREADCRUMBS]: state => state.breadcrumbs,
     [GET_TABS]: state => state.tabs,
+    [GET_ROUTE]: state => state.route,
   },
 };

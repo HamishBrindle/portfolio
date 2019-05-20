@@ -46,6 +46,7 @@ export default {
     },
     [UPDATE_USER_DATA](state, { user }) {
       state.user = user;
+      localStorage.setItem(`${namespace}_user`, JSON.stringify(state.user));
     },
   },
   actions: {
