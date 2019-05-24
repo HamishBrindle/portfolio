@@ -11,6 +11,8 @@ export default {
 
     Vue.use(Loading.directive);
 
+    console.log('Message', Message);
+
     /**
      * TODO: Fix error: "ReferenceError: _Loading is not defined"
      *

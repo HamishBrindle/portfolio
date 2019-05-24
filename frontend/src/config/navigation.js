@@ -17,6 +17,12 @@ const navLinks = [
     index: '2',
     icon: 'send',
   },
+  {
+    label: 'Dashboard',
+    route: 'dashboard',
+    index: '3',
+    icon: 'send',
+  },
 ];
 
 const dashboardLinks = [

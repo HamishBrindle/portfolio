@@ -38,15 +38,12 @@ export default {
     },
     [SET_USER_DATA](state, { user }) {
       state.user = user;
-      localStorage.setItem(`${namespace}_user`, JSON.stringify(state.user));
     },
     [CLEAR_USER_DATA](state) {
       state.user = null;
-      localStorage.removeItem(`${namespace}_user`);
     },
     [UPDATE_USER_DATA](state, { user }) {
       state.user = user;
-      localStorage.setItem(`${namespace}_user`, JSON.stringify(state.user));
     },
   },
   actions: {
@@ -72,17 +69,17 @@ export default {
 
         const user = data.signIn;
 
+        console.log(user);
+
         if (!user) {
           throw new Error('Invalid user credentials or unable to find this account');
         }
 
-        // Successful login - proceed
         commit(LOGIN_STOP, null);
         commit(SET_USER_DATA, { user });
         dispatch(NAVIGATION_INDEX, '-1');
         router.push({ name: 'dashboard' });
       } catch (error) {
-        // Prevent spamming of invalid credentials
         console.error(error);
         clearTimeout(loginTimer);
         loginTimer = setTimeout(() => {
@@ -110,13 +107,7 @@ export default {
       commit(CLEAR_USER_DATA);
       router.push({ name: 'login' });
     },
-    async [USER_UPDATE]({ commit }, _user = null) {
-      let user = _user;
-      try {
-        user = JSON.parse(localStorage.getItem(`${namespace}_user`));
-      } catch (error) {
-        localStorage.removeItem(`${namespace}_user`);
-      }
+    async [USER_UPDATE]({ commit }, user = null) {
       commit(UPDATE_USER_DATA, { user });
     },
   },

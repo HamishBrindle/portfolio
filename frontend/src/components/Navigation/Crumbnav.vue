@@ -3,15 +3,15 @@
     class="m-crumbnav__wrapper"
     transition="fade"
   >
-    <m-icon
-      v-if="!!icon"
-      :name="icon"
-      width="4"
-      height="4"
-      :color="iconColor"
-    />
     <div class="m-crumbnav__bar">
       <div class="m-crumbnav__bar-left">
+        <m-icon
+          v-if="!!icon"
+          :name="icon"
+          width="4"
+          height="4"
+          :color="iconColor"
+        />
         <m-breadcrumb
           v-if="!!breadcrumbList"
           class="m-crumbnav"
@@ -135,6 +135,23 @@ export default {
         display: flex;
         justify-content: center;
       }
+    }
+  }
+  &__bar-left, &__bar-right {
+    display: flex;
+    align-items: center;
+  }
+  @media screen and (max-width: map-get($breakpoints, sm)) {
+    &__bar {
+      flex-direction: column;
+    }
+    &__bar-left {
+      width: 100%;
+      justify-content: flex-start;
+    }
+    &__bar-right {
+      width: 100%;
+      justify-content: flex-end;
     }
   }
 }

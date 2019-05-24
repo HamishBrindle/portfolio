@@ -366,6 +366,7 @@ $--alert-danger-color: $--color-danger-lighter !default;
 $--alert-icon-size: 16px !default;
 $--alert-icon-large-size: 28px !default;
 
+
 /* Message Box
 -------------------------- */
 $--msgbox-width: 420px !default;
@@ -397,6 +398,10 @@ $--message-info-color: $--color-info !default;
 $--message-warning-color: $--color-warning !default;
 $--message-danger-color: $--color-danger !default;
 
+.el-message {
+  top: 8rem !important;
+}
+
 /* Notification
 -------------------------- */
 $--notification-width: 330px !default;
@@ -419,6 +424,10 @@ $--notification-success-color: $--color-success !default;
 $--notification-info-color: $--color-info !default;
 $--notification-warning-color: $--color-warning !default;
 $--notification-danger-color: $--color-danger !default;
+
+.el-notification {
+  top: 8rem !important;
+}
 
 /* Input
 -------------------------- */

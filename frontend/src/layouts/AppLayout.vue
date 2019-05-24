@@ -3,27 +3,29 @@
     <m-navbar
       class="default-layout__navbar"
     />
-    <m-container
-      direction="horizontal"
-      class="default-layout__body"
-    >
-      <div
-        :class="`default-layout__overlay ${(asideOpen) ? 'default-layout__overlay--show' : ''}`"
-      />
-      <div :class="sidebarClassList">
-        <m-sidebar />
-      </div>
-      <m-main class="default-layout__main">
-        <div class="default-layout__main-content">
-          <transition
-            name="fade"
-            mode="out-in"
-          >
-            <slot />
-          </transition>
+    <m-scrollbar class="default-layout__scrollbar">
+      <m-container
+        direction="horizontal"
+        class="default-layout__body"
+      >
+        <div
+          :class="`default-layout__overlay ${(asideOpen) ? 'default-layout__overlay--show' : ''}`"
+        />
+        <div :class="sidebarClassList">
+          <m-sidebar />
         </div>
-      </m-main>
-    </m-container>
+        <m-main class="default-layout__main">
+          <div class="default-layout__main-content">
+            <transition
+              name="fade"
+              mode="out-in"
+            >
+              <slot />
+            </transition>
+          </div>
+        </m-main>
+      </m-container>
+    </m-scrollbar>
   </div>
 </template>
 
@@ -66,8 +68,17 @@ export default {
 <style lang="scss">
 $sidebarWidth: 6.4rem;
 $navbarHeight: 6rem;
+
 .default-layout {
-  height: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: $navbarHeight 1fr;
+  &__scrollbar {
+    .el-scrollbar__wrap {
+      overflow-x: hidden;
+    }
+  }
   &__overlay {
     width: 100%;
     height: 100%;
@@ -93,16 +104,12 @@ $navbarHeight: 6rem;
   }
   &__navbar {
     width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
     z-index: 9000;
   }
   &__body {
-    padding-top: $navbarHeight;
+    /* margin-top: $navbarHeight; */
     display: flex;
     flex-direction: row;
-    height: 100%;
     overflow-x: none;
   }
   &__side {

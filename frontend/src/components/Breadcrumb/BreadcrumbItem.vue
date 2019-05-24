@@ -24,6 +24,14 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+.m-crumbnav > span > .m-breadcrumb-item {
 
+  &:not(:last-child) {
+    .el-breadcrumb__inner.is-link {
+      text-decoration: underline;
+      font-weight: normal;
+    }
+  }
+}
 </style>

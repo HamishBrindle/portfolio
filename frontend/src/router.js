@@ -79,8 +79,7 @@ const dashboardRoutes = [
         },
       },
       {
-        path: 'projects',
-        name: 'dashboard-projects',
+        path: '',
         component: () => import(/* webpackChunkName: "chunk-views-dashboard-projects" */ '@/views/Dashboard/Projects'),
         meta: {
           breadcrumb: { label: 'Projects', route: 'dashboard-projects' },
@@ -88,30 +87,41 @@ const dashboardRoutes = [
           icon: 'star',
           index: '1',
           tabs: [
-            { label: 'List', route: 'dashboard-projects-list', index: '1-0' },
-            { label: 'Add', route: 'dashboard-projects-add', index: '1-1' },
+            { label: 'Main', route: 'dashboard-projects', index: '1-0' },
+            { label: 'List', route: 'dashboard-projects-list', index: '1-1' },
+            { label: 'Add', route: 'dashboard-projects-add', index: '1-2' },
             // { label: 'List', route: 'dashboard-projects-list', index: '1-2' },
           ],
         },
         children: [
           {
-            path: 'list',
-            name: 'dashboard-projects-list',
-            component: () => import(/* webpackChunkName: "chunk-views-dashboard-projects" */ '@/views/Dashboard/Projects/List.vue'),
+            path: 'projects',
+            name: 'dashboard-projects',
+            component: () => import(/* webpackChunkName: "chunk-views-dashboard-projects" */ '@/views/Dashboard/Projects/Main.vue'),
             meta: {
-              breadcrumb: { label: 'List', route: 'dashboard-projects-list' },
+              // breadcrumb: { label: 'List', route: 'dashboard-projects-list' },
               requiresAuth: true,
               index: '1-0',
             },
           },
           {
-            path: 'add',
+            path: 'projects/list',
+            name: 'dashboard-projects-list',
+            component: () => import(/* webpackChunkName: "chunk-views-dashboard-projects" */ '@/views/Dashboard/Projects/List.vue'),
+            meta: {
+              breadcrumb: { label: 'List', route: 'dashboard-projects-list' },
+              requiresAuth: true,
+              index: '1-1',
+            },
+          },
+          {
+            path: 'projects/add',
             name: 'dashboard-projects-add',
             component: () => import(/* webpackChunkName: "chunk-views-dashboard-projects" */ '@/views/Dashboard/Projects/Add.vue'),
             meta: {
               breadcrumb: { label: 'Add', route: 'dashboard-projects-add' },
               requiresAuth: true,
-              index: '1-1',
+              index: '1-2',
             },
           },
         ],
@@ -149,6 +159,8 @@ router.beforeEach(async (to, from, next) => {
       `,
       variables: {},
     });
+
+    console.log(data);
 
     if (!data.currentUser) {
       next({ name: 'login' });

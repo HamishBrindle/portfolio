@@ -1,8 +1,7 @@
 <template>
   <m-container direction="vertical">
-    Projects Index Wrapper
     <transition
-      name="slide"
+      name="slide-fade"
       mode="out-in"
     >
       <router-view />
