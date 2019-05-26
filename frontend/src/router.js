@@ -87,7 +87,7 @@ const dashboardRoutes = [
           icon: 'star',
           index: '1',
           tabs: [
-            { label: 'Main', route: 'dashboard-projects', index: '1-0' },
+            { label: 'Overview', route: 'dashboard-projects', index: '1-0' },
             { label: 'List', route: 'dashboard-projects-list', index: '1-1' },
             { label: 'Add', route: 'dashboard-projects-add', index: '1-2' },
             // { label: 'List', route: 'dashboard-projects-list', index: '1-2' },
@@ -97,7 +97,7 @@ const dashboardRoutes = [
           {
             path: 'projects',
             name: 'dashboard-projects',
-            component: () => import(/* webpackChunkName: "chunk-views-dashboard-projects" */ '@/views/Dashboard/Projects/Main.vue'),
+            component: () => import(/* webpackChunkName: "chunk-views-dashboard-projects" */ '@/views/Dashboard/Projects/Overview.vue'),
             meta: {
               // breadcrumb: { label: 'List', route: 'dashboard-projects-list' },
               requiresAuth: true,

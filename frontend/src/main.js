@@ -7,15 +7,13 @@ import router from '@/router';
 import store from '@/store';
 import axios from '@/plugins/axios.js';
 import element from '@/plugins/element.js';
-import cookies from '@/plugins/cookies.js';
-// import sentry from './plugins/sentry'; // For staged eventually
 import utils from '@/utils';
 import apolloProvider from '@/apollo';
+// import sentry from './plugins/sentry'; // For staged eventually
 
-// Vue.use(sentry);
 Vue.use(axios);
 Vue.use(element);
-Vue.use(cookies);
+// Vue.use(sentry);
 
 Vue.config.productionTip = false;
 

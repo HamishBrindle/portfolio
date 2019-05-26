@@ -8,5 +8,9 @@ module.exports = {
       },
       skipSSLValidation: true,
     },
+    includes: [
+      'src/**/*.vue',
+      'src/**/*.js',
+    ],
   },
 };

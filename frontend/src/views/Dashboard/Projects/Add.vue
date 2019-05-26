@@ -60,7 +60,6 @@
 
 <script>
 import gql from 'graphql-tag';
-import { apolloClient } from '@/apollo';
 
 export default {
   data() {
@@ -125,7 +124,7 @@ export default {
       this.$refs[formName].resetFields();
     },
     async saveProject() {
-      const { data } = await apolloClient.mutate({
+      const { data } = await this.$apollo.mutate({
         mutation: gql`
         mutation createProject(
           $name: String!

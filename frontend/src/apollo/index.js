@@ -1,27 +1,15 @@
 import Vue from 'vue';
 import VueApollo from 'vue-apollo';
-import { ApolloClient } from 'apollo-client';
-import { createHttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import ApolloClient from 'apollo-boost';
 
-// HTTP connection to the API
-const httpLink = createHttpLink({
-  // You should use an absolute URL here
+/**
+ * Configure Apollo client and install VueApollo
+ */
+const apolloClient = new ApolloClient({
   uri: 'http://localhost:4444/graphql',
   credentials: 'include',
 });
-
-// Cache implementation
-const cache = new InMemoryCache();
-
-// Create the apollo client
-const apolloClient = new ApolloClient({
-  link: httpLink,
-  cache,
-});
-
 Vue.use(VueApollo);
-
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
 });

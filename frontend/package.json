@@ -13,10 +13,7 @@
   "dependencies": {
     "@sentry/browser": "5.0.7",
     "@sentry/integrations": "^5.0.8",
-    "apollo-cache-inmemory": "^1.6.0",
-    "apollo-client": "^2.6.0",
-    "apollo-link": "^1.2.11",
-    "apollo-link-http": "^1.5.14",
+    "apollo-boost": "^0.4.0",
     "axios": "^0.18.0",
     "core-js": "^2.6.5",
     "element-ui": "^2.4.5",
@@ -25,7 +22,6 @@
     "graphql-tag": "^2.10.1",
     "vue": "^2.6.6",
     "vue-apollo": "^3.0.0-beta.30",
-    "vue-cookie": "^1.1.4",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "vuex-persistedstate": "^2.5.4"
