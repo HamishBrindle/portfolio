@@ -46,6 +46,6 @@
     "jest": "^24.0.0",
     "jest-environment-node": "^24.0.0",
     "nodemon": "*",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.5"
   }
 }
